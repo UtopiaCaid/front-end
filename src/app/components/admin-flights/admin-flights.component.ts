@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminFlightServiceService } from 'src/app/services/admin-flight-service.service';
-import { FlightReports } from 'src/app/services/flight-reports';
+import { AdminFlightServiceService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
+import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
 
 
 
