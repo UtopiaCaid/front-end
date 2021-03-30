@@ -1,0 +1,63 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>Utopia</h1>
+      <span class="menu-spacer"></span>
+      <div>
+        <a mat-button [routerLink]="'/home'"> <mat-icon>home</mat-icon> Home </a>
+        <!-- <div class="dropdown"> -->
+            
+            <span >
+            <a  mat-button [routerLink]="'/login'" 
+            
+            >
+
+                 <mat-icon 
+                 [matMenuTriggerFor]="login" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()" 
+                 
+                 >power_settings_new</mat-icon>
+                 Login 
+                </a>
+            </span>
+            <!-- Have this switch with login when user is authenticated -->
+        <a mat-button > <mat-icon>exit_to_app</mat-icon> Logout </a>
+
+        
+         
+  
+      </div>
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/home'"> Home </a>
+        <a mat-list-item [routerLink]="'/login'"> Login </a>
+        <a mat-list-item > Logout </a>
+        <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+  
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+  
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+    <mat-menu  #login="matMenu" (mouseenter)="menuTrigger.openMenu()" >
+        <a (click)="$event.stopPropagation()" (keydown.tab)="$event.stopPropagation()" >
+            
+            <app-loginMini (mouseleave)="menuTrigger.closeMenu()" (click)="$event.stopPropagation()"></app-loginMini>
+        </a>
+    </mat-menu>
+
+
+
+  </mat-sidenav-container>
+
+ 
