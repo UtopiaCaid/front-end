@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { LayoutComponent } from './layout/layout.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 
