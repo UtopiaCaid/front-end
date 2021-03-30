@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatListModule } from '@angular/material/list';
 import { AngularMaterialModule } from './angular-material.module';
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,12 +34,14 @@ import { AngularMaterialModule } from './angular-material.module';
     LoginMiniComponent,
     LayoutComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AdminHomeComponent,
+    AdminFlightsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-  //  NgbModule,
+    //  NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
     // MatToolbarModule,
