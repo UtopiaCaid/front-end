@@ -21,6 +21,7 @@ import { AngularMaterialModule } from './angular-material.module';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,7 +38,8 @@ import { AdminFlightsComponent } from './components/admin-flights/admin-flights.
     HeaderComponent,
     FooterComponent,
     AdminHomeComponent,
-    AdminFlightsComponent
+    AdminFlightsComponent,
+    AdminFlightFormComponent
   ],
   imports: [
     BrowserModule,
