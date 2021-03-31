@@ -23,6 +23,8 @@ import { AdminHomeComponent } from './components/admin-home/admin-home.component
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
+import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
+import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +43,9 @@ import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admi
     AdminHomeComponent,
     AdminFlightsComponent,
     AdminAircraftComponent,
-    AdminAircraftTypeComponent
+    AdminAircraftTypeComponent,
+    AdminFlightFormComponent,
+    AdminAirportsComponent
   ],
   imports: [
     BrowserModule,
