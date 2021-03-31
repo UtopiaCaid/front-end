@@ -1,0 +1,29 @@
+<p>admin-aircraftType works!</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+      }
+    <ng-container matColumnDef="aircraftTypeId">
+        <th mat-header-cell *matHeaderCellDef> aircraftTypeId </th>
+        <td mat-cell *matCellDef="let element"> {{element.aircraftTypeId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="aircraftTypeName">
+        <th mat-header-cell *matHeaderCellDef> aircraftTypeName </th>
+        <td mat-cell *matCellDef="let element"> {{element.aircraftTypeName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="seatMaximum">
+        <th mat-header-cell *matHeaderCellDef> seatMaximum </th>
+        <td mat-cell *matCellDef="let element"> {{element.seatMaximum}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="manufacturer">
+        <th mat-header-cell *matHeaderCellDef> manufacturer </th>
+        <td mat-cell *matCellDef="let element"> {{element.manufacturer}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

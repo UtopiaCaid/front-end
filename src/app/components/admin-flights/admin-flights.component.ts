@@ -3,8 +3,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminFlightServiceService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
 import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
 
-
-
 @Component({
   selector: 'app-admin-flights',
   templateUrl: './admin-flights.component.html',

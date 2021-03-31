@@ -5,6 +5,8 @@ import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
+import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 
 const routes: Routes = [
   {
@@ -31,8 +33,15 @@ const routes: Routes = [
       {
         path: 'admin/flights',
         component: AdminFlightsComponent,
+      },
+      {
+        path: 'admin/aircraft',
+        component: AdminAircraftComponent
+      },
+      {
+        path: 'admin/aircraftType',
+        component: AdminAircraftTypeComponent
       }
-
     ]
   }
 ]
