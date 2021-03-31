@@ -6,6 +6,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
+import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: 'admin/flights/form',
         component: AdminFlightFormComponent,
+      },
+      {
+        path: 'admin/airports',
+        component: AdminAirportsComponent
       }
 
     ]
