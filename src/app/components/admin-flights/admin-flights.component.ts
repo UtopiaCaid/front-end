@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminFlightServiceService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
+import { AdminFlightServiceService as AdminFlightService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
 import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
 
 
@@ -16,7 +16,7 @@ export class AdminFlightsComponent implements OnInit {
   displayedColumns: string[] = ['flightNo', 'flightGate', 'departure', 'arrival', 'status'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
 
-  constructor(private service: AdminFlightServiceService) { }
+  constructor(private service: AdminFlightService) { }
 
   ngOnInit(): void {
     this.getAllFlights();
