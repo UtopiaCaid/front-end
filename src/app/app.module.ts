@@ -21,6 +21,8 @@ import { AngularMaterialModule } from './angular-material.module';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
+import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
@@ -40,6 +42,8 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
     FooterComponent,
     AdminHomeComponent,
     AdminFlightsComponent,
+    AdminAircraftComponent,
+    AdminAircraftTypeComponent,
     AdminFlightFormComponent,
     AdminAirportsComponent
   ],
