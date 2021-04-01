@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent implements OnInit {
-  // form: FormGroup;
+export class SignupComponent implements OnInit {
+// form: FormGroup;
   // public loginInvalid: boolean;
   // private formSubmitAttempt: boolean;
   // private returnUrl: string
@@ -37,5 +36,3 @@ export class LoginComponent implements OnInit {
 
 
 }
-
-

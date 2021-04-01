@@ -1,0 +1,22 @@
+<div>
+<!-- <p>home works!</p>
+<p>
+    <a routerLink="/login">Login</a>
+</p> -->
+
+<div *ngIf="this.authService.isLoggedIn; else logged ">
+    <span>
+        <h2 class="mb-4">User Profile</h2>
+        <p><strong>User Name:</strong> {{this.currentUser.username}}</p>
+        <p *ngIf="(this.currentUser.roleId)"><strong>Privilage:</strong> {{this.currentUser.roleId.roleType}}</p>
+        <p><strong>Email:</strong> {{this.currentUser.email}}</p>
+    </span>
+</div>
+
+
+<ng-template #logged>
+    <div>
+        <h2 class="mb-4">You are not logged in.</h2>
+    </div>
+</ng-template>
+</div>
