@@ -1,1 +1,95 @@
-<p>admin-flight-form works!</p>
+<mat-card class="card">
+    <form class="form-container">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Flight Gate</mat-label>
+            <input matInput [formControl]="flightGate" required>
+            <mat-error *ngIf="flightGate.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Airport Departure</mat-label>
+            <mat-select [(ngModel)]="selectedAirportDep" name="airport" required>
+                <mat-option *ngFor="let airport of airports" [value]="airport">
+                    {{airport.airportName}} {{airport.city}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="airportDepCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Airport Arrival</mat-label>
+            <mat-select [(ngModel)]="selectedAirportArr" name="airport" required>
+                <mat-option *ngFor="let airport of airports" [value]="airport">
+                    {{airport.airportName}} {{airport.city}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="airportArrCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Aircraft</mat-label>
+            <mat-select [(ngModel)]="selectedAircraft" name="aircraft" required>
+                <mat-option *ngFor="let aircraft of aircrafts" [value]="aircraft">
+                    ID: {{aircraft.aircraftId}}
+                    Mfr: {{aircraft.aircraftType.aircraftTypeName}}
+                    {{aircraft.aircraftStatus}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="aircraftCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Base Price</mat-label>
+            <input matInput [formControl]="basePrice" type="number" required>
+            <mat-error *ngIf="basePrice.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Date Departure</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="dateDep" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="dateDep.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Date Arrival</mat-label>
+            <input matInput [matDatepicker]="picker2" [formControl]="dateArr" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="dateArr.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <input matInput [formControl]="status" required>
+            <mat-error *ngIf="status.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+
+
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>

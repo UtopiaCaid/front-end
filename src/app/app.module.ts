@@ -12,6 +12,10 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 //import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core';
 // import {MatToolbarModule} from '@angular/material/toolbar'; 
 // import { MatIconModule } from '@angular/material/icon';
 // import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +28,7 @@ import { AdminFlightsComponent } from './components/admin-flights/admin-flights.
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
+import { fromEventPattern } from 'rxjs';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
 
@@ -45,7 +50,7 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
     AdminAircraftComponent,
     AdminAircraftTypeComponent,
     AdminFlightFormComponent,
-    AdminAirportsComponent
+    AdminAirportsComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +63,15 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
     // MatButtonModule,
     // MatSidenavModule,
     // MatListModule
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
