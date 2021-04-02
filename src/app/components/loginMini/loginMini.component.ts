@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginMiniComponent implements OnInit {
   form: FormGroup;
-  
+  public wrongCred = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService
@@ -27,6 +27,37 @@ export class LoginMiniComponent implements OnInit {
   }
   async onSubmit() {
     this.authService.logIn(this.form.value)
+    .subscribe((res: any) => {
+      localStorage.setItem('access_token', res.token)
+     
+      this.wrongCred = false;
+      this.authService.getUserProfile().subscribe((res) => {
+        this.authService.currentUser = res;
+        this.authService.getLoggedInName.next(res.username)
+        this.authService.router.navigate(['home']); 
+        this.reload();  
+      })
+    },
+    error => {
+      console.log('Wrong credentials', error)
+      this.wrongCred = true;
+    }) 
+
+    if(this.authService.isLoggedIn)
+       setTimeout(() => {  
+        this.reload();
+      }, 130);
+      // const secondFunction = async () => {
+      //   const result = await this.authService.logIn(this.form.value)
+      //   location.reload();
+      // }
+      // secondFunction;
+   
+  }
+
+
+  reload(){
+    location.reload();
   }
 
 }

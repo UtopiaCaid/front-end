@@ -12,24 +12,14 @@ interface keyable {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // currentUser: Account = {
-  //   id: "null",
-  //   username: "null",
-  //   email: "null",
-  //   password: "null"
-  // };
-  // currentUser: Object={
-  //      id: "null",
-  //   username: "null",
-  //   email: "null"
-  // };
+
   currentUser: keyable={};
   
 
   constructor(
-    // private account: Account,
     public authService: AuthenticationService
     ) {
+      
     //   if(this.authService.isLoggedIn){
     //   setTimeout(() => {  
     //     console.log("World!"); 

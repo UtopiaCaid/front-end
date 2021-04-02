@@ -7,6 +7,9 @@
   
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
         <mat-card-content>
+          <mat-error *ngIf="this.wrongCred">
+            The username and/or password were not recognised
+          </mat-error>
           <mat-form-field class="example-full-width" >
             <input matInput placeholder="Username" formControlName="username" autocomplete="off" required>
           </mat-form-field>
@@ -15,7 +18,8 @@
             <input matInput placeholder="Password" formControlName="password" autocomplete="off" required>
           </mat-form-field>
         </mat-card-content>
-        <button mat-stroked-button color="accent" class="btn-block">Log in</button>
+        <button disabled={{!this.form.valid}} mat-raised-button color="primary">Login</button>
+        <!-- <button mat-stroked-button color="accent" class="btn-block">Log in</button> -->
       </form>
     </mat-card>
   

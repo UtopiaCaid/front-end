@@ -3,21 +3,33 @@ import { HttpClient, HttpHeaders, HttpErrorResponse  } from '@angular/common/htt
 import { Router } from '@angular/router';
 import { Account } from './account';
 import { catchError, map } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 //import { Observable } from 'rxjs/Observable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  
   private authUrl: string;
+  private userUrl: string;
+  private adminUrl: string;
   private cheatUrl: string;
+  //private envLocalMock: string ="http://utopia-airlines.cmnyotwgbsoe.us-east-2.rds.amazonaws.com/";
+  private envLocalMock: string ="http://localhost:8080/";
+  public baseUrl: string = this.envLocalMock;
   currentUser = {};
+  currentUserName: string="";
+  public getLoggedInName = new Subject();
 
-
+ 
   constructor(private http: HttpClient,public router: Router) {
-    this.authUrl = 'http://localhost:8080/Authentication';
-    this.cheatUrl = 'http://localhost:8080/getSecurityAccount';
+    //const AuthBaseUrl = process.env.AUTH_SERVICE_URL;
+    var AuthBaseUrl= this.envLocalMock;
+    this.authUrl = AuthBaseUrl+'Authentication';
+    this.userUrl = AuthBaseUrl+'User';
+    this.adminUrl = AuthBaseUrl+'Admin';
+    this.cheatUrl = AuthBaseUrl+'getSecurityAccount';
   }
 
   // public getCurrent():  {
@@ -39,25 +51,30 @@ export class AuthenticationService {
   //     })
   // }
 
+  registerUser(account: Account) {
+    return this.http.post<any>(this.userUrl, account)
+  }
+  registerAdmin(account: Account) {
+    return this.http.post<any>(this.adminUrl, account)
+  }
+
   logIn(account: Account) {
     return this.http.post<any>(this.authUrl, account)
-      .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token)
-        // console.log("Token");
-        // console.log(res.token);
-        // console.log("Res");
-        // console.log(res);
-        // console.log("GetToken");
-        // console.log(localStorage.getItem('access_token'));
-        this.getUserProfile().subscribe((res) => {
-          this.currentUser = res;
-          this.router.navigate(['home']);    
-        })
-        // this.getUserProfile(res._id).subscribe((res) => {
-        //   this.currentUser = res;
-        //   this.router.navigate(['user-profile/' + res.msg._id]);
-        // })
-      })
+      // .subscribe((res: any) => {
+      //   localStorage.setItem('access_token', res.token)
+      //   // console.log("Token");
+      //   // console.log(res.token);
+      //  console.log("RES")
+      //  console.log(res)
+      //   this.getUserProfile().subscribe((res) => {
+      //     this.currentUser = res;
+      //     this.router.navigate(['home']);    
+      //   })
+      // },
+      // error => {
+      //   console.log('Wrong credentials', error)
+      // }) 
+   
   }
 
   getUser() {

@@ -3,9 +3,9 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
         <!-- <form (ngSubmit)="onSubmit()" class="center"> -->
         <h2>Log In</h2>
-        <!-- <mat-error *ngIf="loginInvalid">
-          The username and password were not recognised
-        </mat-error> -->
+        <mat-error *ngIf="this.wrongCred">
+          The username and/or password were not recognised
+        </mat-error>
         <mat-form-field class="full-width-input">
           <input matInput placeholder="Username" formControlName="username" required>
           <!-- <mat-error>
@@ -18,7 +18,7 @@
             Please provide a valid password
           </mat-error> -->
         </mat-form-field>
-        <button mat-raised-button color="primary">Login</button>
+        <button disabled={{!this.form.valid}} mat-raised-button color="primary">Login</button>
       </form>
     </mat-card-content>
   </mat-card>

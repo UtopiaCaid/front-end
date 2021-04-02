@@ -10,42 +10,66 @@ import { AuthenticationService } from '../../services/authentication.service';
 
 
 export class LoginComponent implements OnInit {
+
+  
     form: FormGroup;
-  // public loginInvalid: boolean;
-  // private formSubmitAttempt: boolean;
-  // private returnUrl: string
-  // form: any = {
-  //   username: null,
-  //   password: null
-  // };
-  // isLoggedIn = false;
-  // isLoginFailed = false;
-  // errorMessage = '';
-  // roles: string[] = [];
+    public loginInvalid = false;
+    private formSubmitAttempt = false;
+    public wrongCred = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService
     ) {
       this.form = this.formBuilder.group({
-        username: [''],
-        password: ['']
+        username: ['', Validators.required],
+        password: ['', Validators.required]
         // password: ['', Validators.required]
     });
     
    }
 
   ngOnInit(): void {
-  //   this.form = this.formBuilder.group({
-  //     username: [''],
-  //     password: ['']
-  //     // password: ['', Validators.required]
-  // });
   }
 
 
-  async onSubmit() {
-    this.authService.logIn(this.form.value)
+  async onSubmit(): Promise<void> {
+    this.loginInvalid = false;
+    this.formSubmitAttempt = false;
+    if (this.form.valid) {
+      try {
+     await this.authService.logIn(this.form.value)
+     .subscribe((res: any) => {
+      localStorage.setItem('access_token', res.token)
+      // console.log("Token");
+      // console.log(res.token);
+    //  console.log("RES")
+    //  console.log(res)
+     this.wrongCred= false;
+      this.authService.getUserProfile().subscribe((res) => {
+        this.authService.currentUser = res;
+        this.authService.getLoggedInName.next(res.username)
+        this.authService.router.navigate(['home']); 
+        
+        //location.reload();   
+        
+      })
+    },
+    error => {
+      console.log('Wrong credentials', error)
+      this.wrongCred= true;
+    }) 
+       
+      }
+      catch (err) {
+        console.log("Error in form")
+        this.loginInvalid = true;
+      }
+    } else {
+      console.log("Form was accepted")
+      this.formSubmitAttempt = true;
+    }
     // this.loginInvalid = false;
     // this.formSubmitAttempt = false;
   //   if (this.form.valid) {

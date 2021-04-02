@@ -3,7 +3,7 @@
       <button mat-icon-button>
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
-      <h1>Utopia</h1>
+      <h1>Utopia</h1><mat-icon>flight</mat-icon>
       <span class="menu-spacer"></span>
       <div>
         <a mat-button [routerLink]="'/home'"> <mat-icon>home</mat-icon> Home </a>
@@ -12,6 +12,7 @@
         <span class="flexExpand "></span>
         <div  *ngIf="this.authService.isLoggedIn; else log">
           <span class="right-side" >
+            <a mat-button  > <mat-icon>account_circle</mat-icon> {{this.username}} </a>
             <a mat-button (click)="logout()" > <mat-icon>exit_to_app</mat-icon> Logout </a>
             </span>
           </div>
@@ -30,7 +31,7 @@
                  >power_settings_new</mat-icon>
                  Login 
                 </a>
-                <a class="signupbtn" mat-button [routerLink]="'/signup'" *ngIf="!this.authService.isLoggedIn"> <mat-icon>create</mat-icon> Signup </a>
+                <a class="signupbtn" mat-button [routerLink]="'/signup'"  > <mat-icon>create</mat-icon> Signup </a>
                 <!-- Have this switch with login when user is authenticated -->
                 <!-- <a mat-button (click)="logout()" *ngIf="this.authService.isLoggedIn"> <mat-icon>exit_to_app</mat-icon> Logout </a> -->
             </span>       
