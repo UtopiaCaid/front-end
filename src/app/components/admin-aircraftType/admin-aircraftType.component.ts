@@ -21,7 +21,7 @@ export class AdminAircraftTypeComponent implements OnInit {
   }
 
   public getAllAircraftType() {
-    let res = this.service.retrieveAircraftType();
+    let res = this.service.retrieveAircraftTypes();
     res.subscribe(data => this.dataSource.data = data as AircraftTypeData[]);
   }
 

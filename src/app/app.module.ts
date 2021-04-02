@@ -26,6 +26,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
+import { AdminAircraftFormComponent } from './components/admin-aircraft-form/admin-aircraft-form.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { fromEventPattern } from 'rxjs';
@@ -48,6 +49,7 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
     AdminHomeComponent,
     AdminFlightsComponent,
     AdminAircraftComponent,
+    AdminAircraftFormComponent,
     AdminAircraftTypeComponent,
     AdminFlightFormComponent,
     AdminAirportsComponent,

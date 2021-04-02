@@ -76,7 +76,9 @@ export class AdminFlightFormComponent implements OnInit {
         this.dateArr.hasError('required') ? 'you must enter a arrival time' :
           this.dateDep.hasError('required') ? 'you must enter a departure time' :
             this.basePrice.hasError('required') ? 'you must enter a base price value' :
-              this.aircraftCheck.hasError('required') ? 'you must enter an aircraft' : this.airportDepCheck.hasError('required') ? 'you must enter a departure airport' : this.airportArrCheck.hasError('required') ? 'you must enter an arrival airport' : '';
+              this.aircraftCheck.hasError('required') ? 'you must enter an aircraft' : 
+                this.airportDepCheck.hasError('required') ? 'you must enter a departure airport' : 
+                  this.airportArrCheck.hasError('required') ? 'you must enter an arrival airport' : '';
   }
 
 

@@ -8,7 +8,7 @@ export class AdminAircraftTypeServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public retrieveAircraftType() {
+  public retrieveAircraftTypes() {
     return this.http.get('http://localhost:8080/AircraftType');
   }
 
