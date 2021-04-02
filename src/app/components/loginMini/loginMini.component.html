@@ -1,12 +1,12 @@
 <div class="loginMini-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
     <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>Log in</mat-card-title>
-      </mat-card-header>
-  
+      
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
         <mat-card-content>
+          <mat-card-header>
+            <mat-card-title>Log in</mat-card-title>
+          </mat-card-header>
           <mat-error *ngIf="this.wrongCred">
             The username and/or password were not recognised
           </mat-error>

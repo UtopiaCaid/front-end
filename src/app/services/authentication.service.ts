@@ -64,6 +64,7 @@ export class AuthenticationService {
   }
 
   logIn(account: Account) {
+ 
     return this.http.post<any>(this.authUrl, account)
       // .subscribe((res: any) => {
       //   localStorage.setItem('access_token', res.token)
@@ -83,6 +84,7 @@ export class AuthenticationService {
   }
 
   getUser() {
+  
     //return this.http.get<any>(this.authUrl)
       // .subscribe((res: any) => {
       //   console.log("User");
@@ -159,8 +161,8 @@ export class AuthenticationService {
        .subscribe((res: any) => {
          localStorage.setItem('current_user', res)
          this.currentUser=res
-         console.log("Res CurrentUser");
-         console.log(res);
+        //  console.log("Res CurrentUser");
+        //  console.log(res);
          return res;
        })
       //  account : Account;
@@ -204,6 +206,8 @@ export class AuthenticationService {
 
 
   getUserProfile(): Observable<any> {
+    // if(!this.isLoggedIn)
+    // return null
     const authToken = localStorage.getItem('access_token');
     const headerDict = {
       'Content-Type':  'application/json',

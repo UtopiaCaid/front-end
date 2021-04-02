@@ -3,6 +3,7 @@ export class Account {
     username: String;
     email: String;
     password: String;
+    name: String;
     
     constructor() { 
         // Initialization inside the constructor
@@ -10,5 +11,6 @@ export class Account {
         this.username = "null";
         this.email = "null";
         this.password = "null";
+        this.name = "null";
      }
 }
