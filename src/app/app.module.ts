@@ -9,12 +9,30 @@ import { LoginMiniComponent } from './components/loginMini/loginMini.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { ReactiveFormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core';
+// import {MatToolbarModule} from '@angular/material/toolbar'; 
+// import { MatIconModule } from '@angular/material/icon';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MatListModule } from '@angular/material/list';
 import { AngularMaterialModule } from './angular-material.module';
 import { SignupComponent } from './components/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
+
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
+import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
+import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
+import { fromEventPattern } from 'rxjs';
+import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
 
 
@@ -29,17 +47,33 @@ import { ProfileComponent } from './components/profile/profile.component';
     FooterComponent,
     SignupComponent,
     ProfileComponent,
+    AdminHomeComponent,
+    AdminFlightsComponent,
+    AdminAircraftComponent,
+    AdminAircraftTypeComponent,
+    AdminFlightFormComponent,
+    AdminAirportsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    //  NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    // MatToolbarModule,
+    // MatIconModule,
+    // MatButtonModule,
+    // MatSidenavModule,
+    // MatListModule
     AngularMaterialModule,
+    ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

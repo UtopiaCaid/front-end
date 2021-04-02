@@ -5,11 +5,17 @@ import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
+import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
+import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
+import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
 const routes: Routes = [
   {
     path: '',
-     component: LayoutComponent,
+    component: LayoutComponent,
     children: [
       {
         path: '',
@@ -31,8 +37,31 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'admin',
+        component: AdminHomeComponent,
+      },
+      {
+        path: 'admin/flights',
+        component: AdminFlightsComponent,
+      },
+      {
+        path: 'admin/aircraft',
+        component: AdminAircraftComponent
+      },
+      {
+        path: 'admin/aircraftType',
+        component: AdminAircraftTypeComponent
+      },
+      {
+        path: 'admin/flights/form',
+        component: AdminFlightFormComponent,
+      },
+      {
+        path: 'admin/airports',
+        component: AdminAirportsComponent
       }
-
     ]
   }
 ]

@@ -10,6 +10,11 @@
         <a mat-button [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" > <mat-icon>circle</mat-icon> Account </a>
         <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> UserOnly </a>
         <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> AdminOnly </a>
+        <span>
+          <a mat-button [routerLink]="'/admin'">
+            Admin
+          </a>
+        </span>
         </div>
         <span class="flexExpand "></span>
         <div  *ngIf="this.authService.isLoggedIn; else log">
