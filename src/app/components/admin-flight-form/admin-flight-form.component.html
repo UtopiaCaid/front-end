@@ -11,7 +11,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Airport Departure</mat-label>
-            <mat-select [(ngModel)]="selectedAirportDep" name="airport" required>
+            <mat-select [(ngModel)]="selectedAirportDep" name="airport" [compareWith]="compareFunctionAirport" required>
                 <mat-option *ngFor="let airport of airports" [value]="airport">
                     {{airport.airportName}} {{airport.city}}
                 </mat-option>
@@ -23,9 +23,10 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Airport Arrival</mat-label>
-            <mat-select [(ngModel)]="selectedAirportArr" name="airport" required>
-                <mat-option *ngFor="let airport of airports" [value]="airport">
-                    {{airport.airportName}} {{airport.city}}
+            <mat-select [(ngModel)]="selectedAirportArr" name="airport2" [compareWith]="compareFunctionAirport"
+                required>
+                <mat-option *ngFor="let airport2 of airports" [value]="airport2">
+                    {{airport2.airportName}} {{airport2.city}}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="airportArrCheck.invalid">
@@ -35,7 +36,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Aircraft</mat-label>
-            <mat-select [(ngModel)]="selectedAircraft" name="aircraft" required>
+            <mat-select [(ngModel)]="selectedAircraft" name="aircraft" [compareWith]="compareFunctionAircraft" required>
                 <mat-option *ngFor="let aircraft of aircrafts" [value]="aircraft">
                     ID: {{aircraft.aircraftId}}
                     Mfr: {{aircraft.aircraftType.aircraftTypeName}}
@@ -57,9 +58,9 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Date Departure</mat-label>
-            <input matInput [matDatepicker]="picker" [formControl]="dateDep" required>
+            <input matInput [matDatepicker]="picker" [formControl]="dateDep" readonly required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker [startAt]="dateDep" #picker></mat-datepicker>
             <mat-error *ngIf="dateDep.invalid">
                 {{getErrorMessage()}}
             </mat-error>
@@ -67,7 +68,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Date Arrival</mat-label>
-            <input matInput [matDatepicker]="picker2" [formControl]="dateArr" required>
+            <input matInput [matDatepicker]="picker2" [formControl]="dateArr" readonly required>
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
             <mat-error *ngIf="dateArr.invalid">

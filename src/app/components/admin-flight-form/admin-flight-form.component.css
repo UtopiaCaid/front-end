@@ -1,8 +1,7 @@
 .card {
     display: flex;
-    width: 80%;
+    width: 100%;
     margin: auto;
-    margin-top: 2vh;
 }
 
 .form-container {
