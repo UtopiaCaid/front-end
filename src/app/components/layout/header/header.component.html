@@ -10,11 +10,8 @@
         <a mat-button [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" > <mat-icon>circle</mat-icon> Account </a>
         <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> UserOnly </a>
         <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> AdminOnly </a>
-        <span>
-          <a mat-button [routerLink]="'/admin'">
-            Admin
-          </a>
-        </span>
+        <a mat-button [routerLink]="'/admin'">Admin </a>
+       
         </div>
         <span class="flexExpand "></span>
         <div  *ngIf="this.authService.isLoggedIn; else log">
@@ -60,6 +57,7 @@
     <mat-sidenav #sidenav>
       <mat-nav-list>
         <a mat-list-item [routerLink]="'/home'"> Home<mat-icon>home</mat-icon> </a>
+        <a mat-list-item [routerLink]="'/admin'"> Admin </a>
         <a mat-list-item [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" >  Account <mat-icon>circle</mat-icon> </a>
         <a mat-list-item *ngIf="!this.authService.isLoggedIn" [routerLink]="'/login'"> Login <mat-icon>login</mat-icon> </a>
         <a mat-list-item *ngIf="this.authService.isLoggedIn" (click)="logout()" > Logout <mat-icon>exit_to_app</mat-icon> </a>
