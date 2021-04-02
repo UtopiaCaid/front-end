@@ -49,7 +49,13 @@ export class LoginComponent implements OnInit {
      this.wrongCred= false;
       this.authService.getUserProfile().subscribe((res) => {
         this.authService.currentUser = res;
+        localStorage.setItem('current_roleType', res.roleId.roleType)
+        localStorage.setItem('current_roleId', res.roleId.roleId)
         this.authService.getLoggedInName.next(res.username)
+        this.authService.getLoggedInRoleType.next(res.roleId.roleType)
+        this.authService.getLoggedInRoleId.next(res.roleId.roleId)
+        this.authService.getLoggedInEmail.next(res.email)
+        this.authService.getCurrentAccount.next(res)
         this.authService.router.navigate(['home']); 
         
         //location.reload();   

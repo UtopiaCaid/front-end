@@ -14,7 +14,9 @@ interface keyable {
 export class HomeComponent implements OnInit {
 
   currentUser: keyable={};
-  
+  username: String="";
+  roleType: String="";
+  email: String="";
 
   constructor(
     public authService: AuthenticationService
@@ -52,10 +54,19 @@ export class HomeComponent implements OnInit {
   
 
   ngOnInit(): void {
+
+    this.authService.getLoggedInName.subscribe(name => this.username = String(name))
+    this.authService.getLoggedInRoleType.subscribe(name => this.roleType = String(name))
+    this.authService.getLoggedInEmail.subscribe(name => this.email = String(name))
+    //this.authService.getCurrentAccount.subscribe(currentUser => this.username = String(currentUser.username))
+    //this.authService.getLoggedInName.subscribe(name => this.username = String(name))
       if(this.authService.isLoggedIn){
       this.authService.getUserProfile()
       .subscribe(res => {
       this.currentUser = res;
+      this.username= res.username;
+      this.roleType= res.roleId.roleType;
+      this.email= res.email;
       // console.log(this.currentUser)
       })
     }

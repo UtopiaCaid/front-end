@@ -22,11 +22,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     
     this.authService.getLoggedInName.subscribe(name => this.username = String(name))
-      // this.authService.getUserProfile()
-      // .subscribe(res => {
-      //   this.username = res.username
-      // console.log("InitRan")
-      // })
+      
+    
+    this.authService.getUserProfile()
+      .subscribe(res => {
+        this.username = res.username
+      })
     
   }
 

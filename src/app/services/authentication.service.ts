@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Account } from './account';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError, Subject } from 'rxjs';
+import { environment } from './../../environments/environment';
 //import { Observable } from 'rxjs/Observable';
 
 @Injectable({
@@ -21,11 +22,15 @@ export class AuthenticationService {
   currentUser = {};
   currentUserName: string="";
   public getLoggedInName = new Subject();
-
+  public getLoggedInRoleType = new Subject();
+  public getLoggedInEmail = new Subject();
+  public getLoggedInRoleId = new Subject();
+  public getCurrentAccount = new Subject();
  
   constructor(private http: HttpClient,public router: Router) {
-    //const AuthBaseUrl = process.env.AUTH_SERVICE_URL;
-    var AuthBaseUrl= this.envLocalMock;
+    const AuthBaseUrl = environment.apiUrl
+     //const AuthBaseUrl = process.env.AUTH_SERVICE_URL+"/";
+    //var AuthBaseUrl= this.envLocalMock;
     this.authUrl = AuthBaseUrl+'Authentication';
     this.userUrl = AuthBaseUrl+'User';
     this.adminUrl = AuthBaseUrl+'Admin';
@@ -187,6 +192,10 @@ export class AuthenticationService {
   }
 
   doLogout() {
+     localStorage.removeItem('current_roleType');
+     localStorage.removeItem('current_roleId');
+     this.getCurrentAccount.next(null)
+     this.getLoggedInName.next("")
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['login']);
