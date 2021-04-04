@@ -4,6 +4,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { AdminAircraftTypeServiceService as AdminAircraftTypeService} from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service'; 
 
+/* modal */
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+
 interface AircraftType {
   aircraftTypeId: number;
   aircraftTypeName: string;
@@ -21,11 +26,14 @@ export class AdminAircraftFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllAircraftTypes();
+    this.populate();
   }
 
   constructor(
     private AircraftService: AdminAircraftService,
     private AircraftTypeService: AdminAircraftTypeService,
+    public dialogRef: MatDialogRef<AdminAircraftFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   public getAllAircraftTypes() {
@@ -36,6 +44,9 @@ export class AdminAircraftFormComponent implements OnInit {
   selectedAircraftType!: {};
   aircraftTypes!: AircraftType[];
 
+  compareFunctionAircraftType(o1: any, o2: any) {
+    return o1 && o2 ? o1.aircraftTypeId === o2.aircraftTypeId : o1 === o2;
+  }
 
   seatCount = new FormControl(0, [Validators.required]);
   firstClassCount = new FormControl(0, [Validators.required]);
@@ -54,11 +65,24 @@ export class AdminAircraftFormComponent implements OnInit {
             this.aircraftStatus.hasError('required') ? 'you must enter an aircraft status' : '';
   }
 
+  public populate() {
+    if (this.data) {
+      console.log('An aircraft is edited not created')
+      console.log(this.data.row);
+      this.seatCount.setValue(this.data.row.seatCount);
+      this.firstClassCount.setValue(this.data.row.firstClassCount);
+      this.secondClassCount.setValue(this.data.row.secondClassCount);
+      this.thirdClassCount.setValue(this.data.row.thirdClassCount);
+      this.aircraftStatus.setValue(this.data.row.aircraftStatus);
+      this.selectedAircraftType = this.data.row.aircraftType;
+      console.log(this.selectedAircraftType);
+
+    }
+  }
 
   public formSubmit() {
-    console.log(this.aircraftCheck);
     if (
-     // this.aircraftCheck.hasError('required') ||
+      this.selectedAircraftType == undefined ||
       this.seatCount.hasError('required') ||
       this.firstClassCount.hasError('required') ||
       this.secondClassCount.hasError('required') ||
@@ -66,6 +90,17 @@ export class AdminAircraftFormComponent implements OnInit {
       this.aircraftStatus.hasError('required') 
     ) {
       alert('Please insert the required fields')
+    } else if (this.data) {
+      this.AircraftService.updateAircraft(
+        this.data.row.aircraftId,
+        this.selectedAircraftType,
+        this.seatCount.value,
+        this.firstClassCount.value,
+        this.secondClassCount.value,
+        this.thirdClassCount.value,
+        this.aircraftStatus.value,
+      )
+      this.dialogRef.close();
     } else {
       this.AircraftService.insertAircraft(
         this.selectedAircraftType,
@@ -75,6 +110,7 @@ export class AdminAircraftFormComponent implements OnInit {
         this.thirdClassCount.value,
         this.aircraftStatus.value,
       );
+      this.dialogRef.close();
     }
   }
 }

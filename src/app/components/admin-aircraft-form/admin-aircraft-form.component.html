@@ -2,8 +2,8 @@
     <form class="form-container">
 
         <mat-form-field appearance="fill">
-            <mat-label>Aircraft Types</mat-label>
-            <mat-select [(ngModel)]="selectedAircraftType" name="aircraftType" required>
+            <mat-label>Aircraft Type</mat-label>
+            <mat-select [(ngModel)]="selectedAircraftType" name="aircraftType" [compareWith]="compareFunctionAircraftType" required>
                 <mat-option *ngFor="let aircraftType of aircraftTypes" [value]="aircraftType">
                     {{aircraftType.aircraftTypeName}}
                 </mat-option>

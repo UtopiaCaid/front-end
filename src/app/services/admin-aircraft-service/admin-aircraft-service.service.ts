@@ -34,4 +34,24 @@ export class AdminAircraftServiceService {
     this.http.post('http://localhost:8080/Aircraft', postData)
       .toPromise().then(data => console.log(data));
   }
+
+  public updateAircraft(
+    aircraftId: number, aircraftType: {},
+    seatCount: number, firstClassCount: number,
+    secondClassCount: number, thirdClassCount: number, 
+    aircraftStatus: string
+  ) {
+    let updateData = {
+      "aircraftId": aircraftId,
+      "aircraftType": aircraftType,
+      "seatCount": seatCount,
+      "firstClassCount": firstClassCount,
+      "secondClassCount": secondClassCount,
+      "thirdClassCount": thirdClassCount,
+      "aircraftStatus": aircraftStatus
+    }
+
+    this.http.put('http://localhost:8080/Aircraft', updateData).toPromise()
+      .then(data => console.log(data)).catch(e => console.log(e));
+  }
 }

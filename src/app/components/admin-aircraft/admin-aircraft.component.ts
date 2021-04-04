@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminAircraftServiceService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
+import {AdminAircraftServiceService as AdminAircraftService} from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-data';
+import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-aircraft',
@@ -11,10 +13,13 @@ import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-d
 export class AdminAircraftComponent implements OnInit {
 
   ELEMENT_DATA!: AircraftData[];
-  displayedColumns: string[] = ['aircraftId', 'aircraftType', 'seatCount', 'firstClassCount', 'secondClassCount', 'thirdClassCount', 'status'];
+  displayedColumns: string[] = ['aircraftId', 'aircraftType', 'seatCount', 'firstClassCount', 'secondClassCount', 'thirdClassCount', 'status', 'action'];
   dataSource = new MatTableDataSource<AircraftData>(this.ELEMENT_DATA);
 
-  constructor(private service: AdminAircraftServiceService) { }
+  constructor(
+    private service: AdminAircraftService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getAllAircraft();
@@ -25,4 +30,27 @@ export class AdminAircraftComponent implements OnInit {
     res.subscribe(data => this.dataSource.data = data as AircraftData[]);
   }
 
+  public onEdit(row: {}) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+
+
+    this.dialog.open(AdminAircraftFormComponent, {
+      data: {
+        row: row
+      }
+    });
+
+  }
+
+  public onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AdminAircraftFormComponent);
+  }
 }
