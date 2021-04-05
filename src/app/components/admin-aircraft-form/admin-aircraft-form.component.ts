@@ -90,6 +90,9 @@ export class AdminAircraftFormComponent implements OnInit {
       this.aircraftStatus.hasError('required') 
     ) {
       alert('Please insert the required fields')
+    } else if (this.seatCount.value < this.firstClassCount.value + this.secondClassCount.value + this.thirdClassCount.value) {
+      alert('Number of class seats cannot exceed the total seat count');
+      console.log("Broke"); 
     } else if (this.data) {
       this.AircraftService.updateAircraft(
         this.data.row.aircraftId,

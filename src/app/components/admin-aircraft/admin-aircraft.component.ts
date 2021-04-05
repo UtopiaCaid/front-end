@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {AdminAircraftServiceService as AdminAircraftService} from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-data';
@@ -18,7 +18,8 @@ export class AdminAircraftComponent implements OnInit {
 
   constructor(
     private service: AdminAircraftService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private changeDetectorRefs: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +28,11 @@ export class AdminAircraftComponent implements OnInit {
 
   public getAllAircraft() {
     let res = this.service.retrieveAircraft();
-    res.subscribe(data => this.dataSource.data = data as AircraftData[]);
+    res.subscribe(data => 
+      {
+        this.dataSource.data = data as AircraftData[];
+        this.changeDetectorRefs.detectChanges(); // doesn't work yet
+      });
   }
 
   public onEdit(row: {}) {

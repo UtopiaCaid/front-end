@@ -8,6 +8,7 @@ import { AdminFlightsComponent } from './components/admin-flights/admin-flights.
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
 import { AdminAircraftFormComponent } from './components/admin-aircraft-form/admin-aircraft-form.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
+import { AdminAircraftTypeFormComponent } from 'src/app/components/admin-aircraftType-form/admin-aircraftType-form.component';  
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 
@@ -48,6 +49,10 @@ const routes: Routes = [
       {
         path: 'admin/aircraftType',
         component: AdminAircraftTypeComponent
+      },
+      {
+        path: 'admin/aircraftType/form',
+        component: AdminAircraftTypeFormComponent
       },
       {
         path: 'admin/flights/form',
