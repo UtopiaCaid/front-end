@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -55,6 +55,22 @@ export class AdminFlightServiceService {
     }
 
     this.http.put('http://localhost:8080/flights', updateData).toPromise()
+      .then(data => console.log(data)).catch(e => console.log(e));
+  }
+
+  public deleteFlight(flightNo: number) {
+    let deleteData = {
+      flightNo: flightNo,
+    }
+
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: deleteData
+    }
+
+    this.http.delete('http://localhost:8080/flights', options).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }
