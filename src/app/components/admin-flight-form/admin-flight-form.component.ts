@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { AdminAirportServiceService as AdminAirportService } from 'src/app/services/admin-airport-service/admin-airport-service.service';
@@ -37,7 +38,6 @@ export class AdminFlightFormComponent implements OnInit {
     this.getAllAirports();
     this.getAllAircraft();
     this.populate();
-    console.log("init");
   }
 
   constructor(
@@ -87,6 +87,8 @@ export class AdminFlightFormComponent implements OnInit {
 
   public populate() {
     if (this.data) {
+      console.log('A flight is edited not created')
+      console.log(this.data.row);
       this.flightGate.setValue(this.data.row.flightGate);
       this.status.setValue(this.data.row.status);
       this.dateArr.setValue(this.data.row.arrival);

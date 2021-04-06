@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 // import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatListModule } from '@angular/material/list';
 import { AngularMaterialModule } from './angular-material.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
@@ -32,6 +33,8 @@ import { AdminAircraftTypeFormComponent } from './components/admin-aircraftType-
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { fromEventPattern } from 'rxjs';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
+import { DeleteCheckFlightsComponent } from './components/delete-check-flights/delete-check-flights.component';
+
 
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,6 +58,7 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
     AdminAircraftTypeFormComponent,
     AdminFlightFormComponent,
     AdminAirportsComponent,
+    DeleteCheckFlightsComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,8 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
     ReactiveFormsModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatPaginatorModule
   ],
   providers: [
     MatDatepickerModule

@@ -54,4 +54,20 @@ export class AdminAircraftServiceService {
     this.http.put('http://localhost:8080/Aircraft', updateData).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
+
+  public deleteAircraft(aircraftId: number) {
+    let deleteData = {
+      aircraftId: aircraftId,
+    }
+
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: deleteData
+    }
+
+    this.http.delete('http://localhost:8080/Aircraft', options).toPromise()
+      .then(data => console.log(data)).catch(e => console.log(e));
+  }
 }

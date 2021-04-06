@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {AdminAircraftServiceService as AdminAircraftService} from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
+import { MatPaginator } from '@angular/material/paginator';
 import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-data';
 import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { DeleteCheckAircraftComponent } from '../delete-check-aircraft/delete-check-aircraft.component'; // make delete-aircraft
 
 @Component({
   selector: 'app-admin-aircraft',
@@ -19,8 +21,10 @@ export class AdminAircraftComponent implements OnInit {
   constructor(
     private service: AdminAircraftService,
     private dialog: MatDialog,
-    private changeDetectorRefs: ChangeDetectorRef
   ) { }
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
   ngOnInit(): void {
     this.getAllAircraft();
@@ -31,7 +35,6 @@ export class AdminAircraftComponent implements OnInit {
     res.subscribe(data => 
       {
         this.dataSource.data = data as AircraftData[];
-        this.changeDetectorRefs.detectChanges(); // doesn't work yet
       });
   }
 
@@ -57,5 +60,22 @@ export class AdminAircraftComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(AdminAircraftFormComponent);
+  }
+
+  public deleteCheck(row: any) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+
+    let dialogRef = this.dialog.open(DeleteCheckAircraftComponent, {
+      data: {
+        row: row
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getAllAircraft();
+    })
   }
 }
