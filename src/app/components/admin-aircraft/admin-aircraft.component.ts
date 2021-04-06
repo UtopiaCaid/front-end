@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import {AdminAircraftServiceService as AdminAircraftService} from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
+import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-data';
 import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { DeleteCheckAircraftComponent } from '../delete-checks/delete-check-aircraft/delete-check-aircraft.component'; 
+import { DeleteCheckAircraftComponent } from '../delete-checks/delete-check-aircraft/delete-check-aircraft.component';
 
 @Component({
   selector: 'app-admin-aircraft',
@@ -28,14 +28,14 @@ export class AdminAircraftComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllAircraft();
+    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
   public getAllAircraft() {
     let res = this.service.retrieveAircraft();
-    res.subscribe(data => 
-      {
-        this.dataSource.data = data as AircraftData[];
-      });
+    res.subscribe(data => {
+      this.dataSource.data = data as AircraftData[];
+    });
   }
 
   public onEdit(row: {}) {

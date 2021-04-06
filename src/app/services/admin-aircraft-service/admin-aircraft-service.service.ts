@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -28,8 +28,6 @@ export class AdminAircraftServiceService {
       "aircraftStatus": aircraftStatus
     };
 
-    console.log(postData);
-    console.log(JSON.stringify(postData));
 
     this.http.post('http://localhost:8080/Aircraft', postData)
       .toPromise().then(data => console.log(data));
@@ -38,7 +36,7 @@ export class AdminAircraftServiceService {
   public updateAircraft(
     aircraftId: number, aircraftType: {},
     seatCount: number, firstClassCount: number,
-    secondClassCount: number, thirdClassCount: number, 
+    secondClassCount: number, thirdClassCount: number,
     aircraftStatus: string
   ) {
     let updateData = {
