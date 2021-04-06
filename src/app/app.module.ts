@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AngularMaterialModule } from './angular-material.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
@@ -35,6 +36,8 @@ import { fromEventPattern } from 'rxjs';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
+
+
 
 
 
@@ -51,6 +54,7 @@ import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
+    AccountDetailsComponent,
     AdminHomeComponent,
     AdminFlightsComponent,
     AdminAircraftComponent,
@@ -60,7 +64,7 @@ import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-
     AdminFlightFormComponent,
     AdminAirportsComponent,
     DeleteCheckFlightsComponent,
-    DeleteCheckAircraftComponent
+    DeleteCheckAircraftComponent,
   ],
   imports: [
     BrowserModule,
