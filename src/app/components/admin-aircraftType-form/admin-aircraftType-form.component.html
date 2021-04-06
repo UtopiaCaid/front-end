@@ -1,0 +1,41 @@
+<mat-card class="card">
+    <form class="form-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Aircraft ID </mat-label>
+            <input matInput [formControl]="aircraftTypeId" type="number" readonly={{isUpdate()}} required>
+            <mat-error *ngIf="aircraftTypeId.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Aircraft Name </mat-label>
+            <input matInput [formControl]="aircraftTypeName" type="string" required>
+            <mat-error *ngIf="aircraftTypeName.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> Seat Maximum </mat-label>
+            <input matInput [formControl]="seatMaximum" type="number" required>
+            <mat-error *ngIf="seatMaximum.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Manufacturer </mat-label>
+            <input matInput [formControl]="manufacturer" type="string" required>
+            <mat-error *ngIf="manufacturer.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>

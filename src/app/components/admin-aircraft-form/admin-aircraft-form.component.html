@@ -1,0 +1,63 @@
+<mat-card class="card">
+    <form class="form-container">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Aircraft Type</mat-label>
+            <mat-select [(ngModel)]="selectedAircraftType" name="aircraftType" [compareWith]="compareFunctionAircraftType" required>
+                <mat-option *ngFor="let aircraftType of aircraftTypes" [value]="aircraftType">
+                    {{aircraftType.aircraftTypeName}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="aircraftCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Seat Count </mat-label>
+            <input matInput [formControl]="seatCount" type="number" required>
+            <mat-error *ngIf="seatCount.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>First Class Count </mat-label>
+            <input matInput [formControl]="firstClassCount" type="number" required>
+            <mat-error *ngIf="firstClassCount.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> Second Class Count </mat-label>
+            <input matInput [formControl]="secondClassCount" type="number" required>
+            <mat-error *ngIf="secondClassCount.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Third Class Count </mat-label>
+            <input matInput [formControl]="thirdClassCount" type="number" required>
+            <mat-error *ngIf="thirdClassCount.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Aircraft Status</mat-label>
+            <mat-select [formControl]="aircraftStatus">
+                <mat-option value="Active"> Active </mat-option>
+                <mat-option value="Inactive"> Inactive </mat-option>
+            </mat-select>
+            <mat-error *ngIf="aircraftStatus.hasError('required')">You must make a selection</mat-error>
+        </mat-form-field>
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>
