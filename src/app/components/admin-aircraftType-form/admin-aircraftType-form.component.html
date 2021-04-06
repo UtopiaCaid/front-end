@@ -2,7 +2,7 @@
     <form class="form-container">
         <mat-form-field appearance="fill">
             <mat-label>Aircraft ID </mat-label>
-            <input matInput [formControl]="aircraftTypeId" type="number" required>
+            <input matInput [formControl]="aircraftTypeId" type="number" readonly={{isUpdate()}} required>
             <mat-error *ngIf="aircraftTypeId.invalid">
                 {{getErrorMessage()}}
             </mat-error>

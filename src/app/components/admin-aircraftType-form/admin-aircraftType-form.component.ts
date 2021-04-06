@@ -30,6 +30,9 @@ export class AdminAircraftTypeFormComponent implements OnInit {
   seatMaximum = new FormControl(0, [Validators.required]);
   manufacturer = new FormControl('', [Validators.required]);
 
+  isUpdate() {
+    return this.data.update;
+  }
   getErrorMessage() {
     return this.aircraftTypeId.hasError('required') ? 'you must enter an aircraft type id' :
       this.aircraftTypeName.hasError('required') ? 'you must enter an aircraft name' :

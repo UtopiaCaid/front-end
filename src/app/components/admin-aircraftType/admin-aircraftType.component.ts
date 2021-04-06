@@ -4,6 +4,8 @@ import { AdminAircraftTypeServiceService as AdminAircraftTypeService} from 'src/
 import { AircraftTypeData } from 'src/app/services/admin-aircraftType-service/aircraftType-data';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AdminAircraftTypeFormComponent } from '../admin-aircraftType-form/admin-aircraftType-form.component';
+import { DeleteCheckAircraftTypeComponent } from '../delete-checks/delete-check-aircraftType/delete-check-aircraftType.component'; 
+
 
 @Component({
   selector: 'app-admin-aircraftType',
@@ -42,6 +44,7 @@ export class AdminAircraftTypeComponent implements OnInit {
     this.dialog.open(AdminAircraftTypeFormComponent, {
       data: {
         row: row,
+        update: true
       },
     });
 
@@ -52,6 +55,27 @@ export class AdminAircraftTypeComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(AdminAircraftTypeFormComponent);
+    this.dialog.open(AdminAircraftTypeFormComponent, {
+      data: {
+        update: false
+      }
+    });
+  }
+
+  public deleteCheck(row: any) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+
+    let dialogRef = this.dialog.open(DeleteCheckAircraftTypeComponent, {
+      data: {
+        row: row
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getAllAircraftType();
+    })
   }
 }

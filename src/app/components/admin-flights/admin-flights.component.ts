@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AdminFlightServiceService as AdminFlightService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
 import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
-import { DeleteCheckFlightsComponent } from '../delete-check-flights/delete-check-flights.component';
+import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
 
 @Component({
   selector: 'app-admin-flights',

@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-data';
 import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { DeleteCheckAircraftComponent } from '../delete-check-aircraft/delete-check-aircraft.component'; // make delete-aircraft
+import { DeleteCheckAircraftComponent } from '../delete-checks/delete-check-aircraft/delete-check-aircraft.component'; 
 
 @Component({
   selector: 'app-admin-aircraft',

@@ -54,7 +54,6 @@ export class AdminAircraftFormComponent implements OnInit {
   aircraftStatus = new FormControl('', [Validators.required]);
   aircraftCheck = new FormControl(this.aircraftTypes, [Validators.required]);
 
-
   getErrorMessage() {
     return this.aircraftCheck.hasError('required') ? 'you must enter an aircraft type' : 
     this.seatCount.hasError('required') ? 'you must enter a seat count' :
