@@ -12,8 +12,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 //import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+// import { ReactiveFormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 // import {MatToolbarModule} from '@angular/material/toolbar'; 
@@ -22,6 +22,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 // import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatListModule } from '@angular/material/list';
 import { AngularMaterialModule } from './angular-material.module';
+import { SignupComponent } from './components/signup/signup.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './components/profile/profile.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
@@ -37,14 +40,6 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
 
-
-
-
-
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { MDBBootstrapModule } from 'angular-bootstrap-md';
-//import {MatButtonModule,MatCheckboxModule,MatToolbarModule,MatInputModule,MatProgressSpinnerModule,MatCardModule,MatMenuModule, MatIconModule} from '@angular/material';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +50,9 @@ import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-
     HeaderComponent,
     FooterComponent,
     AccountDetailsComponent,
+    SignupComponent,
+    ProfileComponent,
+
     AdminHomeComponent,
     AdminFlightsComponent,
     AdminAircraftComponent,

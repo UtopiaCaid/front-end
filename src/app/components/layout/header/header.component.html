@@ -1,67 +1,81 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    </button>
-    <h1>Utopia</h1>
-    <span class="menu-spacer"></span>
-    <div>
-      <a mat-button [routerLink]="'/home'">
-        <mat-icon>home</mat-icon> Home
-      </a>
-      <!-- <div class="dropdown"> -->
+<mat-toolbar  color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>Utopia</h1><mat-icon>flight</mat-icon>
+      <span class="menu-spacer"></span>
+      <div>
+        <a mat-button [routerLink]="'/home'"> <mat-icon>home</mat-icon> Home </a>
+        <a mat-button [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" > <mat-icon>circle</mat-icon> Account </a>
+        <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> UserOnly </a>
+        <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> AdminOnly </a>
+        <a mat-button [routerLink]="'/admin'">Admin </a>
+       
+        </div>
+        <span class="flexExpand "></span>
+        <div  *ngIf="this.authService.isLoggedIn; else log">
+          <span class="right-side" >
+            <a mat-button [routerLink]="'/profile'"  > <mat-icon>account_circle</mat-icon> {{this.username}} </a>
+            <a mat-button (click)="logout()" > <mat-icon>exit_to_app</mat-icon> Logout </a>
+            </span>
+          </div>
 
-      <span>
-        <a mat-button [routerLink]="'/login'">
+          <ng-template #log>
+           <div >
+            <span class="right-side" >
+            <a  mat-button
+            [routerLink]="'/login'" 
+            
+            >
 
-          <mat-icon [matMenuTriggerFor]="login" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">
-            power_settings_new</mat-icon>
-          Login
-        </a>
-      </span>
-      <span>
-        <a mat-button [routerLink]="'/admin'">
-          Admin
-        </a>
-      </span>
-      <!-- Have this switch with login when user is authenticated -->
-      <a mat-button>
-        <mat-icon>exit_to_app</mat-icon> Logout
-      </a>
+                 <mat-icon 
+                 [matMenuTriggerFor]="login" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()" 
+                 
+                 >login</mat-icon>
+                 Login 
+                </a>
+                <a class="signupbtn" mat-button [routerLink]="'/signup'"  > <mat-icon>create</mat-icon> Signup </a>
+                <!-- Have this switch with login when user is authenticated -->
+                <!-- <a mat-button (click)="logout()" *ngIf="this.authService.isLoggedIn"> <mat-icon>exit_to_app</mat-icon> Logout </a> -->
+            </span>       
+        </div>
+        <mat-menu  #login="matMenu" (mouseenter)="menuTrigger.openMenu()" >
+      
+          <a (click)="$event.stopPropagation()" (keydown.tab)="$event.stopPropagation()" >
+              
+              <app-loginMini (mouseleave)="menuTrigger.closeMenu()" (click)="$event.stopPropagation()"></app-loginMini>
+          </a>
+      </mat-menu>
+      </ng-template>
+ 
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/home'"> Home<mat-icon>home</mat-icon> </a>
+        <a mat-list-item [routerLink]="'/admin'"> Admin </a>
+        <a mat-list-item [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" >  Account <mat-icon>circle</mat-icon> </a>
+        <a mat-list-item *ngIf="!this.authService.isLoggedIn" [routerLink]="'/login'"> Login <mat-icon>login</mat-icon> </a>
+        <a mat-list-item *ngIf="this.authService.isLoggedIn" (click)="logout()" > Logout <mat-icon>exit_to_app</mat-icon> </a>
+        <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close <mat-icon>close</mat-icon></a>
+  
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+  
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+    
 
 
 
+  </mat-sidenav-container>
 
-    </div>
-  </mat-toolbar-row>
-
-</mat-toolbar>
-
-<mat-sidenav-container>
-  <mat-sidenav #sidenav>
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="'/home'"> Home </a>
-      <a mat-list-item [routerLink]="'/login'"> Login </a>
-      <a mat-list-item [routerLink]="'/admin'"> Admin </a>
-      <a mat-list-item> Logout </a>
-      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
-
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div style="height: 88vh;">
-
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-
-  <mat-menu #login="matMenu" (mouseenter)="menuTrigger.openMenu()">
-    <a (click)="$event.stopPropagation()" (keydown.tab)="$event.stopPropagation()">
-
-      <app-loginMini (mouseleave)="menuTrigger.closeMenu()" (click)="$event.stopPropagation()"></app-loginMini>
-    </a>
-  </mat-menu>
-
-
-
-</mat-sidenav-container>
+ 

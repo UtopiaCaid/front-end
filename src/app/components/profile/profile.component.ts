@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Account} from "../../services/account";
 import { AuthenticationService } from '../../services/authentication.service';
 
 interface keyable {
@@ -7,11 +6,11 @@ interface keyable {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   currentUser: keyable={};
   username: String="";
