@@ -108,7 +108,6 @@ export class AdminFlightFormComponent implements OnInit {
   }
 
   public formSubmit() {
-    console.log("submit");
     if (
       this.flightGate.hasError('required') ||
       this.status.hasError('required') ||
