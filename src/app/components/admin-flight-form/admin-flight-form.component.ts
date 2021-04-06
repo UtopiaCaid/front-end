@@ -87,8 +87,6 @@ export class AdminFlightFormComponent implements OnInit {
 
   public populate() {
     if (this.data) {
-      console.log('A flight is edited not created')
-      console.log(this.data.row);
       this.flightGate.setValue(this.data.row.flightGate);
       this.status.setValue(this.data.row.status);
       this.dateArr.setValue(this.data.row.arrival);
@@ -98,9 +96,6 @@ export class AdminFlightFormComponent implements OnInit {
       this.selectedAirportArr = this.data.row.airportArrival;
       this.selectedAircraft = this.data.row.aircraft;
       this.airportArrCheck.setValue(this.data.row.airportArrival);
-      console.log(this.selectedAirportDep);
-      console.log(this.selectedAirportArr);
-      console.log(this.dateDep);
     }
   }
 
