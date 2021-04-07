@@ -38,6 +38,7 @@ import { fromEventPattern } from 'rxjs';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
+import { AdminAirportsFormComponent } from './components/admin-airports-form/admin-airports-form.component';
 
 
 
@@ -62,7 +63,8 @@ import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-
     AdminFlightFormComponent,
     AdminAirportsComponent,
     DeleteCheckFlightsComponent,
-    DeleteCheckAircraftComponent
+    DeleteCheckAircraftComponent,
+    AdminAirportsFormComponent
   ],
   imports: [
     BrowserModule,
