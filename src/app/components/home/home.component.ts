@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Account} from "../../services/account";
-import { AuthenticationService } from '../../services/authentication.service';
+import {Account} from "../../services/auth-service/account";
+import { AuthenticationService } from '../../services/auth-service/authentication.service';
 
 interface keyable {
   [key: string]: any  

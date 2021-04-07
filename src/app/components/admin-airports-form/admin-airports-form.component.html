@@ -1,0 +1,51 @@
+<mat-card class="card">
+    <form class="form-container">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Airport Code</mat-label>
+            <input matInput [formControl]="airportCode" type="number" required>
+            <mat-error *ngIf="airportCode.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput [formControl]="city" required>
+            <mat-error *ngIf="city.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Airport name</mat-label>
+            <input matInput [formControl]="airportName" required>
+            <mat-error *ngIf="airportName.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select [formControl]="status" required>
+                <mat-option value="Active"> Active </mat-option>
+                <mat-option value="Inactive"> Inactive </mat-option>
+                <mat-option value="Closed"> Closed </mat-option>
+            </mat-select>
+            <mat-error *ngIf="status.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+
+
+
+
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>

@@ -1,10 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminAircraftTypeServiceService as AdminAircraftTypeService} from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service';
+import { AdminAircraftTypeServiceService as AdminAircraftTypeService } from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service';
 import { AircraftTypeData } from 'src/app/services/admin-aircraftType-service/aircraftType-data';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AdminAircraftTypeFormComponent } from '../admin-aircraftType-form/admin-aircraftType-form.component';
-import { DeleteCheckAircraftTypeComponent } from '../delete-checks/delete-check-aircraftType/delete-check-aircraftType.component'; 
+import { DeleteCheckAircraftTypeComponent } from '../delete-checks/delete-check-aircraftType/delete-check-aircraftType.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
 
 
 @Component({
@@ -18,14 +20,18 @@ export class AdminAircraftTypeComponent implements OnInit {
   displayedColumns: string[] = ['aircraftTypeId', 'aircraftTypeName', 'seatMaximum', 'manufacturer', 'action'];
   dataSource = new MatTableDataSource<AircraftTypeData>(this.ELEMENT_DATA);
 
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
   constructor(
     private service: AdminAircraftTypeService,
     private dialog: MatDialog,
     private changeDetectorRefs: ChangeDetectorRef,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.getAllAircraftType();
+    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
   public getAllAircraftType() {

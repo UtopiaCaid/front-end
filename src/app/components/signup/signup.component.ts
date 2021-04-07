@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/auth-service/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   public loginInvalid = false;
   private formSubmitAttempt = false;
   public wrongCred = false;
+  public usernameTaken = false;
 
 
 constructor(
@@ -47,11 +48,15 @@ async onSubmit(): Promise<void> {
    await this.authService.registerUser(this.form.value)
    .subscribe((res: any) => {
    this.wrongCred= false;
+   this.usernameTaken= false;
+  //  console.log("Signup Res")
+  //  console.log(res)
+   if(res!=null)
     this.authService.logIn(this.form.value)
     .subscribe((res: any) => {
       localStorage.setItem('access_token', res.token)
-      console.log("Signup")
-      console.log(res)
+      // console.log("Signup")
+      // console.log(res)
      // this.authService.router.navigate(['login']); 
     this.authService.getUserProfile().subscribe((res) => {
       this.authService.currentUser = res;
@@ -59,6 +64,10 @@ async onSubmit(): Promise<void> {
       this.authService.router.navigate(['home']); 
     })
   })
+  else{
+    console.log('Error in registering account')
+    this.usernameTaken= true;
+  }
   },
   error => {
     console.log('Error in registering account', error)

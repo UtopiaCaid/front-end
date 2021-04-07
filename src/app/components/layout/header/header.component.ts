@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../../services/authentication.service';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthenticationService } from '../../../services/auth-service/authentication.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 interface keyable {
   [key: string]: any  
 }
+
 
 @Component({
   selector: 'app-header',
@@ -40,5 +41,16 @@ export class HeaderComponent implements OnInit {
     this.roleType=""
     this.authService.doLogout()
   }
+  
+
+  leave() {
+    console.log("leave");
+    
+    (setTimeout(function(){
+      console.log("leaveTimer");
+      
+      //menuTrigger.closeMenu()
+    }, 2000))
+}
 
 }

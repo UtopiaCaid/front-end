@@ -27,7 +27,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
@@ -39,6 +38,7 @@ import { fromEventPattern } from 'rxjs';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
+import { AdminAirportsFormComponent } from './components/admin-airports-form/admin-airports-form.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,6 @@ import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
-    AccountDetailsComponent,
     SignupComponent,
     ProfileComponent,
 
@@ -63,6 +62,7 @@ import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-
     AdminAirportsComponent,
     DeleteCheckFlightsComponent,
     DeleteCheckAircraftComponent,
+    AdminAirportsFormComponent
   ],
   imports: [
     BrowserModule,
