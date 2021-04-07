@@ -4,7 +4,10 @@
       <!-- <form (ngSubmit)="onSubmit()" class="center"> -->
       <h2>Sign Up</h2>
       <mat-error *ngIf="this.wrongCred">
-        The username and/or password were not recognised
+        The username and/or password were not recognised.
+      </mat-error>
+      <mat-error *ngIf="this.usernameTaken">
+        This username has already been taken.
       </mat-error>
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Name" formControlName="name" >
