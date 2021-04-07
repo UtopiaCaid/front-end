@@ -1,15 +1,22 @@
-<p>admin-home works!</p>
-<p>
-    <a routerLink="/admin/flights">
-        Flights
-    </a>
-    <a routerLink="/admin/aircraft">
-        Aircraft
-    </a>
-    <a routerLink="/admin/aircraftType">
-        Aircraft Type
-    </a>
-    <a routerLink="/admin/airports">
-        Airports
-    </a>
-</p>
+<mat-tab-group>
+    <mat-tab label="Flights">
+        <ng-template matTabContent>
+            <app-admin-flights></app-admin-flights>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Airports">
+        <ng-template matTabContent>
+            <app-admin-airports></app-admin-airports>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Aircraft">
+        <ng-template matTabContent>
+            <app-admin-aircraft></app-admin-aircraft>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Aircraft Types">
+        <ng-template matTabContent>
+            <app-admin-aircraftType></app-admin-aircraftType>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
