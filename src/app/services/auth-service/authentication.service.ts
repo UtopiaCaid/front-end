@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Account } from './account';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError, Subject } from 'rxjs';
-import { environment } from './../../environments/environment';
+import { environment } from '../../../environments/environment';
 //import { Observable } from 'rxjs/Observable';
 
 @Injectable({

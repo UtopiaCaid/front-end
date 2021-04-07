@@ -30,7 +30,7 @@
             >
 
                  <mat-icon 
-                 [matMenuTriggerFor]="login" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()" 
+                 [matMenuTriggerFor]="login" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu(); menuTrigger.focus()"
                  
                  >login</mat-icon>
                  Login 
@@ -40,8 +40,7 @@
                 <!-- <a mat-button (click)="logout()" *ngIf="this.authService.isLoggedIn"> <mat-icon>exit_to_app</mat-icon> Logout </a> -->
             </span>       
         </div>
-        <mat-menu  #login="matMenu" (mouseenter)="menuTrigger.openMenu()" >
-      
+        <mat-menu  #login="matMenu" (mouseenter)="menuTrigger.openMenu()"  >
           <a (click)="$event.stopPropagation()" (keydown.tab)="$event.stopPropagation()" >
               
               <app-loginMini (mouseleave)="menuTrigger.closeMenu()" (click)="$event.stopPropagation()"></app-loginMini>
