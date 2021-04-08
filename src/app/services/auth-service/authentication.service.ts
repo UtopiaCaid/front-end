@@ -27,6 +27,8 @@ export class AuthenticationService {
   public getLoggedInRoleType = new Subject();
   public getLoggedInEmail = new Subject();
   public getLoggedInRoleId = new Subject();
+  public getLoggedInFullName = new Subject();
+  public getLoggedInPhoneNum= new Subject();
   public getCurrentAccount = new Subject();
  
   constructor(private http: HttpClient,public router: Router) {

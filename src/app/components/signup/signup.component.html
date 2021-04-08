@@ -28,6 +28,12 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
+        <mat-error>
+            Please provide a valid phone number (Numbers only. 7-10 digits long.)
+        </mat-error>
+        <input matInput placeholder="Phone number" formControlName="phone">
+    </mat-form-field>
+      <mat-form-field class="full-width-input">
         <input matInput type="password" placeholder="Password" formControlName="password" required>
         <mat-error>
           Please provide a valid password (at least 3 chars, no more than 100)
