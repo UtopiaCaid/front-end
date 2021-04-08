@@ -78,7 +78,11 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Status</mat-label>
-            <input matInput [formControl]="status" required>
+            <mat-select [formControl]="status" required>
+                <mat-option value="Ready"> Ready </mat-option>
+                <mat-option value="Completed"> Completed </mat-option>
+                <mat-option value="Cancelled"> Cancelled </mat-option>
+            </mat-select>
             <mat-error *ngIf="status.invalid">
                 {{getErrorMessage()}}
             </mat-error>

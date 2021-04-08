@@ -31,6 +31,7 @@ import { AdminAirportsComponent } from './components/admin-airports/admin-airpor
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
+import { AdminAirportsFormComponent } from './components/admin-airports-form/admin-airports-form.component';
 
 
 
@@ -56,7 +57,8 @@ import { EditAccountComponent } from './components/edit-account/edit-account.com
     AdminAirportsComponent,
     DeleteCheckFlightsComponent,
     DeleteCheckAircraftComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    AdminAirportsFormComponent
   ],
   imports: [
     BrowserModule,

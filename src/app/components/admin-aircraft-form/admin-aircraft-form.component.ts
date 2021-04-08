@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
-import { AdminAircraftTypeServiceService as AdminAircraftTypeService} from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service'; 
+import { AdminAircraftTypeServiceService as AdminAircraftTypeService } from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service';
 
 /* modal */
 import { MatDialogRef } from '@angular/material/dialog';
@@ -55,12 +55,12 @@ export class AdminAircraftFormComponent implements OnInit {
   aircraftCheck = new FormControl(this.aircraftTypes, [Validators.required]);
 
   getErrorMessage() {
-    return this.aircraftCheck.hasError('required') ? 'you must enter an aircraft type' : 
-    this.seatCount.hasError('required') ? 'you must enter a seat count' :
-      this.firstClassCount.hasError('required') ? 'you must enter a first class count' :
-        this.secondClassCount.hasError('required') ? 'you must enter a second class count' :
-          this.thirdClassCount.hasError('required') ? 'you must enter a third class count' :
-            this.aircraftStatus.hasError('required') ? 'you must enter an aircraft status' : '';
+    return this.aircraftCheck.hasError('required') ? 'you must enter an aircraft type' :
+      this.seatCount.hasError('required') ? 'you must enter a seat count' :
+        this.firstClassCount.hasError('required') ? 'you must enter a first class count' :
+          this.secondClassCount.hasError('required') ? 'you must enter a second class count' :
+            this.thirdClassCount.hasError('required') ? 'you must enter a third class count' :
+              this.aircraftStatus.hasError('required') ? 'you must enter an aircraft status' : '';
   }
 
   public populate() {
@@ -85,12 +85,12 @@ export class AdminAircraftFormComponent implements OnInit {
       this.firstClassCount.hasError('required') ||
       this.secondClassCount.hasError('required') ||
       this.thirdClassCount.hasError('required') ||
-      this.aircraftStatus.hasError('required') 
+      this.aircraftStatus.hasError('required')
     ) {
       alert('Please insert the required fields')
     } else if (this.seatCount.value < this.firstClassCount.value + this.secondClassCount.value + this.thirdClassCount.value) {
       alert('Number of class seats cannot exceed the total seat count');
-      console.log("Broke"); 
+      console.log("Broke");
     } else if (this.data) {
       this.AircraftService.updateAircraft(
         this.data.row.aircraftId,
