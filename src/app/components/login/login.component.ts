@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService
+    public authService: AuthenticationService
     ) {
       this.form = this.formBuilder.group({
         username: ['', Validators.required],
@@ -93,6 +93,10 @@ export class LoginComponent implements OnInit {
   // }
 
   }
+
+  // logout() {
+  //   this.authService.doLogout()
+  // }
 
 
 }

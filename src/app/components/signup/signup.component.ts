@@ -81,7 +81,7 @@ async onSubmit(): Promise<void> {
       this.loginInvalid = true;
     }
   } else {
-    console.log("Form was accepted")
+    console.log("Form was not accepted")
     this.formSubmitAttempt = true;
   }
   // this.loginInvalid = false;

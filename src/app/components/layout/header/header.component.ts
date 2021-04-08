@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../../../services/auth-service/authentication.service';
 import { MatMenuTrigger } from '@angular/material/menu';
+import * as jwtDecode from "jwt-decode";
 
 interface keyable {
   [key: string]: any  
@@ -17,22 +18,48 @@ export class HeaderComponent implements OnInit {
   currentUser: keyable={};
   username: string="";
   roleType: string="";
+  staleToken: Boolean=false;
   constructor(
     public authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
     
+    this.staleToken=false;
     this.authService.getLoggedInName.subscribe(name => this.username = String(name))
     this.authService.getLoggedInRoleType.subscribe(name => this.roleType = String(name))
     if(this.authService.isLoggedIn){
     this.authService.getUserProfile()
       .subscribe(res => {
+        
         this.username = res.username
         this.roleType = res.roleId.roleType
+        this.staleToken=false;
       })
     }
     
+
+    ///For logout when token exspires
+    if(this.authService.isLoggedIn)
+    {
+    var decode= this.authService.getDecodedAccessToken();
+    if (decode.exp < Date.now() / 1000) {
+      this.logout();
+    }
+  }
+
+ 
+    ///For when unable to reach db
+     if((this.authService.isLoggedIn) && (((this.username=="")&& (this.roleType==""))))
+    {
+      setTimeout(() => {
+        ///If unable to reach the db after 2 seconds on reload will logout user
+        if((this.authService.isLoggedIn) && (((this.username=="")&& (this.roleType==""))))
+        this.logout();
+
+      }, 2000);
+    } 
+      
   }
 
   logout() {

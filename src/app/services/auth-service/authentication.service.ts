@@ -5,6 +5,8 @@ import { Account } from './account';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import * as jwtDecode from "jwt-decode";
+import jwt_decode from "jwt-decode";
 //import { Observable } from 'rxjs/Observable';
 
 @Injectable({
@@ -15,10 +17,10 @@ export class AuthenticationService {
   private authUrl: string;
   private userUrl: string;
   private adminUrl: string;
-  private cheatUrl: string;
+  // private cheatUrl: string;
   //private envLocalMock: string ="http://utopia-airlines.cmnyotwgbsoe.us-east-2.rds.amazonaws.com/";
-  private envLocalMock: string ="http://localhost:8080/";
-  public baseUrl: string = this.envLocalMock;
+ // private envLocalMock: string ="http://localhost:8080/";
+ // public baseUrl: string = this.envLocalMock;
   currentUser = {};
   currentUserName: string="";
   public getLoggedInName = new Subject();
@@ -34,7 +36,7 @@ export class AuthenticationService {
     this.authUrl = AuthBaseUrl+'Authentication';
     this.userUrl = AuthBaseUrl+'User';
     this.adminUrl = AuthBaseUrl+'Admin';
-    this.cheatUrl = AuthBaseUrl+'getSecurityAccount';
+    // this.cheatUrl = AuthBaseUrl+'getSecurityAccount';
   }
 
   // public getCurrent():  {
@@ -196,6 +198,7 @@ export class AuthenticationService {
   doLogout() {
      localStorage.removeItem('current_roleType');
      localStorage.removeItem('current_roleId');
+     localStorage.clear();
      this.getCurrentAccount.next(null)
      this.getLoggedInName.next("")
     let removeToken = localStorage.removeItem('access_token');
@@ -226,6 +229,22 @@ export class AuthenticationService {
       catchError(this.handleError)
     )
   }
+
+  getDecodedAccessToken(): any {
+
+    var token = this.getToken();
+    var token2 = token!= null ? token : "{}"
+   
+    try{
+      return jwt_decode(token2);
+    }
+    catch(Error){
+        return null;
+    }
+  
+  }
+
+ 
 
 
 }

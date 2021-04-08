@@ -13,6 +13,7 @@ import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admi
 import { AdminAircraftTypeFormComponent } from 'src/app/components/admin-aircraftType-form/admin-aircraftType-form.component';  
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
+import { EditAccountComponent } from './components/edit-account/edit-account.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
       {
         path: 'admin/airports',
         component: AdminAirportsComponent
+      },
+      {
+        path: 'profile/edit',
+        component: EditAccountComponent
       }
     ]
   }
