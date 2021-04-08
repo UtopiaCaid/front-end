@@ -10,6 +10,8 @@ import { AuthenticationService } from '../../services/auth-service/authenticatio
 export class GuestGuard implements CanActivate {
   constructor(private authService: AuthenticationService, private router: Router) {}
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if(this.authService.isLoggedIn)
+    this.router.navigate(['/home']);
     return !this.authService.isLoggedIn
   }
 }

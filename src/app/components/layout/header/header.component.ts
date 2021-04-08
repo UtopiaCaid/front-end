@@ -43,6 +43,8 @@ export class HeaderComponent implements OnInit {
     if(this.authService.isLoggedIn)
     {
     var decode= this.authService.getDecodedAccessToken();
+    // console.log("Decode")
+    // console.log(decode)
     if (decode.exp < Date.now() / 1000) {
       this.logout();
     }

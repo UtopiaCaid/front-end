@@ -251,8 +251,17 @@ export class AuthenticationService {
     //   return  res.roleId.roleType  
     // })
     //res.roleId.roleType
-    var role =localStorage.getItem('current_roleType')
-    return role;
+    // var role =localStorage.getItem('current_roleType')
+    //  var decode = this.getDecodedAccessToken
+    // var role = decode.exp;
+    if(this.isLoggedIn){
+      var decode= this.getDecodedAccessToken();
+      var role = decode.authorities
+      return role;
+    }
+    else return null
+  
+    // var role = decode.authorites();
   }
 
  
