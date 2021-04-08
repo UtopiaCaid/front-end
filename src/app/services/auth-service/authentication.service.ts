@@ -246,6 +246,15 @@ export class AuthenticationService {
   
   }
 
+  getRole() {
+    // this.getUserProfile().subscribe(res => {
+    //   return  res.roleId.roleType  
+    // })
+    //res.roleId.roleType
+    var role =localStorage.getItem('current_roleType')
+    return role;
+  }
+
  
 
 

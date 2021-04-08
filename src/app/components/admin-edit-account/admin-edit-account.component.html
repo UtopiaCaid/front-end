@@ -1,0 +1,54 @@
+<div >
+    <span>
+        <mat-card>
+            <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="onSubmitAdmin()" class="center">
+            
+        <h2 class="mb-4">Edit <strong>ADMIN</strong> Profile of: <strong>{{this.username}}</strong></h2>
+    
+        <p *ngIf="this.roleType!=''"><strong>Privilage:</strong> {{this.roleType}} <small><i>(can not be changed)</i></small></p>
+
+        <div>
+            
+            <p *ngIf="this.username!='' else showUsername"><strong>Current Username:</strong> {{this.username}}</p>
+            <ng-template #showUsername>   
+                <p ><strong>Current Username:</strong> null</p>
+                </ng-template>
+            <mat-form-field class="full-width-input">
+                <mat-error>
+                    Please provide a valid username (at least 5 chars no more than 30)
+                </mat-error>
+                <input matInput placeholder="Edit Username"  formControlName="username" value="{{this.username}}">
+            </mat-form-field>
+            
+        </div>
+
+        
+        <div>
+
+            <mat-form-field class="full-width-input">
+                <mat-error>
+                    Please provide a valid password (at least 3 chars, no more than 100)
+                </mat-error>
+            <input matInput placeholder="Change Password" formControlName="newPassword" >
+            </mat-form-field>
+        </div>
+        <div>
+
+            <mat-form-field class="full-width-input">
+                <mat-error>
+                    Your Current password is required in order to make any changes.
+                </mat-error>
+            <input matInput placeholder="Enter Current Password" formControlName="password" required>
+            </mat-form-field>
+        </div>
+        <mat-error *ngIf="this.passwordWrong">
+            The password was wrong
+        </mat-error>
+        <button class="submit-button" disabled={{!this.form.valid}} mat-button > Submit</button>
+
+    </form>
+    </mat-card-content>
+</mat-card>
+    </span>
+</div>

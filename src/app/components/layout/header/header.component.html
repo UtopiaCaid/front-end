@@ -7,16 +7,17 @@
       <span class="menu-spacer"></span>
       <div>
         <a mat-button [routerLink]="'/home'"> <mat-icon>home</mat-icon> Home </a>
-        <a mat-button [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" > <mat-icon>circle</mat-icon> Account </a>
-        <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> UserOnly </a>
-        <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> AdminOnly </a>
+        <!-- <a mat-button [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" > <mat-icon>circle</mat-icon> Account </a> -->
+        <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> User Account </a>
+        <a mat-button [routerLink]="'/admin/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> Admin Account </a>
         <a mat-button [routerLink]="'/admin'" *ngIf="(this.roleType == 'ROLE_ADMIN')">Admin </a>
        
         </div>
         <span class="flexExpand "></span>
         <div  *ngIf="this.authService.isLoggedIn; else log">
           <span class="right-side" >
-            <a mat-button [routerLink]="'/profile'"  > <mat-icon>account_circle</mat-icon> {{this.username}} </a>
+            <a mat-button [routerLink]="'/profile'"  *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>account_circle</mat-icon> {{this.username}} </a>
+            <a mat-button [routerLink]="'/admin/profile'"  *ngIf="(this.roleType == 'ROLE_ADMIN')" > <mat-icon>account_circle</mat-icon> {{this.username}} </a>
             <a mat-button (click)="logout()" > <mat-icon>exit_to_app</mat-icon> Logout </a>
             </span>
           </div>
