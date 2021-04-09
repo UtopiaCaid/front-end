@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl:  'http://localhost:8080/'
+  apiUrl:  'jdbc:mysql://utopia-airlines.cmnyotwgbsoe.us-east-2.rds.amazonaws.com/utopiadb/',
 };
