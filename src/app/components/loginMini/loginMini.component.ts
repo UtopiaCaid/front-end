@@ -49,15 +49,11 @@ export class LoginMiniComponent implements OnInit {
       this.wrongCred = true;
     }) 
 
+    ///used to refresh incase user logs in while on home page
     if(this.authService.isLoggedIn)
        setTimeout(() => {  
         this.reload();
       }, 130);
-      // const secondFunction = async () => {
-      //   const result = await this.authService.logIn(this.form.value)
-      //   location.reload();
-      // }
-      // secondFunction;
    
   }
 

@@ -64,6 +64,11 @@ export class EditAccountComponent implements OnInit {
     
   }
 
+  ////Temp so stuff doesnt break for calls to a backend thats not done
+  async onSubmitUserX(): Promise<void> {
+    console.log("Edit backend not yet implmented.")
+  }
+
   async onSubmitUser(): Promise<void> {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;

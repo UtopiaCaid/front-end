@@ -56,7 +56,8 @@ export class LoginComponent implements OnInit {
         this.authService.getLoggedInRoleId.next(res.roleId.roleId)
         this.authService.getLoggedInEmail.next(res.email)
         this.authService.getCurrentAccount.next(res)
-        this.authService.router.navigate(['home']); 
+        ///As long as access is restricked to login we dont need to redirect manuly
+        //this.authService.router.navigate(['home']); 
         
         //location.reload();   
         
@@ -73,30 +74,12 @@ export class LoginComponent implements OnInit {
         this.loginInvalid = true;
       }
     } else {
-      console.log("Form was accepted")
+      ///shouldent be able to reach this code since btn would be disabled
+      console.log("Form was not accepted")
       this.formSubmitAttempt = true;
-    }
-    // this.loginInvalid = false;
-    // this.formSubmitAttempt = false;
-  //   if (this.form.valid) {
-  //     if(true){
-  //     try {
-  //       // const username = this.form.get('username').value;
-  //       // const password = this.form.get('password').value;
-  //       // await this.authService.login(username, password);
-  //     } catch (err) {
-  //      // this.loginInvalid = true;
-  //     }
-  //   } else {
-  //    // this.formSubmitAttempt = true;
-  //   }
-  // }
+    } 
 
   }
-
-  // logout() {
-  //   this.authService.doLogout()
-  // }
 
 
 }

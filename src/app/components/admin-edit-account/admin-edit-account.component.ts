@@ -53,6 +53,10 @@ export class AdminEditAccountComponent implements OnInit {
     
   }
 
+////Temp so stuff doesnt break for calls to a backend thats not done
+async onSubmitAdminX(): Promise<void> {
+  console.log("Edit backend not yet implmented.")
+}
 
   async onSubmitAdmin(): Promise<void> {
     this.loginInvalid = false;

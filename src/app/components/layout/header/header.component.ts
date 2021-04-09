@@ -19,12 +19,17 @@ export class HeaderComponent implements OnInit {
   username: string="";
   roleType: string="";
   staleToken: Boolean=false;
+  isMobile: Boolean=false;
   constructor(
     public authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
-    
+    // if (window.screen.width === 360) { // 768px portrait
+    //   this.mobile = true;
+    // }
+    this.isMobile = window.innerWidth <= 991;
+    window.onresize = () => this.isMobile = window.innerWidth <= 991;
     this.staleToken=false;
     this.authService.getLoggedInName.subscribe(name => this.username = String(name))
     this.authService.getLoggedInRoleType.subscribe(name => this.roleType = String(name))

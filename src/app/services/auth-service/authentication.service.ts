@@ -5,9 +5,7 @@ import { Account } from './account';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import * as jwtDecode from "jwt-decode";
 import jwt_decode from "jwt-decode";
-//import { Observable } from 'rxjs/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +15,6 @@ export class AuthenticationService {
   private authUrl: string;
   private userUrl: string;
   private adminUrl: string;
-  // private cheatUrl: string;
-  //private envLocalMock: string ="http://utopia-airlines.cmnyotwgbsoe.us-east-2.rds.amazonaws.com/";
- // private envLocalMock: string ="http://localhost:8080/";
- // public baseUrl: string = this.envLocalMock;
   currentUser = {};
   currentUserName: string="";
   public getLoggedInName = new Subject();
@@ -33,32 +27,12 @@ export class AuthenticationService {
  
   constructor(private http: HttpClient,public router: Router) {
     const AuthBaseUrl = environment.apiUrl
-     //const AuthBaseUrl = process.env.AUTH_SERVICE_URL+"/";
-    //var AuthBaseUrl= this.envLocalMock;
     this.authUrl = AuthBaseUrl+'Authentication';
     this.userUrl = AuthBaseUrl+'User';
     this.adminUrl = AuthBaseUrl+'Admin';
-    // this.cheatUrl = AuthBaseUrl+'getSecurityAccount';
   }
 
-  // public getCurrent():  {
-  //   return this.http.get(this.authUrl);
-  // }
-
-  // public save(user: User) {
-  //   return this.http.post<User>(this.authUrl, user);
-  // }
-
-  // logIn(user: User) {
-  //   return this.http.post<any>(`${this.endpoint}/login`, user)
-  //     .subscribe((res: any) => {
-  //       localStorage.setItem('access_token', res.token)
-  //       this.getUserProfile(res._id).subscribe((res) => {
-  //         this.currentUser = res;
-  //         this.router.navigate(['user-profile/' + res.msg._id]);
-  //       })
-  //     })
-  // }
+ 
 
   registerUser(account: Account) {
     return this.http.post<any>(this.userUrl, account)
@@ -68,7 +42,7 @@ export class AuthenticationService {
   }
 
   logIn(account: Account) {
- 
+
     return this.http.post<any>(this.authUrl, account)
       // .subscribe((res: any) => {
       //   localStorage.setItem('access_token', res.token)
@@ -88,12 +62,6 @@ export class AuthenticationService {
   }
 
   getUser() {
-  
-    //return this.http.get<any>(this.authUrl)
-      // .subscribe((res: any) => {
-      //   console.log("User");
-      //   console.log(res);
-      // })
       const authToken = localStorage.getItem('access_token');
       const headerDict = {
         'Content-Type':  'application/json',
@@ -130,7 +98,6 @@ export class AuthenticationService {
     }
 
     getUserByUserName() {
-      //this.localStorage
       const authToken = localStorage.getItem('access_token');
       const headerDict = {
         'Content-Type':  'application/json',
@@ -165,21 +132,8 @@ export class AuthenticationService {
        .subscribe((res: any) => {
          localStorage.setItem('current_user', res)
          this.currentUser=res
-        //  console.log("Res CurrentUser");
-        //  console.log(res);
          return res;
        })
-      //  account : Account;
-      //  Account account = new Account();
-      //  Account account = {
-      //   id: "null",
-      //   username: "null",
-      //   email: "null",
-      //   password: "null"
-      // };
-      // console.log("CurrentUser");
-      // console.log(this.currentUser);
-      // return this.currentUser;
     }
 
     getCurrentUser2() {
@@ -203,6 +157,11 @@ export class AuthenticationService {
      localStorage.clear();
      this.getCurrentAccount.next(null)
      this.getLoggedInName.next("")
+     this.getLoggedInEmail.next("")
+     this.getLoggedInRoleId.next("")
+     this.getLoggedInFullName.next("")
+     this.getLoggedInPhoneNum.next("")
+  
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['login']);

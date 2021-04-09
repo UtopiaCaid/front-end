@@ -22,12 +22,12 @@ constructor(
   private authService: AuthenticationService
   ) {
     this.form = this.formBuilder.group({
-      name: new FormControl("", [Validators.maxLength(100),Validators.minLength(2),Validators.pattern("[a-zA-Z ]*") ]),
+      name: new FormControl("", [Validators.maxLength(40),Validators.minLength(2),Validators.pattern("[a-zA-Z ]*") ]),
       username: new FormControl("", [Validators.maxLength(30),Validators.minLength(5), Validators.required]),
       email: new FormControl("", [Validators.maxLength(50),Validators.email, Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
       phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern("^[0-9]*$")]),
       // phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern('[- +()0-9]+')]),
-      password: new FormControl("", [Validators.maxLength(100),Validators.minLength(3),Validators.required]),
+      password: new FormControl("", [Validators.maxLength(30),Validators.minLength(3),Validators.required]),
   });
   
  }

@@ -10,9 +10,9 @@
         This username has already been taken.
       </mat-error>
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Name" formControlName="name" >
+        <input matInput placeholder="Name (not implemented on backend yet)" formControlName="name" >
         <mat-error>
-          Please provide a valid Name (no numbers/symbols and is  2-100 chars long)
+          Please provide a valid Name (no numbers/symbols and is  2-40 chars long)
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
@@ -31,12 +31,12 @@
         <mat-error>
             Please provide a valid phone number (Numbers only. 7-10 digits long.)
         </mat-error>
-        <input matInput placeholder="Phone number" formControlName="phone">
+        <input matInput placeholder="Phone number (not implemented on backend yet)" formControlName="phone">
     </mat-form-field>
       <mat-form-field class="full-width-input">
         <input matInput type="password" placeholder="Password" formControlName="password" required>
         <mat-error>
-          Please provide a valid password (at least 3 chars, no more than 100)
+          Please provide a valid password (at least 3 chars, no more than 30)
         </mat-error>
       </mat-form-field>
       <!-- <mat-form-field class="full-width-input">

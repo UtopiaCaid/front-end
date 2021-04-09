@@ -5,6 +5,7 @@ export class Account {
     password: String;
     name: String;
     phone: String;
+    dateCreated: String;
     
     constructor() { 
         // Initialization inside the constructor
@@ -14,5 +15,6 @@ export class Account {
         this.password = "null";
         this.name = "null";
         this.phone = "null";
+        this.dateCreated = "null";
      }
 }

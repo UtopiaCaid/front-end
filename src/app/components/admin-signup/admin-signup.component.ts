@@ -23,7 +23,7 @@ constructor(
   ) {
     this.form = this.formBuilder.group({
       username: new FormControl("", [Validators.maxLength(30),Validators.minLength(5), Validators.required]),
-      password: new FormControl("", [Validators.maxLength(100),Validators.minLength(3),Validators.required]),
+      password: new FormControl("", [Validators.maxLength(50),Validators.minLength(3),Validators.required]),
   });
   
  }

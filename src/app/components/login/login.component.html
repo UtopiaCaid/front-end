@@ -27,8 +27,8 @@
 <ng-template #loggedIn>  
   <div>
     <meta http-equiv="refresh" content="0; URL='/home'" [routerLink]="'/home'" />
-    <h2>You are already logged in.</h2>
-    <!-- <h2>Do you wish to log out?</h2>
-    <a mat-button (click)="logout()" > <mat-icon>exit_to_app</mat-icon> Logout </a> -->
+    <!-- Should only be able to apear briefly after logging in-->
+    <h2>Please wait a moment.</h2>
+    <!-- <h2>You are already logged in.</h2> -->
   </div>
 </ng-template>
