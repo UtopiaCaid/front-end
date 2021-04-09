@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh "npm install"
-                sh "ng build --prod"
+                sh "npx ng build --prod"
             }
         }
         stage('Deploy') {
