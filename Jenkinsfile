@@ -1,21 +1,32 @@
 pipeline {
-	agent any
-	stages {
-		stage("build"){
-			steps {
-				echo 'building the applicaiton...'
-			}
-		}
-
-		stage("test"){
-			steps {
-				echo 'testing the application...'
-			}
-		}
-		stage("deploy"){
-			steps {
-				echo 'deploying the application...'
-			}
-		}
-	}
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                sh "npm install"
+                sh "ng build --prod"
+            }
+        }
+        stage('Deploy') {
+           steps {
+             echo 'Deploying..'
+               sh "aws s3 cp $WORKSPACE/dist/front-end s3://utopia-frontend --recursive --include '*'"
+           }
+        }
+        // stage('Cleanup') {
+        //     steps {
+        //       echo 'Cleaning up..'
+        //         sh "docker system prune -f"
+        //     }
+        // }
+    }
+    post {
+      success {
+        setBuildStatus("Build succeeded", "SUCCESS")
+      }
+      failure {
+        setBuildStatus("Build failed", "FAILURE")
+      }
+    }
 }
