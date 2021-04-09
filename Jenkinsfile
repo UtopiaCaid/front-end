@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy') {
            steps {
              echo 'Deploying..'
-               sh "aws s3 cp $WORKSPACE/dist/front-end s3://utopia-frontend --recursive --include '*'"
+               sh "aws s3 cp $WORKSPACE/dist/utopia-ng s3://utopia-frontend --recursive --include '*'"
            }
         }
         // stage('Cleanup') {
