@@ -13,6 +13,13 @@ import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admi
 import { AdminAircraftTypeFormComponent } from 'src/app/components/admin-aircraftType-form/admin-aircraftType-form.component';  
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
+import { EditAccountComponent } from './components/edit-account/edit-account.component';
+import {AdminSignupComponent} from './components/admin-signup/admin-signup.component';
+import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+
+import {AuthGuard} from "./guards/auth-guard/auth.guard";
+import {GuestGuard} from "./guards/guest-guard/guest.guard";
 
 const routes: Routes = [
   {
@@ -31,46 +38,119 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+        canActivate: [GuestGuard],
       },
       {
         path: 'signup',
         component: SignupComponent,
+        canActivate: [GuestGuard],
       },
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_USER'
+        }
       },
       {
         path: 'admin',
         component: AdminHomeComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/flights',
         component: AdminFlightsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/aircraft',
-        component: AdminAircraftComponent
+        component: AdminAircraftComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/aircraft/form',
-        component: AdminAircraftFormComponent
+        component: AdminAircraftFormComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/aircraftType',
-        component: AdminAircraftTypeComponent
+        component: AdminAircraftTypeComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/aircraftType/form',
-        component: AdminAircraftTypeFormComponent
+        component: AdminAircraftTypeFormComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/flights/form',
         component: AdminFlightFormComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
       },
       {
         path: 'admin/airports',
-        component: AdminAirportsComponent
+        component: AdminAirportsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
+      },
+      {
+        path: 'admin/signup',
+        component: AdminSignupComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
+      },
+      {
+        path: 'admin/profile',
+        component:  AdminProfileComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
+      },
+      {
+        path: 'admin/profile/edit',
+        component: AdminEditAccountComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
+      },
+
+     
+      
+      {
+        path: 'profile/edit',
+        component: EditAccountComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_USER'
+        }
       }
     ]
   }

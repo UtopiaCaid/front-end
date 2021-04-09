@@ -4,6 +4,8 @@ export class Account {
     email: String;
     password: String;
     name: String;
+    phone: String;
+    dateCreated: String;
     
     constructor() { 
         // Initialization inside the constructor
@@ -12,5 +14,7 @@ export class Account {
         this.email = "null";
         this.password = "null";
         this.name = "null";
+        this.phone = "null";
+        this.dateCreated = "null";
      }
 }

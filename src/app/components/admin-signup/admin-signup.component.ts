@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AuthenticationService } from '../../services/auth-service/authentication.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-admin-signup',
+  templateUrl: './admin-signup.component.html',
+  styleUrls: ['./admin-signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class AdminSignupComponent implements OnInit {
 
   
   form: FormGroup;
@@ -22,12 +22,8 @@ constructor(
   private authService: AuthenticationService
   ) {
     this.form = this.formBuilder.group({
-      name: new FormControl("", [Validators.maxLength(40),Validators.minLength(2),Validators.pattern("[a-zA-Z ]*") ]),
       username: new FormControl("", [Validators.maxLength(30),Validators.minLength(5), Validators.required]),
-      email: new FormControl("", [Validators.maxLength(50),Validators.email, Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
-      phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern("^[0-9]*$")]),
-      // phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern('[- +()0-9]+')]),
-      password: new FormControl("", [Validators.maxLength(30),Validators.minLength(3),Validators.required]),
+      password: new FormControl("", [Validators.maxLength(50),Validators.minLength(3),Validators.required]),
   });
   
  }
@@ -42,7 +38,7 @@ async onSubmit(): Promise<void> {
   if (this.form.valid) {
     try {
       // this.authService.router.navigate(['login']); 
-   await this.authService.registerUser(this.form.value)
+   await this.authService.registerAdmin(this.form.value)
    .subscribe((res: any) => {
    this.wrongCred= false;
    this.usernameTaken= false;
@@ -62,7 +58,6 @@ async onSubmit(): Promise<void> {
       this.authService.getLoggedInName.next(res.username)
       this.authService.getLoggedInRoleType.next(res.roleId.roleType)
       this.authService.getLoggedInRoleId.next(res.roleId.roleId)
-      this.authService.getLoggedInEmail.next(res.email)
       this.authService.getCurrentAccount.next(res)
       this.authService.router.navigate(['home']); 
     })

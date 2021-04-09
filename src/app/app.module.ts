@@ -9,18 +9,10 @@ import { LoginMiniComponent } from './components/loginMini/loginMini.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ReactiveFormsModule } from '@angular/forms';
-// import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
-// import {MatToolbarModule} from '@angular/material/toolbar'; 
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatSidenavModule } from '@angular/material/sidenav';
-// import { MatListModule } from '@angular/material/list';
 import { AngularMaterialModule } from './angular-material.module';
 import { SignupComponent } from './components/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +30,11 @@ import { fromEventPattern } from 'rxjs';
 import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
+import { EditAccountComponent } from './components/edit-account/edit-account.component';
 import { AdminAirportsFormComponent } from './components/admin-airports-form/admin-airports-form.component';
+import { AdminSignupComponent } from './components/admin-signup/admin-signup.component';
+import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 
 
 
@@ -64,7 +60,11 @@ import { AdminAirportsFormComponent } from './components/admin-airports-form/adm
     AdminAirportsComponent,
     DeleteCheckFlightsComponent,
     DeleteCheckAircraftComponent,
-    AdminAirportsFormComponent
+    EditAccountComponent,
+    AdminAirportsFormComponent,
+    AdminSignupComponent,
+    AdminEditAccountComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,

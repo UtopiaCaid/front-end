@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
+        <!-- <form (ngSubmit)="onSubmit()" class="center"> -->
+        <h2><strong>Admin </strong>Sign Up</h2>
+        <mat-error *ngIf="this.wrongCred">
+          The username and/or password were not recognised.
+        </mat-error>
+        <mat-error *ngIf="this.usernameTaken">
+          This username has already been taken.
+        </mat-error>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Username" formControlName="username" required>
+          <mat-error>
+            Please provide a valid username (at least 5 chars no more than 30)
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-error>
+            Please provide a valid password (at least 3 chars, no more than 50)
+          </mat-error>
+        </mat-form-field>
+        
+        <button disabled={{!this.form.valid}} mat-raised-button color="primary">SignUp</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
