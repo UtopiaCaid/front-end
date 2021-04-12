@@ -64,13 +64,13 @@ export class LoginComponent implements OnInit {
       })
     },
     error => {
-      console.log('Wrong credentials', error)
+      console.error('Wrong credentials', error)
       this.wrongCred= true;
     }) 
        
       }
       catch (err) {
-        console.log("Error in form")
+        console.error("Error in form")
         this.loginInvalid = true;
       }
     } else {

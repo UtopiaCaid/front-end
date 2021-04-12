@@ -1,0 +1,37 @@
+<div>
+    <mat-tab-group>  
+
+        <mat-tab label="Home">
+            <ng-template matTabContent>
+              
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Flights">
+            <ng-template matTabContent>
+              
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Airports">
+            <ng-template matTabContent>
+           
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Tickets">
+            <ng-template matTabContent>
+            
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Help">
+            <ng-template matTabContent>
+            
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+    <h2 class="mb-4">User Home</h2>
+    <p><strong>AccountNumber:</strong> {{this.currentUser.accountNumber}}</p>
+    <p><strong>User Name:</strong> {{this.currentUser.username}}</p>
+    <!-- <p ><strong>Privilage:</strong> {{this.roleType}}</p> -->
+    <p *ngIf="(this.currentUser.roleId)"><strong>Privilage:</strong> {{this.currentUser.roleId.roleType}}</p>
+    <p><strong>Email:</strong> {{this.currentUser.email}}</p>
+    
+</div>
