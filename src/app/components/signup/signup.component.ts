@@ -51,9 +51,9 @@ async onSubmit(): Promise<void> {
    if(res!=null)
     this.authService.logIn(this.form.value)
     .subscribe((res: any) => {
-      localStorage.setItem('access_token', res.token)
       // console.log("Signup")
       // console.log(res)
+      localStorage.setItem('access_token', res.token)
      // this.authService.router.navigate(['login']); 
     this.authService.getUserProfile().subscribe((res) => {
       this.authService.currentUser = res;
@@ -68,19 +68,20 @@ async onSubmit(): Promise<void> {
     })
   })
   else{
-    console.log('Error in registering account')
+    console.error('Error in registering account')
+    console.error("Username is already taken.")
     this.usernameTaken= true;
   }
   },
   error => {
-    console.log('Error in registering account', error)
+    console.error('Error in registering account', error)
     this.wrongCred= true;
   }) 
      
 
     }
     catch (err) {
-      console.log("Error in form")
+      console.error("Error in form")
       this.loginInvalid = true;
     }
   } else {

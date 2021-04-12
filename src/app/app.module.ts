@@ -35,6 +35,7 @@ import { AdminAirportsFormComponent } from './components/admin-airports-form/adm
 import { AdminSignupComponent } from './components/admin-signup/admin-signup.component';
 import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { UserHomeComponent } from './components/user-home/user-home.component';
 
 
 
@@ -64,7 +65,8 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
     AdminAirportsFormComponent,
     AdminSignupComponent,
     AdminEditAccountComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -45,7 +45,7 @@ export class LoginMiniComponent implements OnInit {
       })
     },
     error => {
-      console.log('Wrong credentials', error)
+      console.error('Wrong credentials', error)
       this.wrongCred = true;
     }) 
 
