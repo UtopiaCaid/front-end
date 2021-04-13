@@ -75,7 +75,9 @@ async onSubmit(): Promise<void> {
   },
   error => {
     console.error('Error in registering account', error)
-    this.wrongCred= true;
+    console.error("Username is already taken.")
+    this.usernameTaken= true;
+    // this.wrongCred= true;
   }) 
      
 

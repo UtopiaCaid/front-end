@@ -14,10 +14,10 @@ export class AdminProfileService {
   private authUrl: string;
 
   constructor(private http: HttpClient,public router: Router) { 
-    const AuthBaseUrl = environment.apiUrl
-    const AdminBaseUrl = environment.apiUrl
-    this.adminUrl = AdminBaseUrl+'AdminProfile';
-    this.authUrl = AuthBaseUrl+'Authentication';
+    const AuthBaseUrl = environment.authUrl
+    const AdminBaseUrl = environment.adminUrl
+    this.adminUrl = AdminBaseUrl+'adminProfile';
+    this.authUrl = AuthBaseUrl+'authentication';
   }
 
   editAdmin(account: Account) {

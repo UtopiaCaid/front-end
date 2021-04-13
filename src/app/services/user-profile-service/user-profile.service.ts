@@ -15,10 +15,10 @@ export class UserProfileService {
   private authUrl: string;
 
   constructor(private http: HttpClient,public router: Router) { 
-    const AuthBaseUrl = environment.apiUrl
-    const UserBaseUrl = environment.apiUrl
-    this.userUrl = UserBaseUrl+'UserProfile';
-    this.authUrl = AuthBaseUrl+'Authentication';
+    const AuthBaseUrl = environment.authUrl
+    const UserBaseUrl = environment.userUrl
+    this.userUrl = UserBaseUrl+'userProfile';
+    this.authUrl = AuthBaseUrl+'authentication';
   }
 
   editUser(account: Account) {
