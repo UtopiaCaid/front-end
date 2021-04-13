@@ -17,7 +17,9 @@ import { EditAccountComponent } from './components/edit-account/edit-account.com
 import {AdminSignupComponent} from './components/admin-signup/admin-signup.component';
 import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+
 import { UserHomeComponent } from './components/user-home/user-home.component';
+import { UserFlightsComponent } from './components/user-flights/user-flights.component';
 
 import {AuthGuard} from "./guards/auth-guard/auth.guard";
 import {GuestGuard} from "./guards/guest-guard/guest.guard";
@@ -146,6 +148,14 @@ const routes: Routes = [
       {
         path: 'user',
         component: UserHomeComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_USER'
+        }
+      },
+      {
+        path: 'user/flights',
+        component: UserFlightsComponent,
         canActivate: [AuthGuard],
         data: {
           role: 'ROLE_USER'

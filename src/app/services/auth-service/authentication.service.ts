@@ -26,10 +26,10 @@ export class AuthenticationService {
   public getCurrentAccount = new Subject();
  
   constructor(private http: HttpClient,public router: Router) {
-    const AuthBaseUrl = environment.apiUrl
-    this.authUrl = AuthBaseUrl+'Authentication';
-    this.userUrl = AuthBaseUrl+'User';
-    this.adminUrl = AuthBaseUrl+'Admin';
+    const AuthBaseUrl = environment.authUrl
+    this.authUrl = AuthBaseUrl+'authentication';
+    this.userUrl = AuthBaseUrl+'user';
+    this.adminUrl = AuthBaseUrl+'admin';
   }
 
  
