@@ -6,13 +6,13 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
-import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminFlightComponent } from './components/admin-flight/admin-flight.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
 import { AdminAircraftFormComponent } from './components/admin-aircraft-form/admin-aircraft-form.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminAircraftTypeFormComponent } from 'src/app/components/admin-aircraftType-form/admin-aircraftType-form.component';  
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
-import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
+import { AdminAirportComponent } from './components/admin-airport/admin-airport.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
 import {AdminSignupComponent} from './components/admin-signup/admin-signup.component';
 import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
@@ -66,7 +66,7 @@ const routes: Routes = [
       },
       {
         path: 'admin/flights',
-        component: AdminFlightsComponent,
+        component: AdminFlightComponent,
         canActivate: [AuthGuard],
         data: {
           role: 'ROLE_ADMIN'
@@ -105,7 +105,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'admin/flights/form',
+        path: 'admin/flight/form',
         component: AdminFlightFormComponent,
         canActivate: [AuthGuard],
         data: {
@@ -113,8 +113,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'admin/airports',
-        component: AdminAirportsComponent,
+        path: 'admin/airport',
+        component: AdminAirportComponent,
         canActivate: [AuthGuard],
         data: {
           role: 'ROLE_ADMIN'
@@ -154,7 +154,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'user/flights',
+        path: 'user/flight',
         component: UserFlightsComponent,
         canActivate: [AuthGuard],
         data: {

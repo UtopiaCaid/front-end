@@ -4,15 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminAirportServiceService as AdminAirportService } from 'src/app/services/admin-airport-service/admin-airport-service.service';
 
 @Component({
-  selector: 'app-admin-airports-form',
-  templateUrl: './admin-airports-form.component.html',
-  styleUrls: ['./admin-airports-form.component.css']
+  selector: 'app-admin-airport-form',
+  templateUrl: './admin-airport-form.component.html',
+  styleUrls: ['./admin-airport-form.component.css']
 })
-export class AdminAirportsFormComponent implements OnInit {
+export class AdminAirportFormComponent implements OnInit {
 
   constructor(
     private AirportService: AdminAirportService,
-    public dialogRef: MatDialogRef<AdminAirportsFormComponent>,
+    public dialogRef: MatDialogRef<AdminAirportFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 

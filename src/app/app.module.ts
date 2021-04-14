@@ -20,23 +20,25 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
-import { AdminFlightsComponent } from './components/admin-flights/admin-flights.component';
+import { AdminFlightComponent } from './components/admin-flight/admin-flight.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
 import { AdminAircraftFormComponent } from './components/admin-aircraft-form/admin-aircraft-form.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminAircraftTypeFormComponent } from './components/admin-aircraftType-form/admin-aircraftType-form.component';
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { fromEventPattern } from 'rxjs';
-import { AdminAirportsComponent } from './components/admin-airports/admin-airports.component';
+import { AdminAirportComponent } from './components/admin-airport/admin-airport.component';
 import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
 import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
-import { AdminAirportsFormComponent } from './components/admin-airports-form/admin-airports-form.component';
+import { AdminAirportFormComponent } from './components/admin-airport-form/admin-airport-form.component';
 import { AdminSignupComponent } from './components/admin-signup/admin-signup.component';
 import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserFlightsComponent } from './components/user-flights/user-flights.component';
+import { AdminAccountComponent } from './components/admin-account/admin-account.component';
+import { AdminAccountFormComponent } from './components/admin-account-form/admin-account-form.component';
 
 
 
@@ -53,17 +55,19 @@ import { UserFlightsComponent } from './components/user-flights/user-flights.com
     SignupComponent,
     ProfileComponent,
     AdminHomeComponent,
-    AdminFlightsComponent,
+    AdminFlightComponent,
+    AdminFlightFormComponent,
     AdminAircraftComponent,
     AdminAircraftFormComponent,
     AdminAircraftTypeComponent,
     AdminAircraftTypeFormComponent,
-    AdminFlightFormComponent,
-    AdminAirportsComponent,
+    AdminAirportComponent,
+    AdminAirportFormComponent,
+    AdminAccountComponent,
+    AdminAccountFormComponent,
     DeleteCheckFlightsComponent,
     DeleteCheckAircraftComponent,
     EditAccountComponent,
-    AdminAirportsFormComponent,
     AdminSignupComponent,
     AdminEditAccountComponent,
     AdminProfileComponent,
