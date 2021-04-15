@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,17 +20,20 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightComponent } from './components/admin-flight/admin-flight.component';
+import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
 import { AdminAircraftComponent } from './components/admin-aircraft/admin-aircraft.component';
 import { AdminAircraftFormComponent } from './components/admin-aircraft-form/admin-aircraft-form.component';
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminAircraftTypeFormComponent } from './components/admin-aircraftType-form/admin-aircraftType-form.component';
-import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
-import { fromEventPattern } from 'rxjs';
 import { AdminAirportComponent } from './components/admin-airport/admin-airport.component';
-import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
-import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
-import { EditAccountComponent } from './components/edit-account/edit-account.component';
 import { AdminAirportFormComponent } from './components/admin-airport-form/admin-airport-form.component';
+import { AdminTravelerComponent } from './components/admin-traveler/admin-traveler.component';
+import { AdminTravelerFormComponent } from './components/admin-traveler-form/admin-traveler-form.component';
+import { DeleteCheckAccountComponent } from './components/delete-checks/delete-check-account/delete-check-account.component';
+import { DeleteCheckAircraftComponent } from './components/delete-checks/delete-check-aircraft/delete-check-aircraft.component';
+import { DeleteCheckFlightsComponent } from './components/delete-checks/delete-check-flights/delete-check-flights.component';
+import { DeleteCheckTravelerComponent } from './components/delete-checks/delete-check-traveler/delete-check-traveler.component';
+import { EditAccountComponent } from './components/edit-account/edit-account.component';
 import { AdminSignupComponent } from './components/admin-signup/admin-signup.component';
 import { AdminEditAccountComponent } from './components/admin-edit-account/admin-edit-account.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
@@ -39,6 +41,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserFlightsComponent } from './components/user-flights/user-flights.component';
 import { AdminAccountComponent } from './components/admin-account/admin-account.component';
 import { AdminAccountFormComponent } from './components/admin-account-form/admin-account-form.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -65,8 +68,12 @@ import { AdminAccountFormComponent } from './components/admin-account-form/admin
     AdminAirportFormComponent,
     AdminAccountComponent,
     AdminAccountFormComponent,
+    AdminTravelerComponent,
+    AdminTravelerFormComponent,
     DeleteCheckFlightsComponent,
     DeleteCheckAircraftComponent,
+    DeleteCheckAccountComponent,
+    DeleteCheckTravelerComponent,
     EditAccountComponent,
     AdminSignupComponent,
     AdminEditAccountComponent,
@@ -76,6 +83,7 @@ import { AdminAccountFormComponent } from './components/admin-account-form/admin
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     //  NgbModule,
     HttpClientModule,

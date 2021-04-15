@@ -18,8 +18,15 @@ export class DeleteCheckAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isAdmin() {
+    return this.data.row.role.roleId == 1 ? true : false;
+  }
   public onDelete() {
-    this.AccountService.deleteAccount(this.data.row.accountId);
+    if(this.data.row.role.roleId == 1) {
+      console.log("Cannot delete admin");
+    } else {
+      this.AccountService.deleteAccount(this.data.row.accountId);
+    }
     this.dialogRef.close();
   }
 

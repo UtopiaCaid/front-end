@@ -17,7 +17,7 @@ import { ViewChild } from '@angular/core';
 export class AdminAccountComponent implements OnInit {
 
   ELEMENT_DATA!: AccountData[];
-  displayedColumns: string[] = ['accountNumber', 'roleType', 'username', 'email', 'password', 'dateCreated'];
+  displayedColumns: string[] = ['accountNumber', 'roleType', 'username', 'email', 'password', 'dateCreated', 'action'];
   dataSource = new MatTableDataSource<AccountData>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator)

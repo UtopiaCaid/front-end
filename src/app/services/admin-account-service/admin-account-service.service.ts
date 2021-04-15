@@ -8,6 +8,9 @@ export class AdminAccountServiceService {
 
   constructor(private http: HttpClient) { }
 
+  public retrieveUserAccounts() {
+    return this.http.get('http://localhost:8080/Account/User');
+  }
   public retrieveAccounts() {
     return this.http.get('http://localhost:8080/Account');
   }

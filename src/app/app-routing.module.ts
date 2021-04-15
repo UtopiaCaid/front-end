@@ -12,6 +12,8 @@ import { AdminAircraftFormComponent } from './components/admin-aircraft-form/adm
 import { AdminAircraftTypeComponent } from './components/admin-aircraftType/admin-aircraftType.component';
 import { AdminAircraftTypeFormComponent } from 'src/app/components/admin-aircraftType-form/admin-aircraftType-form.component';  
 import { AdminFlightFormComponent } from './components/admin-flight-form/admin-flight-form.component';
+import { AdminTravelerComponent } from './components/admin-traveler/admin-traveler.component';
+import { AdminTravelerFormComponent } from './components/admin-traveler-form/admin-traveler-form.component';
 import { AdminAirportComponent } from './components/admin-airport/admin-airport.component';
 import { EditAccountComponent } from './components/edit-account/edit-account.component';
 import {AdminSignupComponent} from './components/admin-signup/admin-signup.component';
@@ -120,6 +122,22 @@ const routes: Routes = [
           role: 'ROLE_ADMIN'
         }
       },
+      {
+      path: 'admin/traveler',
+      component: AdminTravelerComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: 'ROLE_ADMIN'
+      }
+      },
+      {
+        path: 'admin/traveler/form',
+        component: AdminTravelerFormComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_ADMIN'
+        }
+        },
       {
         path: 'admin/signup',
         component: AdminSignupComponent,

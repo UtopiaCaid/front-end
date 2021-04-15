@@ -1,0 +1,72 @@
+<mat-card class="card">
+    <form class="form-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Account</mat-label>
+            <mat-select [(ngModel)]="selectedAccount" name="account" [compareWith]="compareFunctionAccount" required>
+                <mat-option *ngFor="let account of accounts" [value]="account">
+                    {{account.username}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="accountCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>First Name </mat-label>
+            <input matInput [formControl]="firstName" type="string" required>
+            <mat-error *ngIf="firstName.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Middle Name (optional) </mat-label>
+            <input matInput [formControl]="middleName" type="string">
+            <mat-error *ngIf="middleName.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> Last Name </mat-label>
+            <input matInput [formControl]="lastName" type="string" required>
+            <mat-error *ngIf="lastName.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="dob" readonly required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="dob" #picker></mat-datepicker>
+            <mat-error *ngIf="dob.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        
+        <mat-form-field appearance="fill">
+            <mat-label> Gender </mat-label>
+            <input matInput [formControl]="gender" type="string" required>
+            <mat-error *ngIf="gender.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>KTN (optional)</mat-label>
+            <input matInput [formControl]="knownTravelerNumber" type="number">
+            <mat-error *ngIf="knownTravelerNumber.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>
