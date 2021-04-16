@@ -37,6 +37,10 @@ import { AdminEditAccountComponent } from './components/admin-edit-account/admin
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserFlightsComponent } from './components/user-flights/user-flights.component';
+import { UserTicketFormComponent } from './components/user-ticket-form/user-ticket-form.component';
+import { UserCheckoutComponent } from './components/user-checkout/user-checkout.component';
+import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
+import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
 
 
 
@@ -68,7 +72,11 @@ import { UserFlightsComponent } from './components/user-flights/user-flights.com
     AdminEditAccountComponent,
     AdminProfileComponent,
     UserHomeComponent,
-    UserFlightsComponent
+    UserFlightsComponent,
+    UserTicketFormComponent,
+    UserCheckoutComponent,
+    UserTicketHistoryComponent,
+    UserFlightHistoryComponent
   ],
   imports: [
     BrowserModule,

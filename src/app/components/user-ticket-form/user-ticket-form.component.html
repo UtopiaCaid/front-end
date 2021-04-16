@@ -1,0 +1,72 @@
+<!-- <p>user-ticket-form works!</p> -->
+<mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
+        <h2>Ticket for flight</h2>
+        <h1> -------------<strong>Flight Information</strong> -------------</h1>
+        <h1 *ngIf="this.userFlightReports.flightNo">
+           <strong>Flight no:</strong>  {{this.userFlightReports.flightNo}}<br>
+           <strong>Flight gate:</strong>  {{this.userFlightReports.flightGate}}<br>
+           <strong>Depature:</strong>  {{this.userFlightReports.departure}}<br>
+           <strong>From:</strong>  {{this.userFlightReports.airportArrival.city}}<br>
+           <strong>To:</strong>  {{this.userFlightReports.airportDeparture.city}}<br>
+           <strong>Arrival:</strong>  {{this.userFlightReports.arrival}}<br>
+        </h1>
+        <h1 *ngIf="!this.userFlightReports.flightNo">Flight no: null, Flight gate: null Depature: null Arrival: null</h1>
+        <h1> -------------<strong>Ticket Holder Information</strong> -------------</h1>
+        <mat-error *ngIf="this.wrongCred">
+          wrong cred
+        </mat-error>
+        <mat-form-field class="full-width-input">
+            <mat-error>
+              Please provide a valid Name (no numbers/symbols and is  2-40 chars long)
+            </mat-error>
+          <input matInput placeholder="Travelers Name" formControlName="name" 
+          value="{{this.currentUser.name}}" required>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Account Name" formControlName="username"
+          value="{{this.currentUser.username}}"   readonly>
+          <mat-error>
+            Please provide a valid username (at least 5 chars no more than 30)
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" formControlName="email"
+          value="{{this.currentUser.email}}">
+          <mat-error>
+            Please provide a valid email address (example@email.com)
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <mat-error>
+              Please provide a valid phone number (Numbers only. 7-10 digits long.)
+          </mat-error>
+          <input matInput placeholder="Phone number" formControlName="phone"
+          value="{{this.currentUser.phone}}" >
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Flight Class</mat-label>
+        <mat-select name="flightClass"  required>
+            <mat-option  value="First Class">
+               First Class
+            </mat-option>
+            <mat-option value="Second Class" >
+                Second Class
+             </mat-option>
+             <mat-option value="Coach"  >
+                Coach
+             </mat-option>
+        </mat-select>
+    </mat-form-field>
+      <br>
+  
+        
+        <p><Strong>Price:</Strong> ${{this.userFlightReports.basePrice}} </p>
+     
+      <br>
+        <button disabled={{!this.form.valid}} mat-raised-button color="primary"><mat-icon>airplane_ticket</mat-icon>Add Ticket</button>
+      </form>
+    </mat-card-content>
+  </mat-card>

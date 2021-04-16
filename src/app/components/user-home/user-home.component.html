@@ -1,7 +1,11 @@
 <div>
     <mat-tab-group>  
 
-        <mat-tab label="Home">
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>cottage</mat-icon>
+                <span>Home</span>
+            </ng-template>
             <ng-template matTabContent>
                 <h2 class="mb-4">User Home</h2>
                 <p><strong>AccountNumber:</strong> {{this.currentUser.accountNumber}}</p>
@@ -10,19 +14,41 @@
                 <p><strong>Email:</strong> {{this.currentUser.email}}</p>
             </ng-template>
         </mat-tab>
-        <mat-tab label="Flights">
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>flight</mat-icon>
+                <span>Flights</span>
+            </ng-template>
             <ng-template matTabContent>
               <app-user-flights></app-user-flights>
             </ng-template>
         </mat-tab>
-        <mat-tab label="Tickets">
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>airplane_ticket</mat-icon>
+                <span>Ticket History</span>
+            </ng-template>
             <ng-template matTabContent>
-                <p>Ticket History Here</p>
+                <app-user-ticket-history></app-user-ticket-history>
             </ng-template>
         </mat-tab>
-        <mat-tab label="Help">
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>flight_land</mat-icon>
+                <span>Flight History</span>
+            </ng-template>
             <ng-template matTabContent>
-            <p>Help yourself</p>
+                <app-user-flight-history></app-user-flight-history>
+            </ng-template>
+        </mat-tab>
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>shopping_basket</mat-icon>
+                <span>Checkout( {{this.currentCart.length||0}} )</span>
+            </ng-template>
+            
+            <ng-template matTabContent>
+            <app-user-checkout></app-user-checkout>
             </ng-template>
         </mat-tab>
     </mat-tab-group>

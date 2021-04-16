@@ -1,0 +1,55 @@
+
+    <div class="mat-elevation-z8">
+        <table class="w-100" mat-table [dataSource]="dataSource" *ngIf="(this.hasFlightHistroy)">
+    
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Traveler's Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="flightNo">
+                <th mat-header-cell *matHeaderCellDef> Flight No </th>
+                <td mat-cell *matCellDef="let element"> {{element.flightNo}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="flightGate">
+                <th mat-header-cell *matHeaderCellDef> Flight Gate </th>
+                <td mat-cell *matCellDef="let element"> {{element.flightGate}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="departure">
+                <th mat-header-cell *matHeaderCellDef> Departure </th>
+                <td mat-cell *matCellDef="let element"> {{element.departure}} </td>
+            </ng-container>
+    
+    
+            <ng-container matColumnDef="arrival">
+                <th mat-header-cell *matHeaderCellDef> Arrival </th>
+                <td mat-cell *matCellDef="let element"> {{element.arrival}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let element"> ${{element.price}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Options </th>
+                <mat-cell *matCellDef="let row">
+                    <button mat-icon-button color="primary" (click)="deleteTicket()">
+                        <mat-icon>history_edu</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div *ngIf="!(this.hasFlightHistroy)">
+            <h2> No Ticket History Yet</h2>
+        </div>
+        <!-- <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator> -->
+    </div>
+
