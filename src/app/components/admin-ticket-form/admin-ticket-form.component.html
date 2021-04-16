@@ -1,0 +1,89 @@
+<mat-card class="card">
+    <form class="form-container">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Confirmation Count </mat-label>
+            <input matInput [formControl]="confirmationCode" type="number" required>
+            <mat-error *ngIf="confirmationCode.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Flight</mat-label>
+            <mat-select [(ngModel)]="selectedFlight" name="flight" [compareWith]="compareFunctionFlight" required>
+                <mat-option *ngFor="let flight of flights" [value]="flight">
+                    {{flight.flightNo}} : {{flight.flightGate}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="flightCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Traveler</mat-label>
+            <mat-select [(ngModel)]="selectedTraveler" name="traveler" [compareWith]="compareFunctionTraveler" required>
+                <mat-option *ngFor="let traveler of travelers" [value]="traveler">
+                    {{traveler.firstName}} {{traveler.lastName}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="travelerCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Payment</mat-label>
+            <mat-select [(ngModel)]="selectedPayment" name="payment" [compareWith]="compareFunctionPayment" required>
+                <mat-option *ngFor="let payment of payments" [value]="payment">
+                    {{payment.paymentId}}: ({{payment.dateProcessed}})
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="paymentCheck.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        /*
+        ticketNo: number;
+        confirmationCode: number,
+        flight: object;
+        traveler: object;
+        payment: object;
+        ticketPrice: number;
+        ticketClass: number;
+        dateIssued: string;
+      */
+
+        <mat-form-field appearance="fill">
+            <mat-label>Ticket Price </mat-label>
+            <input matInput [formControl]="ticketPrice" type="number" required>
+            <mat-error *ngIf="ticketPrice.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> Ticket Class </mat-label>
+            <input matInput [formControl]="ticketClass" type="number" required>
+            <mat-error *ngIf="ticketClass.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Date Issued</mat-label>
+            <input matInput [formControl]="dateIssued" type="number" required>
+            <mat-error *ngIf="dateIssued.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>

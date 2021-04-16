@@ -1,5 +1,5 @@
 export interface TicketData {
-    aircraftId: number;
+    ticketNo: number;
     confirmationCode: number,
     flight: object;
     traveler: object;
