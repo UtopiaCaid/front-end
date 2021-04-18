@@ -5,7 +5,7 @@
             <mat-label>Confirmation Count </mat-label>
             <input matInput [formControl]="confirmationCode" type="number" required>
             <mat-error *ngIf="confirmationCode.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(1)}}
             </mat-error>
         </mat-form-field>
 
@@ -17,7 +17,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="flightCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(2)}}
             </mat-error>
         </mat-form-field>
 
@@ -29,7 +29,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="travelerCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(3)}}
             </mat-error>
         </mat-form-field>
 
@@ -41,42 +41,36 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="paymentCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(4)}}
             </mat-error>
         </mat-form-field>
-
-        /*
-        ticketNo: number;
-        confirmationCode: number,
-        flight: object;
-        traveler: object;
-        payment: object;
-        ticketPrice: number;
-        ticketClass: number;
-        dateIssued: string;
-      */
-
         <mat-form-field appearance="fill">
             <mat-label>Ticket Price </mat-label>
             <input matInput [formControl]="ticketPrice" type="number" required>
             <mat-error *ngIf="ticketPrice.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(5)}}
             </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label> Ticket Class </mat-label>
-            <input matInput [formControl]="ticketClass" type="number" required>
+            <mat-label>Ticket Class</mat-label>
+            <mat-select [formControl]="ticketClass" required>
+                <mat-option [value] = 1> First Class </mat-option>
+                <mat-option [value] = 2> Second Class </mat-option>
+                <mat-option [value] = 3> Third Class </mat-option>
+            </mat-select>
             <mat-error *ngIf="ticketClass.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(6)}}
             </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Date Issued</mat-label>
-            <input matInput [formControl]="dateIssued" type="number" required>
+            <input matInput [matDatepicker]="picker2" [formControl]="dateIssued" readonly required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
             <mat-error *ngIf="dateIssued.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(7)}}
             </mat-error>
         </mat-form-field>
 

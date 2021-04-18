@@ -53,7 +53,7 @@ export class AdminAccountServiceService {
 
   public deleteAccount(accountNumber: number) {
     let deleteData = {
-      accountNumber: accountNumber,
+      "accountNumber": accountNumber,
     }
 
     let options = {
@@ -64,6 +64,17 @@ export class AdminAccountServiceService {
     }
 
     this.http.delete('http://localhost:8080/Account', options).toPromise()
+      .then(data => console.log(data)).catch(e => console.log(e));
+  }
+
+  public deactivateAccount(accountNumber: number) {
+    console.log("Account number = " + accountNumber);
+    let updateData = {
+      "accountNumber": accountNumber
+    }
+
+    let body = updateData;
+    this.http.put('http://localhost:8080/Account/Deactivation', body).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }

@@ -96,20 +96,35 @@ export class AdminTicketFormComponent implements OnInit {
     return o1 && o2 ? o1.paymentId === o2.paymentId : o1 === o2;
   }
 
-  confirmationCode = new FormControl(0, [Validators.required]);
-  ticketPrice = new FormControl(0, [Validators.required]);
-  ticketClass = new FormControl(0, [Validators.required]);
+  confirmationCode = new FormControl(0, [Validators.required, Validators.min(0)]);
+  ticketPrice = new FormControl(0, [Validators.required, Validators.min(0)]);
+  ticketClass = new FormControl('', [Validators.required]);
   dateIssued = new FormControl('', [Validators.required]);
   paymentCheck = new FormControl(this.payments, [Validators.required]);
   travelerCheck = new FormControl(this.travelers, [Validators.required]);
   flightCheck = new FormControl(this.flights, [Validators.required]);
 
-  getErrorMessage() {
-    return this.ticketPrice.hasError('required') ? 'you must enter a ticket price' :
-      this.ticketClass.hasError('required') ? 'you must enter a ticket class' :
-        this.paymentCheck.hasError('required') ? 'you must select a payment' :
-          this.flightCheck.hasError('required') ? 'you must select a flight' :
-             this.travelerCheck.hasError('required') ? 'you must select a traveler' : ''
+  getErrorMessage(number : number) {
+    switch(number) {
+      case 1:
+        return this.confirmationCode.hasError('required') ? 'you must enter a confirmation code' :
+        this.confirmationCode.hasError('min') ? 'confirmation code must be non-negative' : 'error'
+      case 2:
+        return this.flightCheck.hasError('required') ? 'you must select a flight' : 'error';
+      case 3:
+        return this.travelerCheck.hasError('required') ? 'you must select a traveler' : 'error'
+      case 4:
+        return this.paymentCheck.hasError('required') ? 'you must select a payment' : 'error'
+      case 5:
+        return this.ticketPrice.hasError('required') ? 'you must enter a ticket price' :
+        this.ticketPrice.hasError('min') ? 'the ticket price must be non-negative' : 'error'
+      case 6:
+        return this.ticketClass.hasError('required') ? 'you must enter a ticket class' : 'error';
+      case 7:
+        return this.dateIssued.hasError('required') ? 'you must enter a date issued' : 'error';
+      default:
+        return 'an unprocessed error has occurred';
+    }
   }
 
   public populate() {
@@ -123,6 +138,7 @@ export class AdminTicketFormComponent implements OnInit {
       this.flightCheck.setValue(this.data.row.flightCheck);
       this.selectedFlight = this.data.row.flight;
       this.selectedTraveler = this.data.row.traveler;
+      this.selectedPayment = this.data.row.payment;
 
     }
   }
@@ -131,12 +147,16 @@ export class AdminTicketFormComponent implements OnInit {
     if (
       this.selectedFlight == undefined ||
       this.selectedTraveler == undefined ||
+      this.selectedPayment == undefined ||
       this.ticketPrice.hasError('required') ||
       this.ticketClass.hasError('required') ||
       this.dateIssued.hasError('required')
     ) {
       alert('Please insert the required fields')
-    } else if (this.data) {
+    } else if(this.ticketPrice.hasError('min')) {
+      alert('Ticket price must be non-negative');
+    } 
+    else if (this.data) {
       this.TicketService.updateTicket(
         this.data.row.ticketNo,
         this.selectedFlight,
@@ -158,7 +178,7 @@ export class AdminTicketFormComponent implements OnInit {
         this.ticketClass.value,
         this.dateIssued.value
       );
-      this.dialogRef.close();
+        this.dialogRef.close();
     }
   }
 }

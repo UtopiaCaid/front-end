@@ -8,7 +8,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="accountCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(6)}}
             </mat-error>
         </mat-form-field>
 
@@ -16,7 +16,7 @@
             <mat-label>First Name </mat-label>
             <input matInput [formControl]="firstName" type="string" required>
             <mat-error *ngIf="firstName.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(1)}}
             </mat-error>
         </mat-form-field>
 
@@ -24,7 +24,7 @@
             <mat-label>Middle Name (optional) </mat-label>
             <input matInput [formControl]="middleName" type="string">
             <mat-error *ngIf="middleName.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(2)}}
             </mat-error>
         </mat-form-field>
 
@@ -32,7 +32,7 @@
             <mat-label> Last Name </mat-label>
             <input matInput [formControl]="lastName" type="string" required>
             <mat-error *ngIf="lastName.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(3)}}
             </mat-error>
         </mat-form-field>
 
@@ -42,7 +42,7 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker [startAt]="dob" #picker></mat-datepicker>
             <mat-error *ngIf="dob.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(5)}}
             </mat-error>
         </mat-form-field>
 
@@ -51,7 +51,7 @@
             <mat-label> Gender </mat-label>
             <input matInput [formControl]="gender" type="string" required>
             <mat-error *ngIf="gender.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(4)}}
             </mat-error>
         </mat-form-field>
         
@@ -59,7 +59,7 @@
             <mat-label>KTN (optional)</mat-label>
             <input matInput [formControl]="knownTravelerNumber" type="number">
             <mat-error *ngIf="knownTravelerNumber.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(7)}}
             </mat-error>
         </mat-form-field>
 

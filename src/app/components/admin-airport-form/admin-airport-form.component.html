@@ -5,7 +5,7 @@
             <mat-label>Airport Code</mat-label>
             <input matInput [formControl]="airportCode" type="number" required>
             <mat-error *ngIf="airportCode.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(1)}}
             </mat-error>
         </mat-form-field>
 
@@ -13,7 +13,7 @@
             <mat-label>City</mat-label>
             <input matInput [formControl]="city" required>
             <mat-error *ngIf="city.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(2)}}
             </mat-error>
         </mat-form-field>
 
@@ -21,7 +21,7 @@
             <mat-label>Airport name</mat-label>
             <input matInput [formControl]="airportName" required>
             <mat-error *ngIf="airportName.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(3)}}
             </mat-error>
         </mat-form-field>
 
@@ -33,7 +33,7 @@
                 <mat-option value="Closed"> Closed </mat-option>
             </mat-select>
             <mat-error *ngIf="status.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(4)}}
             </mat-error>
         </mat-form-field>
 

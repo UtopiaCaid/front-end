@@ -9,6 +9,7 @@ export class AdminTicketServiceService {
   constructor(private http: HttpClient) { }
 
   public retrieveTickets() {
+    console.log("retrieveTickets");
     return this.http.get('http://localhost:8080/Ticket');
   }
 

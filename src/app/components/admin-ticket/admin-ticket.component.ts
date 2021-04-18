@@ -6,6 +6,7 @@ import { TicketData } from 'src/app/services/admin-ticket-service/ticket-data';
 import { AdminTicketFormComponent } from '../admin-ticket-form/admin-ticket-form.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DeleteCheckTicketComponent } from '../delete-checks/delete-check-ticket/delete-check-ticket.component';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-admin-ticket',

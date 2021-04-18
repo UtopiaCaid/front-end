@@ -20,16 +20,29 @@ export class AdminAirportFormComponent implements OnInit {
     this.populate();
   }
 
-  airportCode = new FormControl(0, [Validators.required]);
-  city = new FormControl('', [Validators.required]);
-  airportName = new FormControl('', [Validators.required]);
+  airportCode = new FormControl(0, [Validators.required, Validators.min(0)]);
+  city = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]);
+  airportName = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]);
   status = new FormControl('', [Validators.required]);
 
-  getErrorMessage() {
-    return this.airportCode.hasError('required') ? 'you must enter a airport Code' :
-      this.city.hasError('required') ? 'you must a city' :
-        this.airportName.hasError('required') ? 'you must enter a airport name' :
-          this.status.hasError('required') ? 'you must enter a status' : '';
+  getErrorMessage(number : number) {
+    switch(number) {
+      case 1:
+        return this.airportCode.hasError('required') ? 'you must enter a airport Code' :
+        this.airportCode.hasError('min') ? 'Airport Code must be Non-Negative' : 'error';
+      case 2:
+        return this.city.hasError('required') ? 'you must a city' :
+        this.city.hasError('minLength') ? 'the city minimum length is 3 characters' :
+        this.city.hasError('maxLength') ? 'the city maximum length is 45 characters' : 'error';
+      case 3:
+        return this.airportName.hasError('required') ? 'you must enter a airport name' :
+        this.airportName.hasError('minLength') ? 'the airport name minimum length is 3 characters' :
+        this.airportName.hasError('maxLength') ? 'the airport maximum length is 45 characters' : 'error'
+      case 4:
+        return this.status.hasError('required') ? 'you must enter a status' : 'error';
+      default:
+        return 'unprocessed error '
+    }
   }
 
   public populate() {
@@ -48,6 +61,12 @@ export class AdminAirportFormComponent implements OnInit {
       this.airportName.hasError('required') ||
       this.status.hasError('required')) {
       alert('Please insert the required fields')
+    } else if(
+      this.airportCode.hasError('min') ||
+      this.city.hasError('minLength') || this.city.hasError('maxLength') ||
+      this.airportName.hasError('minLength') || this.airportName.hasError('maxLength')
+      ) {
+        alert('Invalid Field Value(s)');
     } else if (this.data) {
       this.AirportService.updateAirport(
         this.data.row.airportId,

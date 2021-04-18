@@ -15,7 +15,7 @@ import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-fligh
 export class AdminFlightComponent implements OnInit {
 
   ELEMENT_DATA!: FlightReports[];
-  displayedColumns: string[] = ['flightNo', 'flightGate', 'departure', 'arrival', 'status', 'action'];
+  displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'action'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
 
   constructor(

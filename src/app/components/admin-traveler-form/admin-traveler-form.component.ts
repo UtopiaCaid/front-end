@@ -48,21 +48,38 @@ export class AdminTravelerFormComponent implements OnInit {
     return o1 && o2 ? o1.accountId === o2.accountId : o1 === o2;
   }
 
-  firstName = new FormControl('', [Validators.required]);
+  firstName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]);
   dob = new FormControl(0, [Validators.required]);
-  middleName = new FormControl('', [Validators.minLength(2), Validators.maxLength(45)]);
-  lastName = new FormControl('', [Validators.required]);
+  middleName = new FormControl('', [Validators.minLength(1), Validators.maxLength(45)]);
+  lastName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]);
   gender = new FormControl('', [Validators.minLength(1), Validators.maxLength(1)]);
-  knownTravelerNumber = new FormControl(0, Validators.min(0));
+  knownTravelerNumber = new FormControl(0, [Validators.min(0)]);
   accountCheck = new FormControl(this.accounts, [Validators.required]);
 
-  getErrorMessage() {
-    return this.accountCheck.hasError('required') ? 'you must enter an account' :
-      this.firstName.hasError('required') ? 'you must enter a first name' :
-        this.dob.hasError('required') ? 'you must enter a date of birth' :
-          this.lastName.hasError('required') ? 'you must enter a last name' :
-            this.gender.hasError('required') ? 'you must enter a gender' : '';
-  }
+  getErrorMessage(number : number) {
+    switch(number) {
+      case 1:
+        return this.firstName.hasError('required') ? 'you must enter a first name' : 
+        this.firstName.hasError('minlength') ? 'you must enter a first name' :
+        this.firstName.hasError('maxlength') ? 'first name length limit exceeded' : '';
+      case 2:
+        return this.middleName.hasError('maxlength') ? 'middle name length limit exceeded' : '';
+      case 3:
+        return this.lastName.hasError('required') ? 'you must enter a last name' :
+        this.lastName.hasError('minlength') ? 'you must enter a last name' :
+        this.lastName.hasError('maxlength') ? 'last name length limit exceeded' : '';
+      case 4:
+        return this.gender.hasError('required') ? 'you must enter a gender' : '';
+      case 5:
+        return this.dob.hasError('required') ? 'you must enter a date of birth' : ''
+      case 6:
+        return this.accountCheck.hasError('required') ? 'you must enter an account' : '';
+      case 7:
+        return this.knownTravelerNumber.hasError('min') ? 'Known Traveler Number must be Non-Negative' : '';  
+      default:
+        return 'form error';
+    }
+}
 
   public populate() {
     if (this.data) {
@@ -87,7 +104,15 @@ export class AdminTravelerFormComponent implements OnInit {
       this.dob.hasError('required')
     ) {
       alert('Please insert the required fields')
-    } else if (this.data) {
+    } else if (
+      this.firstName.hasError('minlength') ||
+      this.firstName.hasError('maxlength') ||
+      this.middleName.hasError('maxlength') ||
+      this.lastName.hasError('minlength') ||
+      this.lastName.hasError('maxlength') 
+    ) {
+      alert('Invalid Field Value(s)'); 
+    }else if (this.data) {
       this.TravelerService.updateTraveler(
         this.data.row.travelerId,
         this.selectedAccount,

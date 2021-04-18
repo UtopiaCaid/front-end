@@ -26,9 +26,9 @@ export class AdminAccountFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  username = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
+  username = new FormControl("", [Validators.maxLength(30),Validators.minLength(5), Validators.required]);
+  password = new FormControl("", [Validators.maxLength(50),Validators.minLength(3),Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.email]);
   dateCreated = new FormControl('', [Validators.required]);
 
 
@@ -57,9 +57,6 @@ export class AdminAccountFormComponent implements OnInit {
       this.dateCreated.hasError('required')
     ) {
       alert('Please insert the required fields')
-    } else if (this.username.value < this.email.value + this.password.value + this.dateCreated.value) {
-      alert('Number of class seats cannot exceed the total seat count');
-      console.log("Broke");
     } else if (this.data) {
       this.AccountService.updateAccount(
         this.data.row.accountNumber,

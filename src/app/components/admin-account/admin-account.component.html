@@ -1,6 +1,3 @@
-<button mat-raised-button (click)="onCreate()">
-    <mat-icon>add</mat-icon>Create
-</button>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
@@ -38,7 +35,7 @@
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <th mat-header-cell *matHeaderCellDef> Deactivate </th>
             <mat-cell *matCellDef="let row">
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
