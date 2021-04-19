@@ -4,6 +4,45 @@
     <!-- <button mat-raised-button (click)="ticketMenu2()">
         <mat-icon>airplane_ticket</mat-icon>Add Ticket
     </button> -->
+    <div>
+
+   
+    <mat-form-field appearance="fill">
+        <mat-label>Depature date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Arrival date</mat-label>
+        <input matInput [matDatepicker]="picker2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Starting Airport</mat-label>
+        <mat-select name="airports"   (selectionChange)="startAirChange($event)">
+            <!-- <mat-option  value="tempValue">
+               tempValue
+            </mat-option> -->
+            <mat-option *ngFor="let airport of airports" [value]="airport">
+                {{airport.airportName}} {{airport.city}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Ending Airport</mat-label>
+        <mat-select name="endingAirport"   (selectionChange)="endAirChange($event)">
+            <mat-option *ngFor="let airport of airports" [value]="airport">
+                {{airport.airportName}} {{airport.city}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    </div>
+
     <table class="w-100" mat-table [dataSource]="dataSource">
 
         <!-- <button mat-raised-button (click)="addTicket()">

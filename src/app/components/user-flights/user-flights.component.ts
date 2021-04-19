@@ -8,6 +8,17 @@ import {UserTickets} from 'src/app/services/user-flight-service/user-tickets'
 import {UserFlightReports} from "src/app/services/user-flight-service/user-flight-reports"
 import {UserFlightService} from 'src/app/services/user-flight-service/user-flight.service';
 import {UserTicketFormComponent} from 'src/app/components/user-ticket-form/user-ticket-form.component'
+import { MatSelectChange } from '@angular/material/select';
+
+
+
+
+interface Airport {
+  airportCode: number;
+  city: string;
+  airportName: string;
+  status: string;
+}
 
 @Component({
   selector: 'app-user-flights',
@@ -23,10 +34,14 @@ export class UserFlightsComponent implements OnInit {
   displayedColumns: string[] = ['flightNo', 'departure', 'from', "to", 'arrival', 'status', 'price', 'action'];
   dataSource = new MatTableDataSource<UserFlightReports>(this.ELEMENT_DATA);
   ready = "Ready"
+  airports!: Airport[];
+  selectedAirportDep!: {};
+  selectedAirportArr!: {};
   constructor(
      private service: UserFlightService,
     private dialog: MatDialog,
   ) { 
+    this.getAllAirports();
     this.flightReports= {
       flightNo: 1,
       flightGate: "fakeValue",
@@ -41,8 +56,9 @@ export class UserFlightsComponent implements OnInit {
   paginator!: MatPaginator;
 
   ngOnInit(): void {
- 
+    this.getAllAirports();
     this.getAllFlights();
+    this.populate();
     setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
@@ -58,6 +74,11 @@ export class UserFlightsComponent implements OnInit {
       this.dataSource.data = result
       
     });
+  }
+
+  public getAllAirports() {
+    let res = this.service.retrieveAirports();
+    res.subscribe(airport => this.airports = airport as Airport[]);
   }
 
   public addTicket() {
@@ -105,6 +126,20 @@ export class UserFlightsComponent implements OnInit {
       return true
       else
       return false
+
+    }
+
+    public populate() {
+      if (this.dataSource.data) {
+
+      }
+    }
+
+    public startAirChange( event: MatSelectChange){
+
+    }
+
+    public endAirChange( event: MatSelectChange){
 
     }
 

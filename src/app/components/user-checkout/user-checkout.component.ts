@@ -15,7 +15,7 @@ export class UserCheckoutComponent implements OnInit {
   currentCart: Array<UserTickets>;
   userTicket1: UserTickets;
   ELEMENT_DATA!: UserTickets[];
-  displayedColumns: string[] = ['name','flightNo', 'flightGate', 'departure', 'arrival', 'price', 'action'];
+  displayedColumns: string[] = ['name','flightNo', 'flightClass', 'flightGate', 'departure', 'arrival', 'price', 'action'];
   dataSource = new MatTableDataSource<UserTickets>(this.ELEMENT_DATA);
  
 
@@ -34,6 +34,7 @@ export class UserCheckoutComponent implements OnInit {
       name: "null",
       email: "null",
       phone: "null",
+      flightClass: "null",
     }
   }
 
