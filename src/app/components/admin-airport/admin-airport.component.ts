@@ -4,15 +4,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminAirportServiceService as AdminAirportService } from 'src/app/services/admin-airport-service/admin-airport-service.service';
 import { AirportReports } from 'src/app/services/admin-airport-service/airport-reports';
-import { AdminAirportsFormComponent } from '../admin-airports-form/admin-airports-form.component';
+import { AdminAirportFormComponent } from '../admin-airport-form/admin-airport-form.component';
 import { DeleteCheckAirportComponent } from '../delete-checks/delete-check-airport/delete-check-airport.component';
 
 @Component({
-  selector: 'app-admin-airports',
-  templateUrl: './admin-airports.component.html',
-  styleUrls: ['./admin-airports.component.css']
+  selector: 'app-admin-airport',
+  templateUrl: './admin-airport.component.html',
+  styleUrls: ['./admin-airport.component.css']
 })
-export class AdminAirportsComponent implements OnInit {
+export class AdminAirportComponent implements OnInit {
 
   ELEMENT_DATA!: AirportReports[];
   displayedColumns: string[] = ['airportId', 'airportCode', 'city', 'airportName',
@@ -43,7 +43,7 @@ export class AdminAirportsComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
 
-    let dialogRef = this.dialog.open(AdminAirportsFormComponent, {
+    let dialogRef = this.dialog.open(AdminAirportFormComponent, {
       data: {
         row: row
       }
@@ -59,7 +59,7 @@ export class AdminAirportsComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    let dialogRef = this.dialog.open(AdminAirportsFormComponent);
+    let dialogRef = this.dialog.open(AdminAirportFormComponent);
     dialogRef.afterClosed().subscribe(() => {
       this.getAllAirports();
     })

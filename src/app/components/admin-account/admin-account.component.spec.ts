@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminAirportsFormComponent } from './admin-airports-form.component';
+import { AdminAccountComponent } from './admin-account.component';
 
-describe('AdminAirportsFormComponent', () => {
-  let component: AdminAirportsFormComponent;
-  let fixture: ComponentFixture<AdminAirportsFormComponent>;
+describe('AdminAccountComponent', () => {
+  let component: AdminAccountComponent;
+  let fixture: ComponentFixture<AdminAccountComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminAirportsFormComponent ]
+      declarations: [ AdminAccountComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminAirportsFormComponent);
+    fixture = TestBed.createComponent(AdminAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,35 @@
+<mat-card class="card">
+    <form class="form-container">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput [formControl]="username" type="string" required>
+            <mat-error *ngIf="username.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="email" type="string" required>
+            <mat-error *ngIf="email.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label> Password </mat-label>
+            <input matInput [formControl]="password" type="string" required>
+            <mat-error *ngIf="password.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
+        </mat-form-field>
+
+
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
+            Submit
+        </button>
+    </div>
+</mat-card>

@@ -31,6 +31,8 @@ export class UserFlightsComponent implements OnInit {
       flightNo: 1,
       flightGate: "fakeValue",
       departure: "fakeValue",
+      airportDeparture: [], 
+      airportArrival: [],
       arrival: "fakeValue",
       status: "fakeValue",
   }

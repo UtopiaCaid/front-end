@@ -54,6 +54,8 @@ export class UserTicketFormComponent implements OnInit {
     this.flightReports= {
       flightNo: 0,
       flightGate: "null",
+      airportDeparture: [],
+      airportArrival: [],
       departure: "null",
       arrival: "null",
       status: "null",
