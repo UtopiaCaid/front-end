@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
+import {UserTickets} from 'src/app/services/user-flight-service/user-tickets';
+// import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +14,14 @@ export class UserFlightService {
 
   private baseUrl: string;
   private flightsUrl: string;
+  private userAccountUrl: string;
+  public currentUserFlight = new Subject();
+  public currentUserTicket = new Subject();
+  public currentCart = new Subject<UserTickets[]>();
+  public userTickets: UserTickets[] = new Array<UserTickets>();
+  public userHistoryTickets: UserTickets[] = new Array<UserTickets>();
+  public baseOption: {};
+  
 
   constructor(
     private http: HttpClient
@@ -16,69 +29,119 @@ export class UserFlightService {
     const UserBaseUrl = environment.userUrl
     this.baseUrl= UserBaseUrl
     this.flightsUrl = UserBaseUrl+"flights"
+    this.userAccountUrl = UserBaseUrl+"Account"
+    this.baseOption= {
+      "airportDepId": 1,
+      "airportArrId": 2,
+      "flightDepBeginDate": "2021-04-01",
+      "flightDepEndDate": "2021-04-05", 
+      "flightRetBeginDate": "2021-04-19",
+      "flightRetEndDate": "2021-04-25"
   }
+  }
+
+     // Error 
+     handleError(error: HttpErrorResponse) {
+      let msg = '';
+      if (error.error instanceof ErrorEvent) {
+        // client-side error
+        msg = error.error.message;
+      } else {
+        // server-side error
+        msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
+      return throwError(msg);
+    }
 
   public retrieveFlights() {
-    return this.http.get(this.flightsUrl);
+   return this.http.get(this.flightsUrl);
   }
-
-
-
-  public insertFlight(flightGate: string, airportIdDeparture: {},
-    airportIdArrival: {}, aircraft: {}, basePrice: number, departure: string,
-    arrival: string, status: string) {
-
-
-    let postData = {
-      "flightGate": flightGate,
-      "airportDeparture": airportIdDeparture,
-      "airportArrival": airportIdArrival,
-      "aircraft": aircraft,
-      "basePrice": basePrice,
-      "departure": departure,
-      "arrival": arrival,
-      "status": status
-    };
-
-
-    this.http.post(this.flightsUrl, postData).toPromise()
-      .then(data => console.log(data)).catch(e => console.log(e));
-  }
-
-  public updateFlight(
-    flightNo: number, flightGate: string, airportIdDeparture: {},
-    airportIdArrival: {}, aircraft: {}, basePrice: number, departure: string,
-    arrival: string, status: string
-  ) {
-    let updateData = {
-      "flightNo": flightNo,
-      "flightGate": flightGate,
-      "airportDeparture": airportIdDeparture,
-      "airportArrival": airportIdArrival,
-      "aircraft": aircraft,
-      "basePrice": basePrice,
-      "departure": departure,
-      "arrival": arrival,
-      "status": status
-    }
-
-    this.http.put(this.flightsUrl, updateData).toPromise()
-      .then(data => console.log(data)).catch(e => console.log(e));
-  }
-
-  public deleteFlight(flightNo: number) {
-    let deleteData = {
-      flightNo: flightNo,
-    }
-
-    let options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+ 
+  public  retrieveAccountTicketHistory(num: String):Observable<any>  {
+    //testing
+    //num = "1"
+    return this.http.post(this.userAccountUrl+"/Ticket/History",{"accountNumber" : num})
+    .pipe(
+      map<any, any>((res: Response) => {
+        // console.log("Res")
+        // console.log(res)
+        return res || {}
       }),
-      body: deleteData
-    }
-
-    this.http.delete(this.flightsUrl, options).toPromise()
-      .then(data => console.log(data)).catch(e => console.log(e));
+      catchError(this.handleError)
+    )
   }
+
+  public  retrieveAccountFlightHistory(num: String):Observable<any>  {
+    //testing
+    //num = "1"
+    return this.http.post(this.userAccountUrl+"/Flight/History",{"accountNumber" : num})
+    .pipe(
+      map<any, any>((res: Response) => {
+        // console.log("Res")
+        // console.log(res)
+        return res || {}
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+
+
+  
+
+
+  public setCurrentUserFlight( flightReport : FlightReports){
+    this.currentUserFlight.next(flightReport)
+  }
+  public reSetCurrentUserFlight( ){
+    this.currentUserFlight.next(null)
+  }
+
+  public setCurrentUserTicket( userTicket : UserTickets){
+    //this.currentUserTicket.next("Test Test")
+    this.currentUserTicket.next(userTicket)
+  }
+  public reSetCurrentUserTicket(){
+    this.currentUserTicket.next(null)
+  }
+  public setCurrentCart( userTicket : UserTickets){
+
+    if(localStorage.getItem('currentCart'))
+    this.userTickets = JSON.parse(localStorage.getItem('currentCart') || "{}" )
+    this.userTickets.push(userTicket);
+    this.currentCart.next(this.userTickets)
+
+    
+    this.currentUserTicket.next(userTicket)
+ 
+     localStorage.setItem('currentCart', JSON.stringify(this.userTickets));
+    this.currentUserTicket.next();
+
+  }
+
+  public removeFromCurrentCart( userTicket : UserTickets){
+
+    if(localStorage.getItem('currentCart'))
+    this.userTickets = JSON.parse(localStorage.getItem('currentCart') || "{}" )
+    let result = this.userTickets.filter(function(x){
+      if(JSON.stringify(x)===JSON.stringify(userTicket))
+      return false
+      else 
+      return x
+    })
+    this.reSetCurrentCart();
+    this.userTickets = result;
+    this.currentCart.next(result)
+     localStorage.setItem('currentCart', JSON.stringify(this.userTickets));
+    this.currentUserTicket.next();
+  }
+
+
+
+  public reSetCurrentCart(){
+    this.currentCart.next([])
+    this.userTickets= [];
+    localStorage.removeItem('currentCart')
+  }
+
 }

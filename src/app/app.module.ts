@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule} from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { AngularMaterialModule } from './angular-material.module';
@@ -45,6 +46,10 @@ import { UserFlightsComponent } from './components/user-flights/user-flights.com
 import { AdminAccountComponent } from './components/admin-account/admin-account.component';
 import { AdminAccountFormComponent } from './components/admin-account-form/admin-account-form.component';
 import { CommonModule } from '@angular/common';
+import { UserTicketFormComponent } from './components/user-ticket-form/user-ticket-form.component';
+import { UserCheckoutComponent } from './components/user-checkout/user-checkout.component';
+import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
+import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
 
 
 
@@ -85,7 +90,11 @@ import { CommonModule } from '@angular/common';
     AdminEditAccountComponent,
     AdminProfileComponent,
     UserHomeComponent,
-    UserFlightsComponent
+    UserFlightsComponent,
+    UserTicketFormComponent,
+    UserCheckoutComponent,
+    UserTicketHistoryComponent,
+    UserFlightHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +104,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     BrowserAnimationsModule,
     // MatToolbarModule,
-    // MatIconModule,
+    MatIconModule,
     // MatButtonModule,
     // MatSidenavModule,
     // MatListModule
