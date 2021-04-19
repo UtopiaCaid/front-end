@@ -136,11 +136,11 @@ export class UserFlightsComponent implements OnInit {
     }
 
     public startAirChange( event: MatSelectChange){
-
+      this.selectedAirportArr = event.value;
     }
 
     public endAirChange( event: MatSelectChange){
-
+      this.selectedAirportDep = event.value;
     }
 
 }
