@@ -18,6 +18,10 @@ import { SignupComponent } from './components/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightComponent } from './components/admin-flight/admin-flight.component';
@@ -50,7 +54,6 @@ import { UserTicketFormComponent } from './components/user-ticket-form/user-tick
 import { UserCheckoutComponent } from './components/user-checkout/user-checkout.component';
 import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
 import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
-
 
 
 
@@ -100,6 +103,8 @@ import { UserFlightHistoryComponent } from './components/user-flight-history/use
     BrowserModule,
     CommonModule,
     AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
     //  NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -113,7 +118,9 @@ import { UserFlightHistoryComponent } from './components/user-flight-history/use
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule,
+    FlexLayoutModule
   ],
   providers: [
     MatDatepickerModule

@@ -4,7 +4,7 @@
     <!-- <button mat-raised-button (click)="ticketMenu2()">
         <mat-icon>airplane_ticket</mat-icon>Add Ticket
     </button> -->
-    <table class="w-100" mat-table [dataSource]="dataSource">
+    <table class="w-100" mat-table [dataSource]="dataSource" matSort>
 
         <!-- <button mat-raised-button (click)="addTicket()">
             <mat-icon>airplane_ticket</mat-icon>Add Ticket
@@ -14,42 +14,42 @@
         
 
         <ng-container matColumnDef="flightNo">
-            <th mat-header-cell *matHeaderCellDef> Flight No </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight No </th>
             <td mat-cell *matCellDef="let element"> {{element.flightNo}} </td>
         </ng-container>
 
 
 
         <ng-container matColumnDef="departure">
-            <th mat-header-cell *matHeaderCellDef> Departure </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Departure </th>
             <td mat-cell *matCellDef="let element"> {{element.departure}} </td>
         </ng-container>
         <ng-container matColumnDef="from">
-            <th mat-header-cell *matHeaderCellDef> From </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
             <td mat-cell *matCellDef="let element"> {{element.airportArrival.city}} </td>
         </ng-container>
         <ng-container matColumnDef="to">
-            <th mat-header-cell *matHeaderCellDef> To </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> To </th>
             <td mat-cell *matCellDef="let element"> {{element.airportDeparture.city}} </td>
         </ng-container>
         <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>Base  Price </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Base  Price </th>
             <td mat-cell *matCellDef="let element"> ${{element.basePrice}} </td>
         </ng-container>
 
 
         <ng-container matColumnDef="arrival">
-            <th mat-header-cell *matHeaderCellDef> Arrival </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival </th>
             <td mat-cell *matCellDef="let element"> {{element.arrival}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
             <td mat-cell *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef>  </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
             <mat-cell *matCellDef="let row">
                 <button  mat-raised-button (click)="ticketMenu(row)" disabled={{!canBuy(row)}}>
                     <mat-icon>airplane_ticket</mat-icon>Get Ticket

@@ -6,3 +6,8 @@ div {
 table {
     width: 100%;
 }
+
+.header-align-right {
+    text-align: right;
+    justify-content: flex-end;
+  }

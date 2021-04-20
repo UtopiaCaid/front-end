@@ -25,9 +25,9 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserFlightsComponent } from './components/user-flights/user-flights.component';
 import { UserTicketFormComponent } from './components/user-ticket-form/user-ticket-form.component';
-import { UserCheckoutComponent } from './components/user-checkout/user-checkout.component';
-import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
-import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
+import {   } from './components/user-checkout/user-checkout.component';
+//import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
+//import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
 
 import {AuthGuard} from "./guards/auth-guard/auth.guard";
 import {GuestGuard} from "./guards/guest-guard/guest.guard";
