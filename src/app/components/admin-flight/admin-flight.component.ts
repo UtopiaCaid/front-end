@@ -35,8 +35,13 @@ export class AdminFlightComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFlights();
+    //set a new filterPredicate function
+    this.dataSource.filterPredicate = (data: any, filter) => {
+      const dataStr =JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1; 
+    }
   }
-
+  
 ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
   this.dataSource.sort = this.sort;
