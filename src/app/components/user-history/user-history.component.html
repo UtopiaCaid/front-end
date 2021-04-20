@@ -1,0 +1,26 @@
+<div>
+    <mat-tab-group>  
+
+      
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>airplane_ticket</mat-icon>
+                <span>Ticket History</span>
+            </ng-template>
+            <ng-template matTabContent>
+                <app-user-ticket-history></app-user-ticket-history>
+            </ng-template>
+        </mat-tab>
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>flight_land</mat-icon>
+                <span>Flight History</span>
+            </ng-template>
+            <ng-template matTabContent>
+                <app-user-flight-history></app-user-flight-history>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
+    
+</div>

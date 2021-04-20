@@ -50,6 +50,7 @@ import { UserTicketFormComponent } from './components/user-ticket-form/user-tick
 import { UserCheckoutComponent } from './components/user-checkout/user-checkout.component';
 import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
 import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
+import { UserHistoryComponent } from './components/user-history/user-history.component';
 
 
 
@@ -94,7 +95,8 @@ import { UserFlightHistoryComponent } from './components/user-flight-history/use
     UserTicketFormComponent,
     UserCheckoutComponent,
     UserTicketHistoryComponent,
-    UserFlightHistoryComponent
+    UserFlightHistoryComponent,
+    UserHistoryComponent
   ],
   imports: [
     BrowserModule,

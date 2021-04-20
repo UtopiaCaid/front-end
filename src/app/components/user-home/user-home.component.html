@@ -1,19 +1,7 @@
 <div>
     <mat-tab-group>  
 
-        <mat-tab >
-            <ng-template mat-tab-label>
-                <mat-icon>cottage</mat-icon>
-                <span>Home</span>
-            </ng-template>
-            <ng-template matTabContent>
-                <h2 class="mb-4">User Home</h2>
-                <p><strong>AccountNumber:</strong> {{this.currentUser.accountNumber}}</p>
-                <p><strong>User Name:</strong> {{this.currentUser.username}}</p>
-                <p *ngIf="(this.currentUser.roleId)"><strong>Privilage:</strong> {{this.currentUser.roleId.roleType}}</p>
-                <p><strong>Email:</strong> {{this.currentUser.email}}</p>
-            </ng-template>
-        </mat-tab>
+       
         <mat-tab >
             <ng-template mat-tab-label>
                 <mat-icon>flight</mat-icon>
@@ -25,23 +13,16 @@
         </mat-tab>
         <mat-tab >
             <ng-template mat-tab-label>
-                <mat-icon>airplane_ticket</mat-icon>
-                <span>Ticket History</span>
+                <mat-icon>next_week</mat-icon>
+                <span>Your Upcoming Flights</span>
             </ng-template>
             <ng-template matTabContent>
-                <app-user-ticket-history></app-user-ticket-history>
-            </ng-template>
-        </mat-tab>
-        <mat-tab >
-            <ng-template mat-tab-label>
-                <mat-icon>flight_land</mat-icon>
-                <span>Flight History</span>
-            </ng-template>
-            <ng-template matTabContent>
+                <h2 class="mb-4">Upcoming flights for {{this.currentUser.username}} </h2>
+               <!-- PlaceHolder UNtil Upcomming flights are done -->
                 <app-user-flight-history></app-user-flight-history>
             </ng-template>
         </mat-tab>
-        <mat-tab >
+            <mat-tab >
             <ng-template mat-tab-label>
                 <mat-icon>shopping_basket</mat-icon>
                 <span>Checkout( {{this.currentCart.length||0}} )</span>
