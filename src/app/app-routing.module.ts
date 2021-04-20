@@ -28,6 +28,7 @@ import { UserTicketFormComponent } from './components/user-ticket-form/user-tick
 import { UserCheckoutComponent } from './components/user-checkout/user-checkout.component';
 import { UserTicketHistoryComponent } from './components/user-ticket-history/user-ticket-history.component';
 import { UserFlightHistoryComponent } from './components/user-flight-history/user-flight-history.component';
+import { UserHistoryComponent } from './components/user-history/user-history.component';
 
 import {AuthGuard} from "./guards/auth-guard/auth.guard";
 import {GuestGuard} from "./guards/guest-guard/guest.guard";
@@ -205,6 +206,14 @@ const routes: Routes = [
       {
         path: 'user/ticket',
         component: UserTicketFormComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'ROLE_USER'
+        }
+      },
+      {
+        path: 'user/history',
+        component: UserHistoryComponent,
         canActivate: [AuthGuard],
         data: {
           role: 'ROLE_USER'
