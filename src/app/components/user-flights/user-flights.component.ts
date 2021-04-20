@@ -9,7 +9,8 @@ import {UserFlightReports} from "src/app/services/user-flight-service/user-fligh
 import {UserFlightService} from 'src/app/services/user-flight-service/user-flight.service';
 import {UserTicketFormComponent} from 'src/app/components/user-ticket-form/user-ticket-form.component'
 import { MatSelectChange } from '@angular/material/select';
-
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -37,11 +38,26 @@ export class UserFlightsComponent implements OnInit {
   airports!: Airport[];
   selectedAirportDep!: {};
   selectedAirportArr!: {};
+  selectedStartDate!: Date;
+  selectedEndDate!: Date;
+  form: FormGroup;
+  panelOpenState = true;
+
   constructor(
+    private formBuilder: FormBuilder,
      private service: UserFlightService,
     private dialog: MatDialog,
   ) { 
+    // this.selectedStartDate =  new Date("0000-00-00")
+    // this.selectedEndDate =  new Date("0000-00-00")
     this.getAllAirports();
+
+    this.form = this.formBuilder.group({
+      picker: ['', []],
+      picker2: ['', []]
+      // password: ['', Validators.required]
+  });
+
     this.flightReports= {
       flightNo: 1,
       flightGate: "fakeValue",
@@ -143,6 +159,18 @@ export class UserFlightsComponent implements OnInit {
 
     public endAirChange( event: MatSelectChange){
       this.selectedAirportDep = event.value;
+    }
+
+    public startDateChange( event: MatDatepickerInputEvent<Date>){
+      this.selectedStartDate = event.value||new Date("0000-00-00");
+    }
+
+    public endDateChange( event:MatDatepickerInputEvent<Date>){
+      this.selectedEndDate = event.value||new Date("0000-00-00");
+    }
+
+    public onSubmit(){
+      console.log("Filter WIP")
     }
 
 }

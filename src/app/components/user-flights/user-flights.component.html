@@ -6,23 +6,47 @@
     </button> -->
     <div>
 
-   
+     
+                
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
+
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"  [expanded]=panelOpenState>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                           
+                            <h2>{{panelOpenState ? 
+                                'Filter Options' : ''}}</h2>
+                          </mat-panel-title>
+                       
+                        
+                            <mat-panel-description>
+                                <h2>
+
+                                    {{panelOpenState ? 
+                                        '' : 'Filters Options'}}
+                                    </h2>
+                              </mat-panel-description>
+                          
+                        </mat-expansion-panel-header>
+                        
+
     <mat-form-field appearance="fill">
         <mat-label>Depature date</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput [matDatepicker]="picker" (dateChange)="startDateChange($event)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Arrival date</mat-label>
-        <input matInput [matDatepicker]="picker2">
+        <input matInput [matDatepicker]="picker2" (dateChange)="endDateChange($event)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
-      <br>
+      <!-- <br> -->
       <mat-form-field appearance="fill">
-        <mat-label>Starting Airport</mat-label>
+        <mat-label>Starting Airport <mat-icon>flight_takeoff</mat-icon></mat-label>
         <mat-select name="airports"   (selectionChange)="startAirChange($event)">
             <!-- <mat-option  value="tempValue">
                tempValue
@@ -33,13 +57,18 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>Ending Airport</mat-label>
+        <mat-label>Ending Airport<mat-icon>flight_land</mat-icon></mat-label>
         <mat-select name="endingAirport"   (selectionChange)="endAirChange($event)">
             <mat-option *ngFor="let airport of airports" [value]="airport">
                 {{airport.airportName}} {{airport.city}}
             </mat-option>
         </mat-select>
     </mat-form-field>
+    <br>
+    <button   mat-raised-button color="primary">Filter</button>
+</mat-expansion-panel>
+</form>
+
 
     </div>
 
