@@ -33,16 +33,19 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Depature date</mat-label>
-        <input matInput [matDatepicker]="picker" (dateChange)="startDateChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <input matInput [matDatepicker]="startDate" (dateChange)="startDateChange($event)" readonly
+        formControlName="startDate" [min]="this.currentDate">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Arrival date</mat-label>
-        <input matInput [matDatepicker]="picker2" (dateChange)="endDateChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
+        <input matInput [matDatepicker]="endDate" (dateChange)="endDateChange($event)" readonly
+        formControlName="endDate" [min]="this.selectedStartDate"
+        >
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
       </mat-form-field>
       <!-- <br> -->
       <mat-form-field appearance="fill">
@@ -65,7 +68,7 @@
         </mat-select>
     </mat-form-field>
     <br>
-    <button   mat-raised-button color="primary">Filter</button>
+    <button disabled={{!this.form.valid}}   mat-raised-button color="primary">Filter</button>
 </mat-expansion-panel>
 </form>
 

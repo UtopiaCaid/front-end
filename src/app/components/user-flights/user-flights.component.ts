@@ -11,6 +11,7 @@ import {UserTicketFormComponent} from 'src/app/components/user-ticket-form/user-
 import { MatSelectChange } from '@angular/material/select';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -38,25 +39,26 @@ export class UserFlightsComponent implements OnInit {
   airports!: Airport[];
   selectedAirportDep!: {};
   selectedAirportArr!: {};
-  selectedStartDate!: Date;
+  selectedStartDate = new Date();
   selectedEndDate!: Date;
   form: FormGroup;
   panelOpenState = true;
 
+  currentDate = new Date();
+ 
   constructor(
     private formBuilder: FormBuilder,
      private service: UserFlightService,
     private dialog: MatDialog,
   ) { 
-    // this.selectedStartDate =  new Date("0000-00-00")
-    // this.selectedEndDate =  new Date("0000-00-00")
+ 
     this.getAllAirports();
 
     this.form = this.formBuilder.group({
-      picker: ['', []],
-      picker2: ['', []]
-      // password: ['', Validators.required]
+      startDate: [this.currentDate,this.currentDate],
+      endDate: ['', this.selectedStartDate]
   });
+    
 
     this.flightReports= {
       flightNo: 1,
