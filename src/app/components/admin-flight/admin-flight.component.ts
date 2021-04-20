@@ -8,14 +8,14 @@ import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
 
 @Component({
-  selector: 'app-admin-flights',
-  templateUrl: './admin-flights.component.html',
-  styleUrls: ['./admin-flights.component.css']
+  selector: 'app-admin-flight',
+  templateUrl: './admin-flight.component.html',
+  styleUrls: ['./admin-flight.component.css']
 })
-export class AdminFlightsComponent implements OnInit {
+export class AdminFlightComponent implements OnInit {
 
   ELEMENT_DATA!: FlightReports[];
-  displayedColumns: string[] = ['flightNo', 'flightGate', 'departure', 'arrival', 'status', 'action'];
+  displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'action'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
 
   constructor(

@@ -47,20 +47,33 @@ export class AdminAircraftFormComponent implements OnInit {
     return o1 && o2 ? o1.aircraftTypeId === o2.aircraftTypeId : o1 === o2;
   }
 
-  seatCount = new FormControl(0, [Validators.required]);
-  firstClassCount = new FormControl(0, [Validators.required]);
-  secondClassCount = new FormControl(0, [Validators.required]);
-  thirdClassCount = new FormControl(0, [Validators.required]);
+  seatCount = new FormControl(0, [Validators.required, Validators.min(0)]);
+  firstClassCount = new FormControl(0, [Validators.required, Validators.min(0)]);
+  secondClassCount = new FormControl(0, [Validators.required, Validators.min(0)]);
+  thirdClassCount = new FormControl(0, [Validators.required, Validators.min(0)]);
   aircraftStatus = new FormControl('', [Validators.required]);
   aircraftCheck = new FormControl(this.aircraftTypes, [Validators.required]);
 
-  getErrorMessage() {
-    return this.aircraftCheck.hasError('required') ? 'you must enter an aircraft type' :
-      this.seatCount.hasError('required') ? 'you must enter a seat count' :
-        this.firstClassCount.hasError('required') ? 'you must enter a first class count' :
-          this.secondClassCount.hasError('required') ? 'you must enter a second class count' :
-            this.thirdClassCount.hasError('required') ? 'you must enter a third class count' :
-              this.aircraftStatus.hasError('required') ? 'you must enter an aircraft status' : '';
+  getErrorMessage(number : number) {
+    switch(number) {
+      case 1:
+        return this.aircraftCheck.hasError('required') ? 'you must enter an aircraft type' : 'error';
+      case 2:
+        return this.seatCount.hasError('required') ? 'you must enter a seat count' : 'error';
+      case 3:
+        return this.firstClassCount.hasError('required') ? 'you must enter a first class count' :
+        this.firstClassCount.hasError('min') ? 'first class count must be non-negative' : 'error'
+      case 4:
+        return this.secondClassCount.hasError('required') ? 'you must enter a second class count' :
+        this.secondClassCount.hasError('min') ? 'second class count must be non-negative' : 'error'
+      case 5:
+        return this.thirdClassCount.hasError('required') ? 'you must enter a third class count' :
+        this.thirdClassCount.hasError('min') ? 'third class count must be non-negative' : 'error'
+      case 6:
+        return this.aircraftStatus.hasError('required') ? 'you must enter an aircraft status' : '';
+      default:
+        return 'unprocessed error '
+    }
   }
 
   public populate() {
@@ -88,7 +101,13 @@ export class AdminAircraftFormComponent implements OnInit {
       this.aircraftStatus.hasError('required')
     ) {
       alert('Please insert the required fields')
-    } else if (this.seatCount.value < this.firstClassCount.value + this.secondClassCount.value + this.thirdClassCount.value) {
+    } else if (
+      this.firstClassCount.hasError('min') ||
+      this.secondClassCount.hasError('min') ||
+      this.thirdClassCount.hasError('min')
+    ) {
+      alert('Invalid Field Value(s)'); 
+    }  else if (this.seatCount.value < this.firstClassCount.value + this.secondClassCount.value + this.thirdClassCount.value) {
       alert('Number of class seats cannot exceed the total seat count');
       console.log("Broke");
     } else if (this.data) {

@@ -5,7 +5,7 @@
             <mat-label>Flight Gate</mat-label>
             <input matInput [formControl]="flightGate" required>
             <mat-error *ngIf="flightGate.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(1)}}
             </mat-error>
         </mat-form-field>
 
@@ -17,7 +17,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="airportDepCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(2)}}
             </mat-error>
         </mat-form-field>
 
@@ -30,7 +30,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="airportArrCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(3)}}
             </mat-error>
         </mat-form-field>
 
@@ -44,7 +44,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="aircraftCheck.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(4)}}
             </mat-error>
         </mat-form-field>
 
@@ -52,7 +52,7 @@
             <mat-label>Base Price</mat-label>
             <input matInput [formControl]="basePrice" type="number" required>
             <mat-error *ngIf="basePrice.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(5)}}
             </mat-error>
         </mat-form-field>
 
@@ -62,7 +62,7 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker [startAt]="dateDep" #picker></mat-datepicker>
             <mat-error *ngIf="dateDep.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(6)}}
             </mat-error>
         </mat-form-field>
 
@@ -72,7 +72,7 @@
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
             <mat-error *ngIf="dateArr.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(7)}}
             </mat-error>
         </mat-form-field>
 
@@ -84,7 +84,7 @@
                 <mat-option value="Cancelled"> Cancelled </mat-option>
             </mat-select>
             <mat-error *ngIf="status.invalid">
-                {{getErrorMessage()}}
+                {{getErrorMessage(8)}}
             </mat-error>
         </mat-form-field>
 

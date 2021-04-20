@@ -1,0 +1,14 @@
+
+
+<div *ngIf="isUser();then user else nonuser"></div>    
+<div>
+    <ng-template #nonuser>You cannot deactivate</ng-template>
+    <ng-template #user>Are you sure you want to deactivate the selected account?
+        Once done this cannot be undone</ng-template>
+</div>
+
+
+<div>
+    <button *ngIf = "isUser()" mat-raised-button color="warn" (click)="onDelete()">Confirm</button>
+    <button mat-raised-button color="primary" (click)="exit()">Back</button>
+</div>

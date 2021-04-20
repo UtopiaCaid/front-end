@@ -69,20 +69,35 @@ export class AdminFlightFormComponent implements OnInit {
   status = new FormControl('', [Validators.required]);
   dateArr = new FormControl('', [Validators.required]);
   dateDep = new FormControl('', [Validators.required]);
-  basePrice = new FormControl(0, [Validators.required]);
+  basePrice = new FormControl(0, [Validators.required, Validators.min(0)]);
   aircraftCheck = new FormControl(this.aircrafts, [Validators.required]);
   airportDepCheck = new FormControl(this.selectedAirportDep, [Validators.required]);
   airportArrCheck = new FormControl(this.selectedAirportArr, [Validators.required]);
 
 
 
-  getErrorMessage() {
-    return this.flightGate.hasError('required') ? 'You must enter a gate value' :
-      this.status.hasError('required') ? 'you must enter a status value' :
-        this.dateArr.hasError('required') ? 'you must enter a arrival time' :
-          this.dateDep.hasError('required') ? 'you must enter a departure time' :
-            this.basePrice.hasError('required') ? 'you must enter a base price value' :
-              this.aircraftCheck.hasError('required') ? 'you must enter an aircraft' : this.airportDepCheck.hasError('required') ? 'you must enter a departure airport' : this.airportArrCheck.hasError('required') ? 'you must enter an arrival airport' : '';
+  getErrorMessage(number : number) {
+    switch(number) {
+      case 1:
+        return this.flightGate.hasError('required') ? 'You must enter a gate value' : 'error';
+      case 2:
+        return this.airportDepCheck.hasError('required') ? 'you must enter a departure airport' : 'error';
+      case 3:
+        return this.airportArrCheck.hasError('required') ? 'you must enter an arrival airport' : 'error';
+      case 4:
+        return this.aircraftCheck.hasError('required') ? 'you must enter an aircraft' : 'error';
+      case 5:
+        return this.basePrice.hasError('required') ? 'you must enter a base price value' :
+        this.basePrice.hasError('min') ? 'you must enter a non-negative value' : 'error';
+      case 6:
+        return this.dateDep.hasError('required') ? 'you must enter a departure time' : 'error';
+      case 7:
+        return this.dateArr.hasError('required') ? 'you must enter a arrival time' : 'error';
+      case 8:
+        return this.status.hasError('required') ? 'you must enter a status value' : 'error';
+      default:
+        return 'unprocessed error';
+    }
   }
 
   public populate() {
@@ -119,6 +134,10 @@ export class AdminFlightFormComponent implements OnInit {
       this.selectedAirportArr == undefined
     ) {
       alert('Please insert the required fields')
+    } else if (this.dateArr.value < this.dateDep.value) {
+      alert('Arrival Date must be after the Departure Date');
+    } else if(this.basePrice.hasError('min')) {
+      alert('Invalid Field Value(s)');
     } else if (this.data) {
       this.FlightService.updateFlight(
         this.data.row.flightNo,
