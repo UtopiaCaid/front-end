@@ -12,3 +12,8 @@ mat-card {
   mat-expansion-panel{
     text-align: center;
   }
+
+  .textMsg{
+    text-align: center;
+    color: rgb(156, 10, 10);
+  }
