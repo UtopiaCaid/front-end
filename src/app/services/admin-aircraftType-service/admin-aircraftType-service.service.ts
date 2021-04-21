@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class AdminAircraftTypeServiceService {
   constructor(private http: HttpClient) { }
 
   public retrieveAircraftTypes() {
-    return this.http.get('http://localhost:8080/AircraftType');
+    return this.http.get(environment.adminFuncUrl + 'AircraftType');
   }
 
   public insertAircraftType(aircraftTypeId: number, aircraftTypeName: string,
@@ -28,7 +29,7 @@ export class AdminAircraftTypeServiceService {
     console.log(postData);
     console.log(JSON.stringify(postData));
 
-    this.http.post('http://localhost:8080/AircraftType', postData)
+    this.http.post(environment.adminFuncUrl + 'AircraftType', postData)
       .toPromise().then(data => console.log(data));
   }
 
@@ -43,7 +44,7 @@ export class AdminAircraftTypeServiceService {
       "manufacturer": manufacturer,
     }
 
-    this.http.put('http://localhost:8080/AircraftType', updateData).toPromise()
+    this.http.put(environment.adminFuncUrl + 'AircraftType', updateData).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 
@@ -59,7 +60,7 @@ export class AdminAircraftTypeServiceService {
       body: deleteData
     }
 
-    this.http.delete('http://localhost:8080/AircraftType', options).toPromise()
+    this.http.delete(environment.adminFuncUrl + 'AircraftType', options).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }

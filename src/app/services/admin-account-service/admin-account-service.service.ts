@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,10 @@ export class AdminAccountServiceService {
   constructor(private http: HttpClient) { }
 
   public retrieveUserAccounts() {
-    return this.http.get('http://localhost:8080/Account/User');
+    return this.http.get(environment.adminFuncUrl + 'Account/User');
   }
   public retrieveAccounts() {
-    return this.http.get('http://localhost:8080/Account');
+    return this.http.get(environment.adminFuncUrl + 'Account');
   }
 
   public insertAccount( username: string, role: Object, email: string, 
@@ -31,7 +32,7 @@ export class AdminAccountServiceService {
     console.log(postData);
     console.log(JSON.stringify(postData));
 
-    this.http.post('http://localhost:8080/Account', postData)
+    this.http.post(environment.adminFuncUrl + 'Account', postData)
       .toPromise().then(data => console.log(data));
   }
 
@@ -47,7 +48,7 @@ export class AdminAccountServiceService {
       "dateCreated": dateCreated,
     }
 
-    this.http.put('http://localhost:8080/Account', updateData).toPromise()
+    this.http.put(environment.adminFuncUrl+'Account', updateData).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 
@@ -63,7 +64,7 @@ export class AdminAccountServiceService {
       body: deleteData
     }
 
-    this.http.delete('http://localhost:8080/Account', options).toPromise()
+    this.http.delete(environment.adminFuncUrl+'Account', options).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 
@@ -74,7 +75,7 @@ export class AdminAccountServiceService {
     }
 
     let body = updateData;
-    this.http.put('http://localhost:8080/Account/Deactivation', body).toPromise()
+    this.http.put(environment.adminFuncUrl+'Account/Deactivation', body).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }
