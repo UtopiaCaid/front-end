@@ -12,7 +12,7 @@ export class AdminFlightServiceService {
 
 
   public retrieveFlights() {
-    return this.http.get('http://localhost:8080/flights');
+    return this.http.get(environment.adminFuncUrl + 'flights');
   }
 
 
