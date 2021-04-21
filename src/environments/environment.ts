@@ -7,6 +7,7 @@ export const environment = {
   authUrl:  'http://localhost:8071/',
   userUrl:  'http://localhost:8072/',
   adminUrl:  'http://localhost:8073/',
+  adminFuncUrl: 'http://localhost:8080/',
 };
 
 /*

@@ -66,8 +66,20 @@ export class UserFlightsComponent implements OnInit {
       flightNo: 1,
       flightGate: "fakeValue",
       departure: "fakeValue",
-      airportDeparture: [], 
-      airportArrival: [],
+      airportDeparture: {
+        airportId: 0,
+        airportCode: 0,
+        city: "null",
+        airportName: "null",
+        status: "null",
+    },
+    airportArrival: {
+        airportId: 0,
+        airportCode: 0,
+        city: "null",
+        airportName: "null",
+        status: "null",
+    },
       arrival: "fakeValue",
       status: "fakeValue",
   }
