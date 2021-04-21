@@ -67,7 +67,7 @@ export class AdminAirportFormComponent implements OnInit {
       this.airportName.hasError('minLength') || this.airportName.hasError('maxLength')
       ) {
         alert('Invalid Field Value(s)');
-    } else if (this.data) {
+    } else if (this.data.row != undefined) {
       this.AirportService.updateAirport(
         this.data.row.airportId,
         this.airportCode.value,

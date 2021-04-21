@@ -156,7 +156,7 @@ export class AdminTicketFormComponent implements OnInit {
     } else if(this.ticketPrice.hasError('min')) {
       alert('Ticket price must be non-negative');
     } 
-    else if (this.data) {
+    else if (this.data.row != undefined) {
       this.TicketService.updateTicket(
         this.data.row.ticketNo,
         this.selectedFlight,

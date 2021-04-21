@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class AdminTravelerServiceService {
   constructor(private http: HttpClient) { }
 
   public retrieveTraveler() {
-    return this.http.get('http://localhost:8080/Traveler');
+    return this.http.get(environment.adminFuncUrl + 'Traveler');
   }
 
 
@@ -29,7 +30,7 @@ export class AdminTravelerServiceService {
       knownTravelerNumber: knownTravelerNumber
     };
 
-    this.http.post('http://localhost:8080/Traveler', postData)
+    this.http.post(environment.adminFuncUrl + 'Traveler', postData)
       .toPromise().then(data => console.log(data));
   }
 
@@ -49,7 +50,7 @@ export class AdminTravelerServiceService {
       knownTravelerNumber: knownTravelerNumber
     }
     
-    this.http.put('http://localhost:8080/Traveler', updateData).toPromise()
+    this.http.put(environment.adminFuncUrl + 'Traveler', updateData).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 
@@ -65,7 +66,7 @@ export class AdminTravelerServiceService {
       body: deleteData
     }
 
-    this.http.delete('http://localhost:8080/Traveler', options).toPromise()
+    this.http.delete(environment.adminFuncUrl + 'Traveler', options).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }

@@ -146,7 +146,7 @@ export class AdminFlightFormComponent implements OnInit {
       this.data.errorUpdate = ('Arrival Date must be after the Departure Date');
     } else if(this.basePrice.hasError('min')) {
       this.data.errorUpdate = ('Invalid Field Value(s)');
-    } else if (this.data) {
+    } else if (this.data.row != undefined) {
       this.FlightService.updateFlight(
         this.data.row.flightNo,
         this.flightGate.value,
