@@ -21,7 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from '@angular/flex-layout';
+//import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightComponent } from './components/admin-flight/admin-flight.component';
@@ -122,7 +122,7 @@ import { UserHistoryComponent } from './components/user-history/user-history.com
     MatNativeDateModule,
     MatPaginatorModule,
     MatSortModule,
-    FlexLayoutModule
+    //FlexLayoutModule
   ],
   providers: [
     MatDatepickerModule
