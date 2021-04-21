@@ -121,7 +121,15 @@ export class AdminFlightFormComponent implements OnInit {
   compareFunctionAircraft(o1: any, o2: any) {
     return (o1.aircraftId == o2.aircraftId);
   }
+  
+  public getSubmitMessage() {
+    return this.data.errorUpdate;
+  }
 
+  public submitReady() {
+    return this.data.errorUpdate == '' ? true : false;
+  }
+  
   public formSubmit() {
     if (
       this.flightGate.hasError('required') ||
@@ -133,11 +141,11 @@ export class AdminFlightFormComponent implements OnInit {
       this.selectedAirportDep == undefined ||
       this.selectedAirportArr == undefined
     ) {
-      alert('Please insert the required fields')
+      this.data.errorUpdate = 'Please insert the required fields';
     } else if (this.dateArr.value < this.dateDep.value) {
-      alert('Arrival Date must be after the Departure Date');
+      this.data.errorUpdate = ('Arrival Date must be after the Departure Date');
     } else if(this.basePrice.hasError('min')) {
-      alert('Invalid Field Value(s)');
+      this.data.errorUpdate = ('Invalid Field Value(s)');
     } else if (this.data) {
       this.FlightService.updateFlight(
         this.data.row.flightNo,

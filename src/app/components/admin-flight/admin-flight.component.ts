@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import { AdminFlightServiceService as AdminFlightService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
-import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
+import { FlightReports } from 'src/app/entities';
+import { AirportReports } from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
+import {parseLocalDateTime} from 'src/app/services/datetime-parser';
 
 @Component({
   selector: 'app-admin-flight',
@@ -15,7 +18,8 @@ import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-fligh
 export class AdminFlightComponent implements OnInit {
 
   ELEMENT_DATA!: FlightReports[];
-  displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'action'];
+  airportTemp!: AirportReports[];
+  displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'update', 'delete'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
 
   constructor(
@@ -26,18 +30,78 @@ export class AdminFlightComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  @ViewChild(MatSort) 
+  sort!: MatSort;
+
   ngOnInit(): void {
     this.getAllFlights();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    //set a new filterPredicate function
+    this.dataSource.filterPredicate = (data: any, filter) => {
+      const dataStr =JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1; 
+    }
   }
+  
+ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+  this.dataSource.sortingDataAccessor = (item, property) => {
+    switch (property) {
+    case 'flightNo': {
+      return item.flightNo;
+    }
+    case 'flightGate': {
+      return item.flightGate;
+    }
+    case 'departure': {
+      return item.departure;
+    }
+    case 'arrival': {
+      return item.arrival;
+    }
+    case 'airportDeparture': {
+      return item.airportDeparture.airportName;
+    }
+    case 'airportArrival': {
+      return item.airportArrival.airportName;
+    }
+    case 'status': {
+      return item.status;
+    }
+    default: {
+      return "null";
+    }
+    };
+  }
+}
 
+public doFilter = (event: Event) => {
+  this.dataSource.filter = (<HTMLInputElement>event.target).value.trim().toLocaleLowerCase();
+}
+
+public parseRecords(flights: FlightReports[]) {
+  flights.forEach(
+    curr => curr = this.parseFlightRecords(curr)
+  )
+  return flights
+}
+
+public parseFlightRecords(flight : FlightReports) {
+  flight.arrival = parseLocalDateTime(flight.arrival);
+  flight.departure = parseLocalDateTime(flight.departure);
+  return flight;
+}
 
 
   public getAllFlights() {
     let res = this.service.retrieveFlights();
+    //res.subscribe(report => this.dataSource.data = this.parseRecords(report as FlightReports[]));
     res.subscribe(report => this.dataSource.data = report as FlightReports[]);
   }
 
+  /*     this.dataSource.data.forEach(
+      curr => curr = this.parseFlightRecords(curr)
+    )  */
   public onEdit(row: {}) {
 
     const dialogConfig = new MatDialogConfig();
@@ -48,7 +112,8 @@ export class AdminFlightComponent implements OnInit {
 
     let dialogRef = this.dialog.open(AdminFlightFormComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -61,7 +126,11 @@ export class AdminFlightComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    let dialogRef = this.dialog.open(AdminFlightFormComponent);
+    let dialogRef = this.dialog.open(AdminFlightFormComponent, {
+      data: {
+        errorUpdate: '',
+      }
+    });
     dialogRef.afterClosed().subscribe(() => {
       this.getAllFlights();
     })
@@ -76,7 +145,8 @@ export class AdminFlightComponent implements OnInit {
 
     let dialogRef = this.dialog.open(DeleteCheckFlightsComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {
