@@ -11,6 +11,11 @@
                 <th mat-header-cell *matHeaderCellDef> Flight No </th>
                 <td mat-cell *matCellDef="let element"> {{element.flightNo}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="flightClass">
+                <th mat-header-cell *matHeaderCellDef> Seat Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.flightClass}} </td>
+            </ng-container>
     
     
             <ng-container matColumnDef="flightGate">
@@ -47,6 +52,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <p><strong>Price Total: </strong>${{this.totalPrice}}</p>
         <button mat-raised-button (click)="payNow()">
             <mat-icon>paid</mat-icon>Paynow
         </button>

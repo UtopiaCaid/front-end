@@ -15,13 +15,14 @@ export class UserCheckoutComponent implements OnInit {
   currentCart: Array<UserTickets>;
   userTicket1: UserTickets;
   ELEMENT_DATA!: UserTickets[];
-  displayedColumns: string[] = ['name','flightNo', 'flightGate', 'departure', 'arrival', 'price', 'action'];
+  displayedColumns: string[] = ['name','flightNo', 'flightClass', 'flightGate', 'departure', 'arrival', 'price', 'action'];
   dataSource = new MatTableDataSource<UserTickets>(this.ELEMENT_DATA);
- 
+  totalPrice : number;
 
   constructor(
     public userService : UserFlightService
   ) { 
+    this.totalPrice = 0
     this.currentCart = []
     this.userTicket1 = {
       flightNo: 0,
@@ -34,6 +35,7 @@ export class UserCheckoutComponent implements OnInit {
       name: "null",
       email: "null",
       phone: "null",
+      flightClass: "null",
     }
   }
 
@@ -43,6 +45,11 @@ export class UserCheckoutComponent implements OnInit {
     this.currentCart = JSON.parse(localStorage.getItem('currentCart') || "{}" )
     this.userService.currentCart.subscribe(report => this.dataSource.data = report as UserTickets[])
     this.dataSource.data = this.currentCart
+    this.dataSource.data.forEach((element) =>{
+      this.totalPrice = this.totalPrice + Number(element.price)
+    })
+
+    
     // console.log("Current Cart")
     // console.log(this.currentCart)
   }
@@ -66,6 +73,10 @@ export class UserCheckoutComponent implements OnInit {
     ///add confirmation model?
     this.userService.removeFromCurrentCart(row);
     this.getCart();
+    this.totalPrice = 0
+    this.dataSource.data.forEach((element) =>{
+      this.totalPrice = this.totalPrice + Number(element.price)
+    })
   }
 
 }

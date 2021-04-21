@@ -43,10 +43,10 @@
       <span class="menu-spacer"></span>
       <div>
         <a mat-button [routerLink]="'/home'"> <mat-icon>home</mat-icon> Home </a>
-        <!-- <a mat-button [routerLink]="'/profile'" *ngIf="this.authService.isLoggedIn" > <mat-icon>circle</mat-icon> Account </a> -->
-        <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> User Account </a>
-        <a mat-button [routerLink]="'/user'" *ngIf="(this.roleType == 'ROLE_USER')"><mat-icon>face</mat-icon>User </a>
-        <a mat-button [routerLink]="'/admin/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> Admin Account </a>
+        <!-- <a mat-button [routerLink]="'/profile'" *ngIf="(this.roleType == 'ROLE_USER')"> <mat-icon>circle</mat-icon> User Account </a> -->
+        <a mat-button [routerLink]="'/user'" *ngIf="(this.roleType == 'ROLE_USER')"><mat-icon>flight</mat-icon>Flights </a>
+        <a mat-button [routerLink]="'/user/history'" *ngIf="(this.roleType == 'ROLE_USER')"><mat-icon>history_edu</mat-icon>History </a>
+        <!-- <a mat-button [routerLink]="'/admin/profile'" *ngIf="(this.roleType == 'ROLE_ADMIN')"> <mat-icon>circle</mat-icon> Admin Account </a> -->
         <a mat-button [routerLink]="'/admin'" *ngIf="(this.roleType == 'ROLE_ADMIN')">Admin </a>
        
         </div>

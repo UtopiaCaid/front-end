@@ -155,6 +155,7 @@ export class AuthenticationService {
      localStorage.removeItem('current_roleType');
      localStorage.removeItem('current_roleId');
      localStorage.removeItem('currentCart');
+     localStorage.removeItem('current_accountNum');
      localStorage.clear();
      this.getCurrentAccount.next(null)
      this.getLoggedInName.next("")

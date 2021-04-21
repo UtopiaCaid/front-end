@@ -8,6 +8,7 @@ import {UserFlightService} from 'src/app/services/user-flight-service/user-fligh
 import { MatDialogRef } from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { Inject } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 
 interface keyable {
   [key: string]: any  
@@ -31,26 +32,32 @@ export class UserTicketFormComponent implements OnInit {
   //flightReports: UserFlightReports;
   // flightReports: keyable={};
   currentPrice: Number;
-  selectedFlightClass!: {};
+  basePrice: Number;
+  classSelected: Boolean;
+  hasFirstClass: Boolean;
+  hasSecondClass: Boolean;
+  hasThirdClass: Boolean;
+  selectedFlightClass!: String;
   public userTicket2: UserTickets;
   public userTicket3: UserTickets;
 
   currentCart: Array<UserTickets>;
   
   constructor(
-    // public userTicket2: UserTickets,
     public dialogRef: MatDialogRef<UserTicketFormComponent>,
     private formBuilder: FormBuilder,
     public authService: AuthenticationService,
     public userService: UserFlightService,
-    //public dialogRef: MatDialogRef<DialogComponent>,
-    //@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-    //@Inject(MAT_DIALOG_DATA) public data: FlightReports
     @Inject(MAT_DIALOG_DATA) public data: UserFlightReports
   ) { 
     let datetemp = new Date("0000-00-00")
     this.currentCart = []
     this.currentPrice = 0
+    this.basePrice = 0
+    this.classSelected = false;
+    this.hasFirstClass = false;
+    this.hasSecondClass = false;
+    this.hasThirdClass = false;
     this.flightReports= {
       flightNo: 0,
       flightGate: "null",
@@ -83,6 +90,7 @@ export class UserTicketFormComponent implements OnInit {
       name: this.currentUser.name,
       email:this.currentUser.email,
       phone:this.currentUser.phone,
+      flightClass: "null",
     }
    this.userFlightReports= {
       flightNo: 0,
@@ -123,30 +131,31 @@ export class UserTicketFormComponent implements OnInit {
     this.userTicket3 = this.userTicket2;
   
     this.userTicket = []
-    // this.flightReports = []
     
     this.form = this.formBuilder.group({
       name: new FormControl("", [Validators.maxLength(40), Validators.required, Validators.minLength(2),Validators.pattern("[a-zA-Z ]*") ]),
       username: new FormControl("", [Validators.maxLength(30),Validators.minLength(5)]),
       email: new FormControl("", [Validators.maxLength(50),Validators.email, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
       phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern("^[0-9]*$")]),
-      flightClass: new FormControl(""),
+      flightClass: new FormControl("", [Validators.required]),
   });
   }
 
   ngOnInit(): void {
     
     this.userFlightReports = this.data
-    //this.flightReports = this.data
+    this.basePrice = this.data.basePrice
     this.currentPrice = this.data.basePrice
     this.userService.currentCart.subscribe(name => this.currentCart = Object(name))
-    // this.userService.currentUserTicket.subscribe(res => 
-    //   {
-    //     console.log("User Ticket")
-    //     console.log(res)
-    //     this.userTicket3 = Object(res)})
-    //this.userService.currentUserFlight.subscribe(name => this.flightReports = Object(name))
- 
+  
+    ////Checks to see if the user can still buy said class for the plane
+    if(this.data.aircraft.firstClassCount)
+    this.hasFirstClass = true
+    if(this.data.aircraft.secondClassCount)
+    this.hasSecondClass = true
+    if(this.data.aircraft.thirdClassCount)
+    this.hasThirdClass = true
+
     this.authService.getCurrentAccount.subscribe(name => this.currentUser = Object(name))
     if(this.authService.isLoggedIn){
       this.authService.getUserProfile()
@@ -156,30 +165,11 @@ export class UserTicketFormComponent implements OnInit {
         })
       }
 
-  
-      /////To fake until backend is working
-      // this.flightReports.flightNo = 1
-      // this.flightReports.flightGate = "fakeValue"
-      // this.flightReports.departure=  "fakeValue"
-      // this.flightReports.arrival = "fakeValue"
-      // this.flightReports.status=  "fakeValue"
+
 
   }
 
   async onSubmit(): Promise<void> {
-  //   this.userTicket = {
-  //     flightNo: 1,
-  //     flightGate: this.flightReports.flightNo,
-  //     departure: this.flightReports.departure,
-  //     arrival: this.flightReports.arrival,
-  //     status: this.flightReports.status,
-  //     price: this.currentPrice,
-  //     accountNumber: this.currentUser.accountNumber,
-  //     username: this.currentUser.username,
-  //     name: this.currentUser.name,
-  //     email:this.currentUser.email,
-  //     phone:this.currentUser.phone,
-  // }
 
   var tempName = ""
  
@@ -197,6 +187,7 @@ export class UserTicketFormComponent implements OnInit {
     name: this.form.get('name')?.value || this.currentUser.name,
     email: this.form.get('email')?.value || this.currentUser.email,
     phone: this.form.get('phone')?.value || this.currentUser.phone,
+    flightClass:  this.selectedFlightClass.toString()
   }
   
     var ticket = this.userTicket2;
@@ -223,7 +214,28 @@ export class UserTicketFormComponent implements OnInit {
       username: this.currentUser.username,
       name: this.currentUser.name,
       email:this.currentUser.email,
-      phone:this.currentUser.phone,}
+      phone:this.currentUser.phone,
+      flightClass: "null",
+    }
+  }
+
+  public classChange( event: MatSelectChange){
+    this.classSelected = true;
+    if(event.value == "First Class"){
+      this.selectedFlightClass = event.value
+      this.currentPrice = this.basePrice.valueOf() * 2
+    }
+    else if(event.value == "Second Class"){
+      this.selectedFlightClass = event.value
+      this.currentPrice = this.basePrice.valueOf() * 1.5
+    }
+    else if(event.value == "Third Class"){
+      this.selectedFlightClass = event.value
+      this.currentPrice = this.basePrice
+    }
+    else
+    console.error("Something went wrong with the price")
+
   }
 
 }

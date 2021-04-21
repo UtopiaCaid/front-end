@@ -53,6 +53,7 @@ export class UserTicketHistoryComponent implements OnInit {
       name: "null",
       email: "null",
       phone: "null",
+      flightClass: "null",
     }
    }
 
@@ -67,9 +68,9 @@ export class UserTicketHistoryComponent implements OnInit {
 
     }
     var accountNum = this.currentUser.accountNumber;
-    // console.log("User retrived is currently hard coded as '1'.")
-    // this.userService.retrieveAccountTicketHistory("1")
-    this.userService.retrieveAccountTicketHistory(accountNum)
+    console.log("User retrived is currently hard coded as '1'.")
+    this.userService.retrieveAccountTicketHistory("1")
+    // this.userService.retrieveAccountTicketHistory(accountNum)
     .subscribe((res) => {
       if(res.length>0)
       this.hasFlightHistroy = true;

@@ -48,22 +48,22 @@
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Flight Class</mat-label>
-        <mat-select name="flightClass"  required>
-            <mat-option  value="First Class">
+        <mat-select name="flightClass" formControlName="flightClass"   (selectionChange)="classChange($event)" required>
+            <mat-option *ngIf="this.hasFirstClass"  value="First Class">
                First Class
             </mat-option>
-            <mat-option value="Second Class" >
+            <mat-option value="Second Class" *ngIf="this.hasSecondClass" >
                 Second Class
              </mat-option>
-             <mat-option value="Coach"  >
-                Coach
+             <mat-option value="Third Class" *ngIf="this.hasThirdClass" >
+                Third Class
              </mat-option>
         </mat-select>
     </mat-form-field>
       <br>
   
         
-        <p><Strong>Price:</Strong> ${{this.userFlightReports.basePrice}} </p>
+        <p><Strong>Price:</Strong> ${{this.currentPrice}} </p>
      
       <br>
         <button disabled={{!this.form.valid}} mat-raised-button color="primary"><mat-icon>airplane_ticket</mat-icon>Add Ticket</button>

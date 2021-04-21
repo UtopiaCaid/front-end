@@ -9,4 +9,5 @@ export interface UserTickets {
     name: string;
     email:string;
     phone:string;
+    flightClass: string;
 }
