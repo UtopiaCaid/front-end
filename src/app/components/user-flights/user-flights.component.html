@@ -18,7 +18,7 @@
     <mat-form-field appearance="fill">
         <mat-label>Depature date</mat-label>
         <input matInput [matDatepicker]="startDate" (dateChange)="startDateChange($event)" readonly
-        formControlName="startDate" >
+        formControlName="startDate" [min]="this.currentDate">
         <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
         <mat-datepicker #startDate></mat-datepicker>
       </mat-form-field>
@@ -35,7 +35,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Starting Airport <mat-icon>flight_takeoff</mat-icon></mat-label>
-        <mat-select name="startingAirports"   (selectionChange)="startAirChange($event)">
+        <mat-select name="startingAirports"   (selectionChange)="startAirChange($event)" formControlName="startingAirports">
             <mat-option>
                 ------
             </mat-option>
@@ -46,7 +46,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Ending Airport<mat-icon>flight_land</mat-icon></mat-label>
-        <mat-select name="endingAirport"   (selectionChange)="endAirChange($event)">
+        <mat-select name="endingAirports"   (selectionChange)="endAirChange($event)" formControlName="endingAirports">
             <mat-option>
                 ------
             </mat-option>
@@ -56,7 +56,7 @@
         </mat-select>
     </mat-form-field>
     <br>
-    <button disabled={{!this.form.valid}}   mat-raised-button color="primary">Filter Flights<mat-icon>filter_alt</mat-icon></button>
+    <button   mat-raised-button color="primary">Clear Filter<mat-icon>filter_alt</mat-icon></button>
 </mat-expansion-panel>
 </form>
     </div>
