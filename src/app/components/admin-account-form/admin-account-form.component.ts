@@ -57,7 +57,7 @@ export class AdminAccountFormComponent implements OnInit {
       this.dateCreated.hasError('required')
     ) {
       alert('Please insert the required fields')
-    } else if (this.data) {
+    } else if (this.data.row != undefined) {
       this.AccountService.updateAccount(
         this.data.row.accountNumber,
         this.username.value,

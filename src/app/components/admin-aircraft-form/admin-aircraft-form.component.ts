@@ -110,7 +110,7 @@ export class AdminAircraftFormComponent implements OnInit {
     }  else if (this.seatCount.value < this.firstClassCount.value + this.secondClassCount.value + this.thirdClassCount.value) {
       alert('Number of class seats cannot exceed the total seat count');
       console.log("Broke");
-    } else if (this.data) {
+    } else if (this.data.row != undefined) {
       this.AircraftService.updateAircraft(
         this.data.row.aircraftId,
         this.selectedAircraftType,
