@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AdminTicketServiceService {
 
   public retrieveTickets() {
     console.log("retrieveTickets");
-    return this.http.get('http://localhost:8080/Ticket');
+    return this.http.get(environment.adminFuncUrl + 'Ticket');
   }
 
 
@@ -31,7 +32,7 @@ export class AdminTicketServiceService {
     };
 
 
-    this.http.post('http://localhost:8080/Ticket', postData)
+    this.http.post(environment.adminFuncUrl + 'Ticket', postData)
       .toPromise().then(data => console.log(data));
   }
 
@@ -51,7 +52,7 @@ export class AdminTicketServiceService {
       "dateIssued": dateIssued
     }
 
-    this.http.put('http://localhost:8080/Ticket', updateData).toPromise()
+    this.http.put(environment.adminFuncUrl + 'Ticket', updateData).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 
@@ -67,7 +68,7 @@ export class AdminTicketServiceService {
       body: deleteData
     }
 
-    this.http.delete('http://localhost:8080/Ticket', options).toPromise()
+    this.http.delete(environment.adminFuncUrl + 'Ticket', options).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }

@@ -55,7 +55,7 @@ export class AdminFlightServiceService {
       "status": status
     }
 
-    this.http.put('http://localhost:8080/flights', updateData).toPromise()
+    this.http.put(environment.adminFuncUrl + 'flights', updateData).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 
@@ -71,7 +71,7 @@ export class AdminFlightServiceService {
       body: deleteData
     }
 
-    this.http.delete('http://localhost:8080/flights', options).toPromise()
+    this.http.delete(environment.adminFuncUrl + 'flights', options).toPromise()
       .then(data => console.log(data)).catch(e => console.log(e));
   }
 }
