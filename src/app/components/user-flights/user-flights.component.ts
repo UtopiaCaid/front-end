@@ -89,7 +89,7 @@ export class UserFlightsComponent implements OnInit {
     res.subscribe(report => {
      
       let temp = report as UserFlightReports[]
-      console.log(temp)
+      // console.log(temp)
       let result = temp.filter(function(x){
         return x.status !== "Completed"
       })
@@ -159,18 +159,22 @@ export class UserFlightsComponent implements OnInit {
 
     public startAirChange( event: MatSelectChange){
       this.selectedAirportDep = event.value;
+      this.filterFlights();
     }
 
     public endAirChange( event: MatSelectChange){
       this.selectedAirportArr = event.value;
+      this.filterFlights();
     }
 
     public startDateChange( event: MatDatepickerInputEvent<Date>){
       this.selectedStartDate = event.value||new Date("0000-00-00");
+      this.filterFlights();
     }
 
     public endDateChange( event:MatDatepickerInputEvent<Date>){
       this.selectedEndDate = event.value||new Date("0000-00-00");
+      this.filterFlights();
     }
 
     public onSubmit(){
@@ -212,9 +216,22 @@ export class UserFlightsComponent implements OnInit {
         })
         this.dataSource.data = result
       }
-      if(this.selectedStartDate){
-        ////implemnt later
-      }
+      // if(this.selectedStartDate){
+      //   let flights1 = this.dataSource.data as UserFlightReports[]
+      //   var startDate = this.selectedStartDate
+      //   console.log("Comparing")
+      //   let result = flights1.filter(function(x){
+      //     //if(JSON.stringify(x.arrival)===JSON.stringify(startDate))
+      //     console.log("Dates")
+      //     // console.log(x.arrival)
+      //     // console.log(startDate.getFullYear())
+      //     if(x.arrival > startDate)
+      //     return x.arrival
+      //     else 
+      //     return false
+      //   })
+      //   this.dataSource.data = result
+      // }
       if(this.selectedEndDate){
         ////implemnt later
       }

@@ -52,6 +52,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <p><strong>Price Total: </strong>${{this.totalPrice}}</p>
         <button mat-raised-button (click)="payNow()">
             <mat-icon>paid</mat-icon>Paynow
         </button>
