@@ -112,7 +112,7 @@ export class AdminTravelerFormComponent implements OnInit {
       this.lastName.hasError('maxlength') 
     ) {
       alert('Invalid Field Value(s)'); 
-    }else if (this.data) {
+    }else if (this.data.row != undefined) {
       this.TravelerService.updateTraveler(
         this.data.row.travelerId,
         this.selectedAccount,
