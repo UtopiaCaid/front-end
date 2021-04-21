@@ -11,7 +11,7 @@ import {UserTicketFormComponent} from 'src/app/components/user-ticket-form/user-
 import { MatSelectChange } from '@angular/material/select';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 
 
 
@@ -57,7 +57,7 @@ export class UserFlightsComponent implements OnInit {
     this.getAllAirports();
     this.filterYet = false
     this.form = this.formBuilder.group({
-      startDate: [this.currentDate,this.currentDate],
+      startDate: ['',this.currentDate],
       endDate: ['', this.selectedStartDate]
   });
     
@@ -82,6 +82,8 @@ export class UserFlightsComponent implements OnInit {
     this.getAllFlights();
     this.populate();
     setTimeout(() => this.dataSource.paginator = this.paginator);
+    
+   
   }
 
   public getAllFlights() {
@@ -159,32 +161,33 @@ export class UserFlightsComponent implements OnInit {
 
     public startAirChange( event: MatSelectChange){
       this.selectedAirportDep = event.value;
+      if(this.form.valid&&((+this.selectedStartDate<= +this.selectedEndDate)
+      ||(this.selectedEndDate==undefined)))
       this.filterFlights();
     }
 
     public endAirChange( event: MatSelectChange){
       this.selectedAirportArr = event.value;
+      if(this.form.valid&&((+this.selectedStartDate<= +this.selectedEndDate)
+      ||(this.selectedEndDate==undefined)))
       this.filterFlights();
     }
 
     public startDateChange( event: MatDatepickerInputEvent<Date>){
       this.selectedStartDate = event.value||new Date("0000-00-00");
+      if(this.form.valid&&((+this.selectedStartDate<= +this.selectedEndDate)
+      ||(this.selectedEndDate==undefined)))
       this.filterFlights();
     }
 
     public endDateChange( event:MatDatepickerInputEvent<Date>){
       this.selectedEndDate = event.value||new Date("0000-00-00");
+      if(this.form.valid&&((+this.selectedStartDate<= +this.selectedEndDate)
+      ||(this.selectedEndDate==undefined)))
       this.filterFlights();
     }
 
     public onSubmit(){
-      // console.log("Filter WIP")
-      // console.log("Start and End Airports");
-      // console.log(this.selectedAirportDep);
-      // console.log(this.selectedAirportArr);
-      // console.log("Start and End Times");
-      // console.log(this.selectedStartDate);
-      // console.log(this.selectedEndDate);
       
       this.filterFlights();
     }
@@ -195,7 +198,6 @@ export class UserFlightsComponent implements OnInit {
       if(this.selectedAirportDep){
         let flights1 = this.dataSource.data as UserFlightReports[]
         var depPort = this.selectedAirportDep
-        console.log("Comparing")
         let result = flights1.filter(function(x){
           if(JSON.stringify(x.airportDeparture)===JSON.stringify(depPort))
           return x.airportDeparture
@@ -207,7 +209,6 @@ export class UserFlightsComponent implements OnInit {
       if(this.selectedAirportArr){
         let flights1 = this.dataSource.data as UserFlightReports[]
         var arrPort = this.selectedAirportArr
-        console.log("Comparing")
         let result = flights1.filter(function(x){
           if(JSON.stringify(x.airportArrival)===JSON.stringify(arrPort))
           return x.airportArrival
@@ -216,24 +217,30 @@ export class UserFlightsComponent implements OnInit {
         })
         this.dataSource.data = result
       }
-      // if(this.selectedStartDate){
-      //   let flights1 = this.dataSource.data as UserFlightReports[]
-      //   var startDate = this.selectedStartDate
-      //   console.log("Comparing")
-      //   let result = flights1.filter(function(x){
-      //     //if(JSON.stringify(x.arrival)===JSON.stringify(startDate))
-      //     console.log("Dates")
-      //     // console.log(x.arrival)
-      //     // console.log(startDate.getFullYear())
-      //     if(x.arrival > startDate)
-      //     return x.arrival
-      //     else 
-      //     return false
-      //   })
-      //   this.dataSource.data = result
-      // }
+      if(this.selectedStartDate){
+        let flights1 = this.dataSource.data as UserFlightReports[]
+        let startDate = new Date(formatDate(this.selectedStartDate, 'yyyy-MM-dd', 'en_US'))
+        let result = flights1.filter(function(x){
+          let arvDate = new Date(x.departure)
+          if(+arvDate >= +startDate)
+          return x.departure
+          else 
+          return false
+        })
+        this.dataSource.data = result
+      }
       if(this.selectedEndDate){
-        ////implemnt later
+        
+        let flights1 = this.dataSource.data as UserFlightReports[]
+        let endDate = new Date(formatDate(this.selectedEndDate, 'yyyy-MM-dd', 'en_US'))
+        let result = flights1.filter(function(x){
+          let arvDate = new Date(x.arrival)
+          if(+arvDate <= +endDate)
+          return x.arrival
+          else 
+          return false
+        })
+        this.dataSource.data = result
       }
    
 
