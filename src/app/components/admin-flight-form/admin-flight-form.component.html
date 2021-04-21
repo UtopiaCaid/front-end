@@ -96,5 +96,8 @@
         <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
             Submit
         </button>
+        <mat-error>
+            {{getSubmitMessage()}}
+        </mat-error>
     </div>
 </mat-card>

@@ -112,7 +112,8 @@ public parseFlightRecords(flight : FlightReports) {
 
     let dialogRef = this.dialog.open(AdminFlightFormComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -125,7 +126,11 @@ public parseFlightRecords(flight : FlightReports) {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    let dialogRef = this.dialog.open(AdminFlightFormComponent);
+    let dialogRef = this.dialog.open(AdminFlightFormComponent, {
+      data: {
+        errorUpdate: '',
+      }
+    });
     dialogRef.afterClosed().subscribe(() => {
       this.getAllFlights();
     })
@@ -140,7 +145,8 @@ public parseFlightRecords(flight : FlightReports) {
 
     let dialogRef = this.dialog.open(DeleteCheckFlightsComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {

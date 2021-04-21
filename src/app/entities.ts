@@ -1,3 +1,5 @@
+import { TravelerData } from './services/admin-traveler-service/traveler-data';
+
 export interface FlightReports {
     flightNo: number;
     flightGate: string;
@@ -10,7 +12,7 @@ export interface FlightReports {
 
 export interface AircraftData {
     aircraftId: number;
-    aircraftType: object;
+    aircraftType: AircraftTypeData;
     seatCount: number;
     firstClassCount: number;
     secondClassCount: number;
@@ -51,9 +53,9 @@ export interface PaymentData {
 export interface TicketData {
     ticketNo: number;
     confirmationCode: number,
-    flight: object;
-    traveler: object;
-    payment: object;
+    flight: FlightReports;
+    traveler: TravelerData;
+    payment: PaymentData;
     ticketPrice: number;
     ticketClass: number;
     dateIssued: string;
