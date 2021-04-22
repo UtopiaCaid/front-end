@@ -86,7 +86,7 @@ export class UserFlightService {
   }
 
   public retrieveAirports() {
-    return this.http.get(this.baseUrl+'/Airport');
+    return this.http.get(this.baseUrl+'Airport');
   }
 
 
