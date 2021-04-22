@@ -37,21 +37,20 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
+            <mat-label> Gender </mat-label>
+            <input matInput [formControl]="gender" type="string" required>
+            <mat-error *ngIf="gender.invalid">
+                {{getErrorMessage(4)}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
             <mat-label>Date of Birth</mat-label>
             <input matInput [matDatepicker]="picker" [formControl]="dob" readonly required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker [startAt]="dob" #picker></mat-datepicker>
             <mat-error *ngIf="dob.invalid">
                 {{getErrorMessage(5)}}
-            </mat-error>
-        </mat-form-field>
-
-        
-        <mat-form-field appearance="fill">
-            <mat-label> Gender </mat-label>
-            <input matInput [formControl]="gender" type="string" required>
-            <mat-error *ngIf="gender.invalid">
-                {{getErrorMessage(4)}}
             </mat-error>
         </mat-form-field>
         
@@ -68,5 +67,8 @@
         <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
             Submit
         </button>
+        <mat-error>
+            {{getSubmitMessage()}}
+        </mat-error>
     </div>
 </mat-card>

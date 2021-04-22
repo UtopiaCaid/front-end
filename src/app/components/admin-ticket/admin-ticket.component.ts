@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminTicketServiceService as AdminTicketService } from 'src/app/services/admin-ticket-service/admin-ticket-service.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { TicketData } from 'src/app/services/admin-ticket-service/ticket-data';
+import { MatSort } from '@angular/material/sort';
+import { TicketData } from 'src/app/entities';
 import { AdminTicketFormComponent } from '../admin-ticket-form/admin-ticket-form.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DeleteCheckTicketComponent } from '../delete-checks/delete-check-ticket/delete-check-ticket.component';
-import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-admin-ticket',
@@ -16,7 +16,7 @@ import { waitForAsync } from '@angular/core/testing';
 export class AdminTicketComponent implements OnInit {
 
   ELEMENT_DATA!: TicketData[];
-  displayedColumns: string[] = ['ticketNo', 'flight', 'traveler', 'confirmationCode', 'ticketPrice', 'ticketClass', 'dateIssued', 'payment', 'action'];
+  displayedColumns: string[] = ['ticketNo', 'flight', 'traveler', 'confirmationCode', 'ticketPrice', 'ticketClass', 'dateIssued', 'payment', 'update', 'delete'];
   dataSource = new MatTableDataSource<TicketData>(this.ELEMENT_DATA);
 
   constructor(
@@ -27,9 +27,55 @@ export class AdminTicketComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  @ViewChild(MatSort) 
+  sort!: MatSort;
+
   ngOnInit(): void {
     this.getAllTickets();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    this.dataSource.filterPredicate = (data: any, filter) => {
+      const dataStr =JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1; 
+    }
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+      case 'ticketNo': {
+        return item.ticketNo;
+      }
+      case 'flight': {
+        return item.flight.flightNo;
+      }
+      case 'traveler': {
+        return item.traveler.firstName;
+      }
+      case 'confirmationCode': {
+        return item.confirmationCode;
+      }
+      case 'ticketPrice': {
+        return item.ticketPrice;
+      }
+      case 'ticketClass': {
+        return item.ticketClass;
+      }
+      case 'dateIssued': {
+        return item.dateIssued;
+      }
+      case 'payment': {
+        return item.payment.dateProcessed;
+      }
+      default: {
+        return "null";
+      }
+      };
+    }
+  }
+
+  public doFilter = (event: Event) => {
+    this.dataSource.filter = (<HTMLInputElement>event.target).value.trim().toLocaleLowerCase();
   }
 
   public getAllTickets() {
@@ -49,7 +95,8 @@ export class AdminTicketComponent implements OnInit {
 
     let dialogRef = this.dialog.open(AdminTicketFormComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: ''
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -62,7 +109,11 @@ export class AdminTicketComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    let dialogRef = this.dialog.open(AdminTicketFormComponent);
+    let dialogRef = this.dialog.open(AdminTicketFormComponent, {
+      data: {
+        errorUpdate: ''
+      }
+    });
     dialogRef.afterClosed().subscribe(() => {
       this.getAllTickets();
     })
@@ -77,7 +128,8 @@ export class AdminTicketComponent implements OnInit {
 
     let dialogRef = this.dialog.open(DeleteCheckTicketComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {

@@ -1,64 +1,95 @@
-<button mat-raised-button (click)="onCreate()">
-    <mat-icon>add</mat-icon>Create
-</button>
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <button mat-raised-button (click)="onCreate()">
+        <mat-icon>add</mat-icon>Create
+    </button>
+    <div fxLayout fxLayoutAlign="center center">
+        <mat-form-field fxFlex="40%">
+            <input matInput type="text" (keyup)="doFilter($event)" placeholder="Filter">
+        </mat-form-field>
+    </div>  
+</div>
+<div class="example-container mat-elevation-z8">
+    <mat-table matSort [dataSource]="dataSource">
 
         }
         <ng-container matColumnDef="ticketNo">
-            <th mat-header-cell *matHeaderCellDef> Aircraft ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.ticketNo}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Number </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Ticket Number:</span>
+                {{element.ticketNo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="flight">
-            <th mat-header-cell *matHeaderCellDef> Flight Number </th>
-            <td mat-cell *matCellDef="let element"> {{element.flight.flightNo}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Number </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Flight Number:</span>
+                Flight {{element.flight.flightNo}}:Gate {{element.flight.flightGate}} </td>
         </ng-container>
 
         <ng-container matColumnDef="traveler">
-            <th mat-header-cell *matHeaderCellDef> Traveler Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.traveler.firstName}} {{element.traveler.lastName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Traveler Name </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Traveler:</span>
+                {{element.traveler.firstName}} {{element.traveler.lastName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="payment">
-            <th mat-header-cell *matHeaderCellDef> Payment </th>
-            <td mat-cell *matCellDef="let element"> {{element.payment.paymentId}} : {{element.payment.dateProcessed}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Payment:</span>
+                {{element.payment.paymentId}} : {{element.payment.dateProcessed}} </td>
         </ng-container>
 
         <ng-container matColumnDef="confirmationCode">
-            <th mat-header-cell *matHeaderCellDef> Confirmation Code </th>
-            <td mat-cell *matCellDef="let element"> {{element.confirmationCode}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmation Code </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">ConfirmationCode:</span>
+                {{element.confirmationCode}} </td>
         </ng-container>
 
         <ng-container matColumnDef="ticketPrice">
-            <th mat-header-cell *matHeaderCellDef> Ticket Price</th>
-            <td mat-cell *matCellDef="let element"> {{element.ticketPrice}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Price</th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Price:</span>
+                {{element.ticketPrice}} </td>
         </ng-container>
 
         <ng-container matColumnDef="ticketClass">
-            <th mat-header-cell *matHeaderCellDef> Ticket Class </th>
-            <td mat-cell *matCellDef="let element"> {{element.ticketClass}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Class </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Ticket Class:</span>
+                {{element.ticketClass}} </td>
         </ng-container>
 
         <ng-container matColumnDef="dateIssued">
-            <th mat-header-cell *matHeaderCellDef> Date Issued </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateIssued}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Issued </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Date Issued:</span>
+                {{element.dateIssued}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <mat-cell *matCellDef="let row">
+        <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Edit </th>
+            <td mat-cell *matCellDef="let row">
+                <span class="mobile-label">Edit:</span>
                 <button mat-button color="primary" (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Delete </th>
+            <td mat-cell *matCellDef="let row">
+                <span class="mobile-label">Delete:</span>
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
-            </mat-cell>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    </mat-table>
     <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>

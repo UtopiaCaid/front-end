@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminAirportServiceService as AdminAirportService } from 'src/app/services/admin-airport-service/admin-airport-service.service';
 import { AirportReports } from 'src/app/services/admin-airport-service/airport-reports';
@@ -15,8 +16,8 @@ import { DeleteCheckAirportComponent } from '../delete-checks/delete-check-airpo
 export class AdminAirportComponent implements OnInit {
 
   ELEMENT_DATA!: AirportReports[];
-  displayedColumns: string[] = ['airportId', 'airportCode', 'city', 'airportName',
-    'status', 'action']
+  displayedColumns: string[] = ['airportCode', 'city', 'airportName',
+    'status', 'update', 'delete']
   dataSource = new MatTableDataSource<AirportReports>(this.ELEMENT_DATA);
 
   constructor(
@@ -27,11 +28,22 @@ export class AdminAirportComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  @ViewChild(MatSort) 
+  sort!: MatSort;
+
   ngOnInit(): void {
     this.getAllAirports();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator
+    this.dataSource.sort = this.sort;
+  }
+
+  public doFilter = (event: Event) => {
+    this.dataSource.filter = (<HTMLInputElement>event.target).value.trim().toLocaleLowerCase();
+  }
+  
   public getAllAirports() {
     let res = this.service.retrieveAirports();
     res.subscribe(report => this.dataSource.data = report as AirportReports[]);
@@ -45,7 +57,8 @@ export class AdminAirportComponent implements OnInit {
 
     let dialogRef = this.dialog.open(AdminAirportFormComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -53,13 +66,16 @@ export class AdminAirportComponent implements OnInit {
     })
   }
 
-
   public onCreate() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    let dialogRef = this.dialog.open(AdminAirportFormComponent);
+    let dialogRef = this.dialog.open(AdminAirportFormComponent, {
+      data: {
+        errorUpdate: '',
+      }
+    });
     dialogRef.afterClosed().subscribe(() => {
       this.getAllAirports();
     })
@@ -73,7 +89,8 @@ export class AdminAirportComponent implements OnInit {
 
     let dialogRef = this.dialog.open(DeleteCheckAirportComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {

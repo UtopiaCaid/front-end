@@ -2,20 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AdminTravelerServiceService as AdminTravelerService } from 'src/app/services/admin-traveler-service/admin-traveler-service.service';
 import { AdminAccountServiceService as AdminAccountService } from 'src/app/services/admin-account-service/admin-account-service.service';
+import { AccountData as Account} from 'src/app/entities';
 
 /* modal */
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-
-interface Account {
-  accountNumber: number;
-  role: object[];
-  username: string;
-  email: string;
-  password: string;
-  dateCreated: string;
-}
 
 @Component({
   selector: 'app-admin-traveler-form',
@@ -51,8 +43,8 @@ export class AdminTravelerFormComponent implements OnInit {
   firstName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]);
   dob = new FormControl(0, [Validators.required]);
   middleName = new FormControl('', [Validators.minLength(1), Validators.maxLength(45)]);
-  lastName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]);
-  gender = new FormControl('', [Validators.minLength(1), Validators.maxLength(1)]);
+  lastName = new FormControl('', [Validators.required, Validators.maxLength(45)]);
+  gender = new FormControl('', [Validators.required, Validators.maxLength(1)]);
   knownTravelerNumber = new FormControl(0, [Validators.min(0)]);
   accountCheck = new FormControl(this.accounts, [Validators.required]);
 
@@ -69,7 +61,8 @@ export class AdminTravelerFormComponent implements OnInit {
         this.lastName.hasError('minlength') ? 'you must enter a last name' :
         this.lastName.hasError('maxlength') ? 'last name length limit exceeded' : '';
       case 4:
-        return this.gender.hasError('required') ? 'you must enter a gender' : '';
+        return this.gender.hasError('maxlength') ? 'gender must be 1 character'  :
+        this.gender.hasError('required') ? 'you must enter a gender' : '';
       case 5:
         return this.dob.hasError('required') ? 'you must enter a date of birth' : ''
       case 6:
@@ -95,23 +88,34 @@ export class AdminTravelerFormComponent implements OnInit {
     }
   }
 
+  public getSubmitMessage() {
+    return this.data.errorUpdate;
+  }
+
+  public submitReady() {
+    return this.data.errorUpdate == '' ? true : false;
+  }
+  
   public formSubmit() {
     if (
       this.selectedAccount == undefined ||
       this.firstName.hasError('required') ||
       this.middleName.hasError('required') ||
       this.lastName.hasError('required') ||
-      this.dob.hasError('required')
+      this.dob.hasError('required') ||
+      this.gender.hasError('required')
     ) {
-      alert('Please insert the required fields')
+      this.data.errorUpdate =('Please insert the required fields')
     } else if (
       this.firstName.hasError('minlength') ||
       this.firstName.hasError('maxlength') ||
       this.middleName.hasError('maxlength') ||
       this.lastName.hasError('minlength') ||
-      this.lastName.hasError('maxlength') 
+      this.lastName.hasError('maxlength')  ||
+      this.gender.hasError('maxlength') ||
+      this.knownTravelerNumber.hasError('min')
     ) {
-      alert('Invalid Field Value(s)'); 
+      this.data.errorUpdate =('Invalid Field Value(s)'); 
     }else if (this.data.row != undefined) {
       this.TravelerService.updateTraveler(
         this.data.row.travelerId,

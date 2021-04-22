@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { AdminFlightServiceService as AdminFlightService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
-import { FlightReports } from 'src/app/entities';
-import { AirportReports } from 'src/app/entities';
+import { FlightReports, AirportReports } from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
-import {parseLocalDateTime} from 'src/app/services/datetime-parser';
+import { parseLocalDateTime } from 'src/app/services/datetime-parser';
 
 @Component({
   selector: 'app-admin-flight',
@@ -35,7 +34,6 @@ export class AdminFlightComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFlights();
-    //set a new filterPredicate function
     this.dataSource.filterPredicate = (data: any, filter) => {
       const dataStr =JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) != -1; 
@@ -92,23 +90,17 @@ public parseFlightRecords(flight : FlightReports) {
   return flight;
 }
 
-
   public getAllFlights() {
     let res = this.service.retrieveFlights();
-    //res.subscribe(report => this.dataSource.data = this.parseRecords(report as FlightReports[]));
     res.subscribe(report => this.dataSource.data = report as FlightReports[]);
   }
 
-  /*     this.dataSource.data.forEach(
-      curr => curr = this.parseFlightRecords(curr)
-    )  */
   public onEdit(row: {}) {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-
 
     let dialogRef = this.dialog.open(AdminFlightFormComponent, {
       data: {
@@ -128,7 +120,7 @@ public parseFlightRecords(flight : FlightReports) {
     dialogConfig.width = "60%";
     let dialogRef = this.dialog.open(AdminFlightFormComponent, {
       data: {
-        errorUpdate: '',
+        errorUpdate : '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {

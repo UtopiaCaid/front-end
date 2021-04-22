@@ -1,5 +1,3 @@
-import { TravelerData } from './services/admin-traveler-service/traveler-data';
-
 export interface FlightReports {
     flightNo: number;
     flightGate: string;
@@ -29,7 +27,7 @@ export interface AircraftTypeData {
 
 export interface AirportReports {
     airportId: number;
-    airportCode: number;
+    airportCode: number;    
     city: string;
     airportName: string;
     status: string;
@@ -37,7 +35,7 @@ export interface AirportReports {
 
 export interface AccountData {
     accountNumber: number;
-    role: object[];
+    role: RoleTypeData;
     username: string;
     email: string;
     password: string;
@@ -61,3 +59,18 @@ export interface TicketData {
     dateIssued: string;
 }
 
+export interface RoleTypeData {
+    roleId: number;
+    roleType: string;
+}
+
+export interface TravelerData {
+    traveler: TravelerData;
+    account: AccountData;
+    firstName: string;
+    dob: string;
+    middleName: string;
+    lastName: string;
+    gender: string;
+    knownTravelerNumber: number;
+}

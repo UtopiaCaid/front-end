@@ -36,7 +36,7 @@ table {
   @media(max-width: 1200px) {
     .mobile-label {
       width: 80px;
-      display: inline-block;
+      display: contents;
           font-weight: bold;
     }
   

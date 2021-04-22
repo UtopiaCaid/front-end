@@ -8,35 +8,7 @@ import { AdminPaymentServiceService as AdminPaymentService} from 'src/app/servic
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-
-interface Flight {
-  flightNo: number;
-  flightGate: string;
-  aircraft: object;
-  airportDep: object;
-  airportArr: object;
-  basePrice: number;
-  departure: string;
-  arrival: string;
-  status: string;
-}
-
-interface Traveler {
-  travelerId: number;
-  account: object;
-  firstName: string;
-  dob: string;
-  middleName: string;
-  lastName: string;
-  gender: string;
-  knownTravelerNumber: number;
-}
-
-interface Payment {
-  paymentId: number;
-  account: object;
-  dateProcessed: string;
-}
+import { FlightReports as Flight, TravelerData as Traveler, PaymentData as Payment} from 'src/app/entities';
 
 @Component({
   selector: 'app-admin-ticket-form',
@@ -143,6 +115,14 @@ export class AdminTicketFormComponent implements OnInit {
     }
   }
 
+  public getSubmitMessage() {
+    return this.data.errorUpdate;
+  }
+
+  public submitReady() {
+    return this.data.errorUpdate == '' ? true : false;
+  }
+  
   public formSubmit() {
     if (
       this.selectedFlight == undefined ||
@@ -152,9 +132,9 @@ export class AdminTicketFormComponent implements OnInit {
       this.ticketClass.hasError('required') ||
       this.dateIssued.hasError('required')
     ) {
-      alert('Please insert the required fields')
+      this.data.errorUpdate = ('Please insert the required fields')
     } else if(this.ticketPrice.hasError('min')) {
-      alert('Ticket price must be non-negative');
+      this.data.errorUpdate = ('Ticket price must be non-negative');
     } 
     else if (this.data.row != undefined) {
       this.TicketService.updateTicket(
