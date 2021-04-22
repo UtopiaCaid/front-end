@@ -41,6 +41,8 @@ export class UserFlightsComponent implements OnInit {
   selectedAirportArr!: {};
   selectedStartDate = new Date();
   selectedEndDate!: Date;
+  nullDate!: Date;
+  nullAirport!: {};
   form: FormGroup;
   panelOpenState = true;
   unfilteredFlights!: UserFlightReports[];
@@ -57,8 +59,10 @@ export class UserFlightsComponent implements OnInit {
     this.getAllAirports();
     this.filterYet = false
     this.form = this.formBuilder.group({
-      startDate: ['',this.currentDate],
-      endDate: ['', this.selectedStartDate]
+      startDate: [this.currentDate,this.currentDate],
+      endDate: ['', this.selectedStartDate],
+      startingAirports: [''],
+      endingAirports: [''],
   });
     
 
@@ -107,8 +111,22 @@ export class UserFlightsComponent implements OnInit {
       let result = temp.filter(function(x){
         return x.status !== "Completed"
       })
-      this.dataSource.data = result
       this.unfilteredFlights = result
+      this.dataSource.data = result
+
+      ///Filters out flights that depart before current date
+      let flights1 = this.dataSource.data as UserFlightReports[]
+      let startDate = new Date(formatDate(this.selectedStartDate, 'yyyy-MM-dd', 'en_US'))
+      let result2 = flights1.filter(function(x){
+        let arvDate = new Date(x.departure)
+        if(+arvDate >= +startDate)
+        return x.departure
+        else 
+        return false
+      })
+
+
+      this.dataSource.data = result2
     });
   }
 
@@ -201,6 +219,21 @@ export class UserFlightsComponent implements OnInit {
 
     public onSubmit(){
       
+      this.selectedEndDate= this.nullDate
+      this.selectedStartDate= this.currentDate
+      this.selectedAirportArr =this.nullAirport
+      this.selectedAirportDep =this.nullAirport
+      this.form.reset();
+      this.form = this.formBuilder.group({
+        startDate: [this.currentDate,this.currentDate],
+        endDate: ['', this.selectedStartDate],
+        startingAirports: [''],
+        endingAirports: [''],
+    });
+     
+      
+     
+
       this.filterFlights();
     }
 

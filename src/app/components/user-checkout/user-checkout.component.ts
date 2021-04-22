@@ -45,6 +45,7 @@ export class UserCheckoutComponent implements OnInit {
     this.currentCart = JSON.parse(localStorage.getItem('currentCart') || "{}" )
     this.userService.currentCart.subscribe(report => this.dataSource.data = report as UserTickets[])
     this.dataSource.data = this.currentCart
+    if(this.dataSource.data.length)
     this.dataSource.data.forEach((element) =>{
       this.totalPrice = this.totalPrice + Number(element.price)
     })
