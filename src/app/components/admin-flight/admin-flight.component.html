@@ -9,8 +9,7 @@
     </div>  
 </div>
 <div class="example-container mat-elevation-z8">
-    <mat-table #table matSort [dataSource]="dataSource">
-
+    <mat-table matSort [dataSource]="dataSource">
 
         <ng-container matColumnDef="flightNo">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight No </th>
@@ -19,7 +18,6 @@
                 {{element.flightNo}} 
             </td>
         </ng-container>
-
 
         <ng-container matColumnDef="airportDeparture">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Airport Departure </th>
@@ -52,7 +50,6 @@
                 {{element.departure}} 
             </td>
         </ng-container>
-
 
         <ng-container matColumnDef="arrival">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival </th>

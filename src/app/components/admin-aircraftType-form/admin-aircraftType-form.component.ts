@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AdminAircraftTypeServiceService as AdminAircraftTypeService} from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service'; 
+import { AircraftTypeData as AircraftType } from 'src/app/entities';
 
 /* modal */
 import { MatDialogRef } from '@angular/material/dialog';
@@ -15,8 +16,17 @@ import { Inject } from '@angular/core';
 })
 export class AdminAircraftTypeFormComponent implements OnInit {
 
+  /* get aircraft type primary keys */
+  aircrafts!: AircraftType[]
+
   ngOnInit(): void {
     this.populate();
+    this.getAllAircraftTypes();
+  }
+
+  public getAllAircraftTypes() {
+    let res = this.AircraftTypeService.retrieveAircraftTypes();
+    res.subscribe(aircraftType => this.aircrafts = aircraftType as AircraftType[]);
   }
 
   constructor(
@@ -29,6 +39,15 @@ export class AdminAircraftTypeFormComponent implements OnInit {
   aircraftTypeName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]);
   seatMaximum = new FormControl(0, [Validators.required, Validators.min(0)]);
   manufacturer = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]);
+
+  private aircraftIdExists(id : number) {
+    for(let i = 0; i < this.aircrafts.length; i++) {
+      if(this.aircrafts[i].aircraftTypeId === id) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   isUpdate() {
     return this.data.update;
@@ -63,24 +82,30 @@ export class AdminAircraftTypeFormComponent implements OnInit {
     }
   }
 
+  public getSubmitMessage() {
+    return this.data.errorUpdate;
+  }
+
+  public submitReady() {
+    return this.data.errorUpdate == '' ? true : false;
+  }
+
   public formSubmit() {
-    console.log(this.aircraftTypeId.value);
-    console.log(this.aircraftTypeName.value);
-    console.log(this.seatMaximum.value);
-    console.log(this.manufacturer.value);
     if (
       this.aircraftTypeId.hasError('required') ||
       this.aircraftTypeName.hasError('required') ||
       this.seatMaximum.hasError('required') ||
       this.manufacturer.hasError('required')
     ) {
-      alert('Please insert the required fields');
+      this.data.errorUpdate =('Please insert the required fields');
     } else if (this.aircraftTypeName.hasError('minLength') ||
       this.aircraftTypeName.hasError('maxLength') ||
       this.manufacturer.hasError('minLength') || 
       this.manufacturer.hasError('maxLength')
     ) {
-      alert('Invalid Field Value(s)'); 
+      this.data.errorUpdate =('Invalid Field Value(s)'); 
+    } else if (this.aircraftIdExists(this.aircraftTypeId.value)) {
+      this.data.errorUpdate = ('Aircraft type id already exists');
     } else if (this.data.update) {
       this.AircraftTypeService.updateAircraftType(
         this.data.row.aircraftTypeId,

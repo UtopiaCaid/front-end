@@ -1,52 +1,68 @@
-<button mat-raised-button (click)="onCreate()">
-    <mat-icon>add</mat-icon>Create
-</button>
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
-
-
-        <ng-container matColumnDef="airportId">
-            <th mat-header-cell *matHeaderCellDef> Airport ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.airportId}} </td>
-        </ng-container>
-
+    <button mat-raised-button (click)="onCreate()">
+        <mat-icon>add</mat-icon>Create
+    </button>
+    <div fxLayout fxLayoutAlign="center center">
+        <mat-form-field fxFlex="40%">
+            <input matInput type="text" (keyup)="doFilter($event)" placeholder="Filter">
+        </mat-form-field>
+    </div>  
+</div>
+<div class="mat-elevation-z8">
+    <mat-table #table matSort [dataSource]="dataSource">
 
         <ng-container matColumnDef="airportCode">
-            <th mat-header-cell *matHeaderCellDef> Airport Code </th>
-            <td mat-cell *matCellDef="let element"> {{element.airportCode}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header > Airport Code </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Airport Code:</span>
+                {{element.airportCode}} </td>
         </ng-container>
 
 
         <ng-container matColumnDef="city">
-            <th mat-header-cell *matHeaderCellDef> City </th>
-            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">City:</span>
+                {{element.city}} </td>
         </ng-container>
 
 
         <ng-container matColumnDef="airportName">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.airportName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Airport Name:</span>
+                {{element.airportName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element"> 
+                <span class="mobile-label">Status:</span>
+                {{element.status}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <mat-cell *matCellDef="let row">
+        <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Edit </th>
+            <td mat-cell *matCellDef="let row">
+                <span class="mobile-label">Edit:</span>
                 <button mat-button color="primary" (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Delete </th>
+            <td mat-cell *matCellDef="let row">
+                <span class="mobile-label">Delete:</span>
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
-            </mat-cell>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    </mat-table>
     <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>

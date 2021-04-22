@@ -60,7 +60,7 @@ export class UserFlightService {
   public  retrieveAccountTicketHistory(num: String):Observable<any>  {
     //testing
     //num = "1"
-    return this.http.post(this.userAccountUrl+"/Ticket/History",{"accountNumber" : num})
+    return this.http.post(this.userAccountUrl+"Ticket/History",{"accountNumber" : num})
     .pipe(
       map<any, any>((res: Response) => {
         // console.log("Res")
@@ -74,7 +74,7 @@ export class UserFlightService {
   public  retrieveAccountFlightHistory(num: String):Observable<any>  {
     //testing
     //num = "1"
-    return this.http.post(this.userAccountUrl+"/Flight/History",{"accountNumber" : num})
+    return this.http.post(this.userAccountUrl+"Flight/History",{"accountNumber" : num})
     .pipe(
       map<any, any>((res: Response) => {
         // console.log("Res")
@@ -86,7 +86,7 @@ export class UserFlightService {
   }
 
   public retrieveAirports() {
-    return this.http.get(this.baseUrl+'/Airport');
+    return this.http.get(this.baseUrl+'Airport');
   }
 
 

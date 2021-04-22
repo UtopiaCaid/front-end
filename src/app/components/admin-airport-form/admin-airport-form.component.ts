@@ -46,12 +46,19 @@ export class AdminAirportFormComponent implements OnInit {
   }
 
   public populate() {
-    if (this.data) {
+    if (this.data.row) {
       this.airportCode.setValue(this.data.row.airportCode);
       this.city.setValue(this.data.row.city);
       this.airportName.setValue(this.data.row.airportName);
       this.status.setValue(this.data.row.status);
     }
+  }
+  public getSubmitMessage() {
+    return this.data.errorUpdate;
+  }
+
+  public submitReady() {
+    return this.data.errorUpdate == '' ? true : false;
   }
 
   public formSubmit() {
@@ -60,13 +67,13 @@ export class AdminAirportFormComponent implements OnInit {
       this.city.hasError('required') ||
       this.airportName.hasError('required') ||
       this.status.hasError('required')) {
-      alert('Please insert the required fields')
+      this.data.errorUpdate = 'Please insert the required fields';
     } else if(
       this.airportCode.hasError('min') ||
       this.city.hasError('minLength') || this.city.hasError('maxLength') ||
       this.airportName.hasError('minLength') || this.airportName.hasError('maxLength')
       ) {
-        alert('Invalid Field Value(s)');
+        this.data.errorUpdate = ('Invalid Field Value(s)');
     } else if (this.data.row != undefined) {
       this.AirportService.updateAirport(
         this.data.row.airportId,

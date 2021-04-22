@@ -7,7 +7,7 @@ import { AdminAircraftTypeFormComponent } from '../admin-aircraftType-form/admin
 import { DeleteCheckAircraftTypeComponent } from '../delete-checks/delete-check-aircraftType/delete-check-aircraftType.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
-
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-admin-aircraftType',
@@ -17,11 +17,15 @@ import { ViewChild } from '@angular/core';
 export class AdminAircraftTypeComponent implements OnInit {
 
   ELEMENT_DATA!: AircraftTypeData[];
-  displayedColumns: string[] = ['aircraftTypeId', 'aircraftTypeName', 'seatMaximum', 'manufacturer', 'action'];
+  displayedColumns: string[] = ['aircraftTypeId', 'aircraftTypeName', 'seatMaximum', 'manufacturer', 'update', ];
   dataSource = new MatTableDataSource<AircraftTypeData>(this.ELEMENT_DATA);
 
+  
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+
+  @ViewChild(MatSort) 
+  sort!: MatSort;
 
   constructor(
     private service: AdminAircraftTypeService,
@@ -31,9 +35,16 @@ export class AdminAircraftTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllAircraftType();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  public doFilter = (event: Event) => {
+    this.dataSource.filter = (<HTMLInputElement>event.target).value.trim().toLocaleLowerCase();
+  }
   public getAllAircraftType() {
     let res = this.service.retrieveAircraftTypes();
     res.subscribe(data => this.dataSource.data = data as AircraftTypeData[]);
@@ -46,11 +57,11 @@ export class AdminAircraftTypeComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
 
-
     this.dialog.open(AdminAircraftTypeFormComponent, {
       data: {
         row: row,
-        update: true
+        update: true,
+        errorUpdate: ''
       },
     });
 
@@ -63,7 +74,8 @@ export class AdminAircraftTypeComponent implements OnInit {
     dialogConfig.width = "60%";
     this.dialog.open(AdminAircraftTypeFormComponent, {
       data: {
-        update: false
+        update: false,
+        errorUpdate: '',
       }
     });
   }
@@ -77,7 +89,8 @@ export class AdminAircraftTypeComponent implements OnInit {
 
     let dialogRef = this.dialog.open(DeleteCheckAircraftTypeComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {
