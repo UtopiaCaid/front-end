@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {Account} from 'src/app/services/auth-service/account';
 import {UserFlightReports} from "src/app/services/user-flight-service/user-flight-reports"
 
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-user-upcoming-flights',
@@ -22,12 +23,14 @@ export class UserUpcomingFlightsComponent implements OnInit {
   dataSource = new MatTableDataSource<UserFlightReports>(this.ELEMENT_DATA);
   currentUser: Account;
   hasFlightHistroy: Boolean;
+  loading: Boolean;
 
   constructor(
     public userService : UserFlightService,
     public authService : AuthenticationService
   ) {
     this.hasFlightHistroy = true;
+    this.loading = true;
     this.currentUser =    {
     username: "null",
     email: "null",
@@ -65,41 +68,42 @@ export class UserUpcomingFlightsComponent implements OnInit {
       .subscribe(res => {
         
         this.currentUser = res
+
+
+        var accountNum = this.currentUser.accountNumber;
+        //console.log("User retrived is currently hard coded as '1'")
+        //this.userService.retrieveAccountFlightHistory("1")
+        this.userService.retrieveAccountFlightHistory(accountNum)
+        .subscribe((res) => {
+    
+    
+          let tempFlights = res as UserFlightReports[]
+          // console.log(tempFlights)
+          let result = tempFlights.filter(function(x){
+            let currentDate = new Date();
+             currentDate = new Date(formatDate(currentDate,'yyyy-MM-dd', 'en_US'))
+              let flightDate = new Date(x.departure)
+            if(!(+flightDate >= +currentDate))
+            return false;
+            return x.status !== "Completed"
+          })
+    
+          this.dataSource.data = result
+          if(result.length>0)
+          this.hasFlightHistroy = true;
+          else
+          this.hasFlightHistroy = false;
+    
+          this.loading = false;
+        })
+
       })
 
     }
-    var accountNum = this.currentUser.accountNumber;
    
-    console.log("User retrived is currently hard coded as '1'")
-    this.userService.retrieveAccountFlightHistory("1")
-    // this.userService.retrieveAccountFlightHistory(accountNum)
-    .subscribe((res) => {
-
-
-      let tempFlights = res as UserFlightReports[]
-      // console.log(tempFlights)
-      let result = tempFlights.filter(function(x){
-        return x.status !== "Completed"
-      })
-
-      this.dataSource.data = result
-      if(result.length>0)
-      this.hasFlightHistroy = true;
-      else
-      this.hasFlightHistroy = false;
-
-    })
  
   }
 
-  payNow(){
-    console.log("Paynow button")
-    ///probably takes you to a module just for paying
-  }
-
-  clearCart(){
-    this.userService.reSetCurrentCart();
-  }
 
   flightOptions(){
     console.log("Implement flight Options  later")

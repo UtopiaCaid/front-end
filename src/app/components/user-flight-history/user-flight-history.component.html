@@ -46,7 +46,7 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Options </th>
                 <mat-cell *matCellDef="let row">
-                    <button mat-icon-button color="primary" (click)="deleteTicket()">
+                    <button mat-icon-button color="primary" (click)="flightOptions()">
                         <mat-icon>history_edu</mat-icon>
                     </button>
                 </mat-cell>
@@ -57,6 +57,9 @@
         </table>
         <div *ngIf="!(this.hasFlightHistroy)">
             <h2> No Flight History Yet</h2>
+        </div>
+        <div *ngIf="(this.loading)">
+            <h2> Loading...</h2>
         </div>
     </div>
 

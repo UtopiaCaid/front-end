@@ -43,22 +43,7 @@ export class AuthenticationService {
 
   logIn(account: Account) {
 
-    return this.http.post<any>(this.authUrl, account)
-      // .subscribe((res: any) => {
-      //   localStorage.setItem('access_token', res.token)
-      //   // console.log("Token");
-      //   // console.log(res.token);
-      //  console.log("RES")
-      //  console.log(res)
-      //   this.getUserProfile().subscribe((res) => {
-      //     this.currentUser = res;
-      //     this.router.navigate(['home']);    
-      //   })
-      // },
-      // error => {
-      //   console.log('Wrong credentials', error)
-      // }) 
-   
+    return this.http.post<any>(this.authUrl, account) 
   }
 
   getUser() {
@@ -77,12 +62,6 @@ export class AuthenticationService {
         this.currentUser=res;
         this.getUserByUserName();
       })
-      // .pipe(
-      //   map((res: Response) => {
-      //     return res || {}
-      //   }),
-      //   catchError(this.handleError)
-      // )
   }
     // Error 
     handleError(error: HttpErrorResponse) {
@@ -137,8 +116,6 @@ export class AuthenticationService {
     }
 
     getCurrentUser2() {
-     
-      
       return this.currentUser;
     }
 
@@ -172,8 +149,6 @@ export class AuthenticationService {
 
 
   getUserProfile(): Observable<any> {
-    // if(!this.isLoggedIn)
-    // return null
     const authToken = localStorage.getItem('access_token');
     const headerDict = {
       'Content-Type':  'application/json',
@@ -181,9 +156,6 @@ export class AuthenticationService {
       'Access-Control-Allow-Headers': 'Content-Type',
       'Authorization': "Bearer " + authToken
     }
-    // const requestOptions = {                                                                                                                                                                                 
-    //   headers: new HttpHeaders(headerDict),
-    // };
     return this.http.get(this.authUrl, {headers: new HttpHeaders(headerDict) })
     .pipe(
       map<any, any>((res: Response) => {
@@ -208,21 +180,12 @@ export class AuthenticationService {
   }
 
   getRole() {
-    // this.getUserProfile().subscribe(res => {
-    //   return  res.roleId.roleType  
-    // })
-    //res.roleId.roleType
-    // var role =localStorage.getItem('current_roleType')
-    //  var decode = this.getDecodedAccessToken
-    // var role = decode.exp;
     if(this.isLoggedIn){
       var decode= this.getDecodedAccessToken();
       var role = decode.authorities
       return role;
     }
     else return null
-  
-    // var role = decode.authorites();
   }
 
  
