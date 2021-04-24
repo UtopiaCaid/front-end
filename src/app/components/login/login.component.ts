@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
       this.form = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]
-        // password: ['', Validators.required]
     });
     
    }
@@ -42,10 +41,6 @@ export class LoginComponent implements OnInit {
      await this.authService.logIn(this.form.value)
      .subscribe((res: any) => {
       localStorage.setItem('access_token', res.token)
-      // console.log("Token");
-      // console.log(res.token);
-    //  console.log("RES")
-    //  console.log(res)
      this.wrongCred= false;
       this.authService.getUserProfile().subscribe((res) => {
         this.authService.currentUser = res;
@@ -57,11 +52,6 @@ export class LoginComponent implements OnInit {
         this.authService.getLoggedInRoleId.next(res.roleId.roleId)
         this.authService.getLoggedInEmail.next(res.email)
         this.authService.getCurrentAccount.next(res)
-        ///As long as access is restricked to login we dont need to redirect manuly
-        //this.authService.router.navigate(['home']); 
-        
-        //location.reload();   
-        
       })
     },
     error => {

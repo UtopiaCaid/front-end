@@ -25,9 +25,6 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if (window.screen.width === 360) { // 768px portrait
-    //   this.mobile = true;
-    // }
     this.isMobile = window.innerWidth <= 991;
     window.onresize = () => this.isMobile = window.innerWidth <= 991;
     this.staleToken=false;
@@ -48,8 +45,6 @@ export class HeaderComponent implements OnInit {
     if(this.authService.isLoggedIn)
     {
     var decode= this.authService.getDecodedAccessToken();
-    // console.log("Decode")
-    // console.log(decode)
     if (decode.exp < Date.now() / 1000) {
       this.logout();
     }
@@ -82,8 +77,6 @@ export class HeaderComponent implements OnInit {
     
     (setTimeout(function(){
       console.log("leaveTimer");
-      
-      //menuTrigger.closeMenu()
     }, 2000))
 }
 

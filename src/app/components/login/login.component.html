@@ -8,15 +8,15 @@
         </mat-error>
         <mat-form-field class="full-width-input">
           <input matInput placeholder="Username" formControlName="username" required>
-          <!-- <mat-error>
-            Please provide a valid email address
-          </mat-error> -->
+          <mat-error>
+            Please provide a username.
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
           <input matInput type="password" placeholder="Password" formControlName="password" required>
-          <!-- <mat-error>
-            Please provide a valid password
-          </mat-error> -->
+          <mat-error>
+            Please provide a password.
+          </mat-error>
         </mat-form-field>
         <button disabled={{!this.form.valid}} mat-raised-button color="primary">Login</button>
       </form>
@@ -29,6 +29,5 @@
     <meta http-equiv="refresh" content="0; URL='/home'" [routerLink]="'/home'" />
     <!-- Should only be able to apear briefly after logging in-->
     <h2>Please wait a moment.</h2>
-    <!-- <h2>You are already logged in.</h2> -->
   </div>
 </ng-template>

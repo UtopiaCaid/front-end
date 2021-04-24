@@ -21,12 +21,14 @@ export class UserTicketHistoryComponent implements OnInit {
   dataSource = new MatTableDataSource<UserTickets>(this.ELEMENT_DATA);
   currentUser: Account;
   hasFlightHistroy: Boolean;
+  gotInfo : Boolean
 
   constructor(
     public userService : UserFlightService,
     public authService : AuthenticationService
   ) {
     this.hasFlightHistroy = true;
+    this.gotInfo = false;
     this.currentUser =    {
     username: "null",
     email: "null",
@@ -62,31 +64,42 @@ export class UserTicketHistoryComponent implements OnInit {
     if(this.authService.isLoggedIn){
     this.authService.getUserProfile()
       .subscribe(res => {
-        
+        // console.log(res)
         this.currentUser = res
+        // console.log(this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber))
+        // console.log(this.currentUser.accountNumber )
+        //this.userService.retrieveAccountTicketHistory("27")
+        //this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber)
+       console.log("User retrived is currently hard coded as '1'.")
+       this.userService.retrieveAccountTicketHistory("1")
+        .subscribe((res) => {
+          // console.log(res)
+          this.gotInfo= true;
+          if(res.length>0)
+          this.hasFlightHistroy = true;
+          else
+          this.hasFlightHistroy = false;
+         
+          for(const num in res){
+            
+            this.userTicket1=res[num].flight
+            this.userTicket1.price = res[num].ticketPrice
+            this.userTicket1.name =  res[num].traveler.firstName+" "+res[num].traveler.lastName
+            this.userHTickets.push(this.userTicket1)
+            
+          }
+          this.dataSource.data = this.userHTickets
+        })
+     
+     
       })
 
     }
+
     var accountNum = this.currentUser.accountNumber;
-    console.log("User retrived is currently hard coded as '1'.")
-    this.userService.retrieveAccountTicketHistory("1")
-    // this.userService.retrieveAccountTicketHistory(accountNum)
-    .subscribe((res) => {
-      if(res.length>0)
-      this.hasFlightHistroy = true;
-      else
-      this.hasFlightHistroy = false;
-     
-      for(const num in res){
-        
-        this.userTicket1=res[num].flight
-        this.userTicket1.price = res[num].ticketPrice
-        this.userTicket1.name =  res[num].traveler.firstName+" "+res[num].traveler.lastName
-        this.userHTickets.push(this.userTicket1)
-        
-      }
-      this.dataSource.data = this.userHTickets
-    })
+    // console.log("User retrived is currently hard coded as '1'.")
+    // this.userService.retrieveAccountTicketHistory("1")
+   
   }
 
   payNow(){

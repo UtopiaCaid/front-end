@@ -50,6 +50,9 @@
         <div *ngIf="!(this.hasFlightHistroy)">
             <h2> No Ticket History Yet</h2>
         </div>
+        <div *ngIf="!(this.gotInfo)">
+            <h2> Loading...</h2>
+        </div>
         <!-- <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator> -->
     </div>
 

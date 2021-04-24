@@ -18,7 +18,7 @@
     <mat-form-field appearance="fill">
         <mat-label>Depature date</mat-label>
         <input matInput [matDatepicker]="startDate" (dateChange)="startDateChange($event)" readonly
-        formControlName="startDate" [min]="this.currentDate">
+        formControlName="startDate" [min]="this.currentDate" [max]="this.selectedEndDate">
         <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
         <mat-datepicker #startDate></mat-datepicker>
       </mat-form-field>
