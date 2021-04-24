@@ -30,7 +30,6 @@ interface Airport {
 export class UserFlightsComponent implements OnInit {
 
   ELEMENT_DATA!: UserFlightReports[];
-  //ELEMENT_DATA!: FlightReports[];
   userTicket: UserTickets[];
   flightReports: FlightReports;
   displayedColumns: string[] = ['flightNo', 'departure', 'from', "to", 'arrival', 'status', 'price', 'action'];
@@ -96,7 +95,6 @@ export class UserFlightsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllAirports();
     this.getAllFlights();
-    this.populate();
     setTimeout(() => this.dataSource.paginator = this.paginator);
     
    
@@ -183,11 +181,7 @@ export class UserFlightsComponent implements OnInit {
 
     }
 
-    public populate() {
-      if (this.dataSource.data) {
 
-      }
-    }
 
     public startAirChange( event: MatSelectChange){
       this.selectedAirportDep = event.value;

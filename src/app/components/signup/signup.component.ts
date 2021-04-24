@@ -26,7 +26,7 @@ constructor(
       username: new FormControl("", [Validators.maxLength(30),Validators.minLength(5), Validators.required]),
       email: new FormControl("", [Validators.maxLength(50),Validators.email, Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
       phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern("^[0-9]*$")]),
-      // phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern('[- +()0-9]+')]),
+      password: new FormControl("", [Validators.maxLength(100),Validators.minLength(3),Validators.required]),
   });
   
  }
@@ -39,21 +39,15 @@ async onSubmit(): Promise<void> {
   this.loginInvalid = false;
   this.formSubmitAttempt = false;
   if (this.form.valid) {
-    try {
-      // this.authService.router.navigate(['login']); 
+    try { 
    await this.authService.registerUser(this.form.value)
    .subscribe((res: any) => {
    this.wrongCred= false;
    this.usernameTaken= false;
-  //  console.log("Signup Res")
-  //  console.log(res)
    if(res!=null)
     this.authService.logIn(this.form.value)
     .subscribe((res: any) => {
-      // console.log("Signup")
-      // console.log(res)
       localStorage.setItem('access_token', res.token)
-     // this.authService.router.navigate(['login']); 
     this.authService.getUserProfile().subscribe((res) => {
       this.authService.currentUser = res;
       localStorage.setItem('current_roleType', res.roleId.roleType)
@@ -76,7 +70,6 @@ async onSubmit(): Promise<void> {
     console.error('Error in registering account', error)
     console.error("Username is already taken.")
     this.usernameTaken= true;
-    // this.wrongCred= true;
   }) 
      
 
@@ -89,22 +82,6 @@ async onSubmit(): Promise<void> {
     console.log("Form was not accepted")
     this.formSubmitAttempt = true;
   }
-  // this.loginInvalid = false;
-  // this.formSubmitAttempt = false;
-//   if (this.form.valid) {
-//     if(true){
-//     try {
-//       // const username = this.form.get('username').value;
-//       // const password = this.form.get('password').value;
-//       // await this.authService.login(username, password);
-//     } catch (err) {
-//      // this.loginInvalid = true;
-//     }
-//   } else {
-//    // this.formSubmitAttempt = true;
-//   }
-// }
-
 }
 
 
