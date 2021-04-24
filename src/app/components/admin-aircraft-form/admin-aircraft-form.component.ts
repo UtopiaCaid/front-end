@@ -2,19 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { AdminAircraftTypeServiceService as AdminAircraftTypeService } from 'src/app/services/admin-aircraftType-service/admin-aircraftType-service.service';
+import { AircraftTypeData as AircraftType} from 'src/app/entities';
 
 /* modal */
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-
-interface AircraftType {
-  aircraftTypeId: number;
-  aircraftTypeName: string;
-  seatMaximum: number;
-  manufacturer: string;
-  aircraftStatus: string;
-}
 
 @Component({
   selector: 'app-admin-aircraft-form',
@@ -40,7 +33,7 @@ export class AdminAircraftFormComponent implements OnInit {
     res.subscribe(aircraftType => this.aircraftTypes = aircraftType as AircraftType[]);
   }
 
-  selectedAircraftType!: {};
+  selectedAircraftType!: AircraftType;
   aircraftTypes!: AircraftType[];
 
   compareFunctionAircraftType(o1: any, o2: any) {
@@ -77,7 +70,7 @@ export class AdminAircraftFormComponent implements OnInit {
   }
 
   public populate() {
-    if (this.data) {
+    if (this.data.row) {
       console.log('An aircraft is edited not created')
       console.log(this.data.row);
       this.seatCount.setValue(this.data.row.seatCount);
@@ -91,6 +84,14 @@ export class AdminAircraftFormComponent implements OnInit {
     }
   }
 
+  public getSubmitMessage() {
+    return this.data.errorUpdate;
+  }
+
+  public submitReady() {
+    return this.data.errorUpdate == '' ? true : false;
+  }
+
   public formSubmit() {
     if (
       this.selectedAircraftType == undefined ||
@@ -100,16 +101,17 @@ export class AdminAircraftFormComponent implements OnInit {
       this.thirdClassCount.hasError('required') ||
       this.aircraftStatus.hasError('required')
     ) {
-      alert('Please insert the required fields')
+      this.data.errorUpdate = ('Please insert the required fields')
     } else if (
       this.firstClassCount.hasError('min') ||
       this.secondClassCount.hasError('min') ||
       this.thirdClassCount.hasError('min')
     ) {
-      alert('Invalid Field Value(s)'); 
+      this.data.errorUpdate = ('Invalid Field Value(s)'); 
     }  else if (this.seatCount.value < this.firstClassCount.value + this.secondClassCount.value + this.thirdClassCount.value) {
-      alert('Number of class seats cannot exceed the total seat count');
-      console.log("Broke");
+      this.data.errorUpdate = ('Number of class seats cannot exceed the total seat count');
+    } else if(this.seatCount.value > this.selectedAircraftType.seatMaximum) {
+      this.data.errorUpdate = ('Maximum Aircraft Seat Count is ' + this.selectedAircraftType.seatMaximum);
     } else if (this.data.row != undefined) {
       this.AircraftService.updateAircraft(
         this.data.row.aircraftId,

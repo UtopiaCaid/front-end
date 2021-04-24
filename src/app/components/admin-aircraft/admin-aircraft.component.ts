@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/services/admin-aircraft-service/admin-aircraft-service.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { AircraftData } from 'src/app/services/admin-aircraft-service/aircraft-data';
-import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import {MatSort} from '@angular/material/sort';
+import { AircraftData } from 'src/app/entities';
+import { AircraftTypeData } from 'src/app/entities';import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DeleteCheckAircraftComponent } from '../delete-checks/delete-check-aircraft/delete-check-aircraft.component';
 
 @Component({
@@ -15,7 +16,7 @@ import { DeleteCheckAircraftComponent } from '../delete-checks/delete-check-airc
 export class AdminAircraftComponent implements OnInit {
 
   ELEMENT_DATA!: AircraftData[];
-  displayedColumns: string[] = ['aircraftId', 'aircraftType', 'seatCount', 'firstClassCount', 'secondClassCount', 'thirdClassCount', 'status', 'action'];
+  displayedColumns: string[] = ['aircraftType', 'seatCount', 'firstClassCount', 'secondClassCount', 'thirdClassCount', 'status', 'update', 'delete'];
   dataSource = new MatTableDataSource<AircraftData>(this.ELEMENT_DATA);
 
   constructor(
@@ -26,9 +27,49 @@ export class AdminAircraftComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  @ViewChild(MatSort) 
+  sort!: MatSort;
+
   ngOnInit(): void {
     this.getAllAircraft();
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    this.dataSource.filterPredicate = (data: any, filter) => {
+      const dataStr =JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) != -1; 
+    }  
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+      case 'aircraftType': {
+        return item.aircraftType.aircraftTypeName;
+      }
+      case 'seatCount': {
+        return item.seatCount;
+      }
+      case 'firstClassCount': {
+        return item.firstClassCount;
+      }
+      case 'secondClassCount': {
+        return item.secondClassCount;
+      }
+      case 'thirdClassCount': {
+        return item.thirdClassCount;
+      }
+      case 'aircraftStatus': {
+        return item.aircraftStatus;
+      }
+      default: {
+        return "null";
+      }
+      };
+    }
+  }
+  
+  public doFilter = (event: Event) => {
+    this.dataSource.filter = (<HTMLInputElement>event.target).value.trim().toLocaleLowerCase();
   }
 
   public getAllAircraft() {
@@ -48,7 +89,8 @@ export class AdminAircraftComponent implements OnInit {
 
     this.dialog.open(AdminAircraftFormComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
 
@@ -59,7 +101,11 @@ export class AdminAircraftComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(AdminAircraftFormComponent);
+    this.dialog.open(AdminAircraftFormComponent, {
+      data: {
+        errorUpdate: '',
+      }
+    });
   }
 
   public deleteCheck(row: any) {
@@ -71,7 +117,8 @@ export class AdminAircraftComponent implements OnInit {
 
     let dialogRef = this.dialog.open(DeleteCheckAircraftComponent, {
       data: {
-        row: row
+        row: row,
+        errorUpdate: '',
       }
     });
     dialogRef.afterClosed().subscribe(() => {

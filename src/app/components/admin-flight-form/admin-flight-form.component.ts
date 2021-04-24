@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -7,25 +6,7 @@ import { AdminAirportServiceService as AdminAirportService } from 'src/app/servi
 import { AdminFlightServiceService as AdminFlightService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-
-interface Airport {
-  airportCode: number;
-  city: string;
-  airportName: string;
-  status: string;
-}
-
-interface Aircraft {
-  aircraftId: number;
-  seatCount: number;
-  firstClassCount: number;
-  secondClassCount: number;
-  thirdClassCount: number;
-  aircraftType: {
-    aircraftTypeName: string;
-  };
-  aircraftStatus: string;
-}
+import { AirportReports as Airport, AircraftData as Aircraft} from 'src/app/entities';
 
 @Component({
   selector: 'app-admin-flight-form',

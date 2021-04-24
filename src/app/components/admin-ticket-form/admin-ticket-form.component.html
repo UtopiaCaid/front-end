@@ -2,7 +2,7 @@
     <form class="form-container">
 
         <mat-form-field appearance="fill">
-            <mat-label>Confirmation Count </mat-label>
+            <mat-label>Confirmation Code </mat-label>
             <input matInput [formControl]="confirmationCode" type="number" required>
             <mat-error *ngIf="confirmationCode.invalid">
                 {{getErrorMessage(1)}}
@@ -79,5 +79,8 @@
         <button mat-raised-button color="primary" (click)="formSubmit()" class="button">
             Submit
         </button>
+        <mat-error>
+            {{getSubmitMessage()}}
+        </mat-error>
     </div>
 </mat-card>
