@@ -20,7 +20,6 @@ table {
   .example-container {
     display: flex;
     flex-direction: column;
-    max-height: 500px;
     min-width: 300px;
   }
   
@@ -29,25 +28,33 @@ table {
     max-height: 500px;
   }
   
+  .mat-row{ 
+    border-style : unset;
+    align-items: flex-end;
+  }
+
+  .mat-header-row{ 
+    border-style : unset;
+  }
+
   .mobile-label {
     display: none;
   }
   
   @media(max-width: 1200px) {
     .mobile-label {
-      width: 80px;
-      display: contents;
-          font-weight: bold;
+      width: 140px;
+      display: block;
     }
+
+    .mat-sort-header-container {
+      width: 100px;
+    }
+
+    ::ng-deep .mat-sort-header-container {
+      width: 125px;
+    }
+
   
-    .mat-header-row {
-      display: none;
-    }
-  
-    .mat-row { 
-      flex-direction: column;
-      align-items: start;
-      padding: 8px 24px;
-    }
   }
   
