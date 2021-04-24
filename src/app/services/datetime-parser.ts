@@ -1,4 +1,8 @@
 
+export function simplifyDateTime(date : string) {
+  // ex: 2020-01-01T01:02:00
+  return date.slice(0,10) + " " + date.slice(11,16)
+}
 
 export function parseLocalDateTime(date : string) {
   let parsedDate = '';

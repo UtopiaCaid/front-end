@@ -17,7 +17,7 @@ import { MatSort } from '@angular/material/sort';
 export class AdminAircraftTypeComponent implements OnInit {
 
   ELEMENT_DATA!: AircraftTypeData[];
-  displayedColumns: string[] = ['aircraftTypeId', 'aircraftTypeName', 'seatMaximum', 'manufacturer', 'update', ];
+  displayedColumns: string[] = ['aircraftTypeId', 'aircraftTypeName', 'seatMaximum', 'manufacturer', 'update', 'delete' ];
   dataSource = new MatTableDataSource<AircraftTypeData>(this.ELEMENT_DATA);
 
   

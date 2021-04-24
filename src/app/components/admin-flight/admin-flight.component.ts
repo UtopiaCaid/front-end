@@ -7,7 +7,7 @@ import { AdminFlightServiceService as AdminFlightService } from 'src/app/service
 import { FlightReports, AirportReports } from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
-import { parseLocalDateTime } from 'src/app/services/datetime-parser';
+import { parseLocalDateTime, simplifyDateTime } from 'src/app/services/datetime-parser';
 
 @Component({
   selector: 'app-admin-flight',
@@ -85,14 +85,15 @@ public parseRecords(flights: FlightReports[]) {
 }
 
 public parseFlightRecords(flight : FlightReports) {
-  flight.arrival = parseLocalDateTime(flight.arrival);
-  flight.departure = parseLocalDateTime(flight.departure);
+  flight.arrival = simplifyDateTime(flight.arrival);
+  flight.departure = simplifyDateTime(flight.departure);
   return flight;
 }
 
   public getAllFlights() {
     let res = this.service.retrieveFlights();
-    res.subscribe(report => this.dataSource.data = report as FlightReports[]);
+    this.dataSource.data = this.parseRecords(this.dataSource.data);
+    res.subscribe(report => this.dataSource.data = this.parseRecords(report as FlightReports[]));
   }
 
   public onEdit(row: {}) {

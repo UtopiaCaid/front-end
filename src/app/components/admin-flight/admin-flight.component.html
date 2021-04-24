@@ -12,17 +12,21 @@
     <mat-table matSort [dataSource]="dataSource">
 
         <ng-container matColumnDef="flightNo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight No </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight No.</th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Flight Number:</span>
-                {{element.flightNo}} 
+                {{element.flightNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="flightGate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Gate </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.flightGate}} 
             </td>
         </ng-container>
 
         <ng-container matColumnDef="airportDeparture">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Airport Departure </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Departure Airport:</span>
                 {{element.airportDeparture.airportName}}:{{element.airportDeparture.city}} 
             </td>
         </ng-container>
@@ -30,39 +34,27 @@
         <ng-container matColumnDef="airportArrival">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Airport Arrival </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Arrival Airport:</span>
                 {{element.airportArrival.airportName}}:{{element.airportArrival.city}} 
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="flightGate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Gate </th>
-            <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Flight Gate:</span>
-                {{element.flightGate}} 
             </td>
         </ng-container>
 
         <ng-container matColumnDef="departure">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Departure </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Departure Time:</span>
-                {{element.departure}} 
+                {{element.departure | date :'MMM d, y, h:mm a'}} 
             </td>
         </ng-container>
 
         <ng-container matColumnDef="arrival">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Arrival Time:</span>
-                {{element.arrival}} 
+                {{element.arrival | date :'MMM d, y, h:mm a'}} 
             </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Status:</span>
                 {{element.status}} 
             </td>
         </ng-container>
@@ -70,8 +62,7 @@
         <ng-container matColumnDef="update">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Edit:</span>
-                <button mat-button color="primary" (click)="onEdit(row)">
+                <button mat-icon-button  color="primary" (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
             </td>
@@ -80,7 +71,6 @@
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Delete:</span>
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
