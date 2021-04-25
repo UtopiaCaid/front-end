@@ -9,7 +9,7 @@ export class Account {
     roleId: 
     {
         roleId: String;
-        roleTYpe: String;
+        roleType: String;
     }
     
     constructor() { 
@@ -23,7 +23,7 @@ export class Account {
         this.accountNumber = "null";
         this.roleId = {
             roleId : "null",
-            roleTYpe: "null"
+            roleType: "null"
         }
         // this.roleId.roleId = "null";
         // this.roleId.roleTYpe = "null";

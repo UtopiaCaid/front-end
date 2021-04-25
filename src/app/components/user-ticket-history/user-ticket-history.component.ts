@@ -40,7 +40,7 @@ export class UserTicketHistoryComponent implements OnInit {
     roleId: 
     {
         roleId: "null",
-        roleTYpe: "null",
+        roleType: "null",
     }
   }
     this.userHTickets = []
@@ -112,7 +112,7 @@ export class UserTicketHistoryComponent implements OnInit {
   }
 
   deleteTicket(){
-    console.log("Implement Delete ticket later")
+    console.log("Implement Ticket History later")
   }
 
 }

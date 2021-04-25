@@ -5,7 +5,7 @@ import { Observable, throwError, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
 import {UserTickets} from 'src/app/services/user-flight-service/user-tickets';
-// import {CookieService} from 'ngx-cookie-service';
+import { Account } from '../auth-service/account';
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +79,10 @@ export class UserFlightService {
 
   public retrieveAirports() {
     return this.http.get(this.baseUrl+'Airport');
+  }
+
+  public updateUser(account: Account){
+    return this.http.put(this.userAccountUrl,account)
   }
 
 
