@@ -41,7 +41,7 @@ export class UserFlightHistoryComponent implements OnInit {
     roleId: 
     {
         roleId: "null",
-        roleTYpe: "null",
+        roleType: "null",
     }
   }
     this.userHTickets = []
