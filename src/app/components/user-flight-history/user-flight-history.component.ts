@@ -70,9 +70,9 @@ export class UserFlightHistoryComponent implements OnInit {
         
         var accountNum = this.currentUser.accountNumber;
        
-        console.log("User retrived is currently hard coded as '1'")
-        this.userService.retrieveAccountFlightHistory("1")
-        // this.userService.retrieveAccountFlightHistory(accountNum)
+        // console.log("User retrived is currently hard coded as '1'")
+        // this.userService.retrieveAccountFlightHistory("1")
+        this.userService.retrieveAccountFlightHistory(accountNum)
         .subscribe((res) => {
           if(res.length>0)
           this.hasFlightHistroy = true;
