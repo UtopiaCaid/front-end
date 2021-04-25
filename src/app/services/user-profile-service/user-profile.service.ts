@@ -24,16 +24,11 @@ export class UserProfileService {
     this.userAccountUrl = UserBaseUrl+"Account"
   }
 
-  // editUser(account: Account) {
-  //   return this.http.put<any>(this.userUrl, account)
-  // }
+
 
   public updateUser(account: Account, accountNumber: number){
     account.accountNumber=accountNumber.toString();
     var account2= account;
-    //account2.accountNumber=accountNumber;
-    // console.log("Updating user")
-    // console.log(account)
 
     return this.http.put(this.userAccountUrl,account)
   }

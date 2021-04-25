@@ -117,8 +117,6 @@ export class EditAccountComponent implements OnInit {
     this.form.controls['username'].setErrors(null)
     this.usernameTaken = false;
      if((this.form.get('username')?.value|| this.username) !== this.username ){
-      ///Put Code here to check if an account has the same name
-      var wut = false;
       console.log(this.userProfileService.uniqueUserName(this.form3.value))
       this.userProfileService.uniqueUserName(this.form3.value)
       .subscribe((res: any) => {
@@ -131,10 +129,6 @@ export class EditAccountComponent implements OnInit {
         }
       })
    
-      // error =>{
-      //   console.log('Error in editing account', error)
-        
-      // }
     }
     else {
       this.updateCon()
@@ -149,9 +143,6 @@ export class EditAccountComponent implements OnInit {
       try {
          this.authService.logIn(this.form2.value)
         .subscribe((res2: any) => {
-        // console.log("REs response")
-        // console.log(res2)
-        // this.authService.router.navigate(['login']); 
       this.userProfileService.updateUser(this.form.value, this.accountNum)
      .subscribe((res: any) => {
      this.wrongCred= false;
@@ -184,18 +175,7 @@ export class EditAccountComponent implements OnInit {
        
       
       
-    //  if(res!=null)
-    //   this.authService.getUserProfile().subscribe((res) => {
-    //     this.authService.currentUser = res;
-    //     this.authService.getLoggedInName.next(res.username)
-    //     this.authService.router.navigate(['home']); 
-    //   })
-    
-    // else{
-    //   console.log('Error in editing account')
-    //   this.usernameTaken= true;
-    //   this.passwordWrong = true;
-    // }
+  
     },
     error => {
       console.log('Error in editing account', error)
