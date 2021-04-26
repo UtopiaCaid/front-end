@@ -9,13 +9,42 @@ export class AdminFlightServiceService {
 
   constructor(private http: HttpClient) { }
 
-
-
   public retrieveFlights() {
     return this.http.get(environment.adminFuncUrl + 'flights');
   }
 
+  public retrieveFlightCount() {
+    return this.http.get(environment.adminFuncUrl + 'flightcount');
+  }
 
+  public getPagination(field : string, sort : string, page : number, pageSize: number) {
+    switch(field) {
+      case("flightNo"):
+        break;
+      case("flightGate"):
+        break;
+      case("airportDeparture"):
+        break;
+      case("airportArrival"):
+        break;
+      case("departure"):
+        break;
+      case("arrival"):
+        break;
+      case("status"):
+        break;
+      default:
+        field = "flightNo"; // should never get here
+    }
+    let paginationData = {
+      "field" : field,
+      "sort" : sort,
+      "page": page,
+      "pageSize": pageSize
+    }
+    console.log(this.http.post(environment.adminFuncUrl + 'flights/pagination', paginationData));
+    return this.http.post(environment.adminFuncUrl + 'flights/pagination', paginationData);
+  }
 
   public insertFlight(flightGate: string, airportIdDeparture: {},
     airportIdArrival: {}, aircraft: {}, basePrice: number, departure: string,

@@ -4,10 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AdminFlightServiceService as AdminFlightService } from 'src/app/services/admin-flight-service/admin-flight-service.service';
-import { FlightReports, AirportReports } from 'src/app/entities';
+import { FlightReports, AirportReports, Paginator} from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
-import { parseLocalDateTime, simplifyDateTime } from 'src/app/services/datetime-parser';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-flight',
@@ -18,8 +18,10 @@ export class AdminFlightComponent implements OnInit {
 
   ELEMENT_DATA!: FlightReports[];
   airportTemp!: AirportReports[];
+  totalFlights!: number;
   displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'update', 'delete'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
+  paginatorData: Paginator = { pageIndex: 0, pageSize: 5, field: 'flightNo', sort: 'asc'}; // default values
 
   constructor(
     private service: AdminFlightService,
@@ -33,17 +35,16 @@ export class AdminFlightComponent implements OnInit {
   sort!: MatSort;
 
   ngOnInit(): void {
-    this.getAllFlights();
+    this.getPaginatedFlights();
     this.dataSource.filterPredicate = (data: any, filter) => {
       const dataStr =JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) != -1; 
     }
   }
   
-ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
-  this.dataSource.sort = this.sort;
-  this.dataSource.sortingDataAccessor = (item, property) => {
+  ngAfterViewInit() {
+    this.getFlightCount();
+    this.dataSource.sortingDataAccessor = (item, property) => {
     switch (property) {
     case 'flightNo': {
       return item.flightNo;
@@ -73,27 +74,43 @@ ngAfterViewInit() {
   }
 }
 
+/* triggers on sort change */
+public getSortData(event: any) {
+  console.log("sort swap");
+  console.log(event);
+  this.paginatorData.field = event.active;
+  this.paginatorData.sort = event.direction;
+  this.getPaginatedFlights();
+}
+
+/* triggers on pagination change */
+public getPaginatorData(event: any) {
+  console.log("pagination page swap");
+  this.paginatorData.pageIndex = event.pageIndex;
+  this.paginatorData.pageSize = event.pageSize;
+  this.getPaginatedFlights();
+}
+
+/* triggers on search input */
 public doFilter = (event: Event) => {
   this.dataSource.filter = (<HTMLInputElement>event.target).value.trim().toLocaleLowerCase();
 }
 
-public parseRecords(flights: FlightReports[]) {
-  flights.forEach(
-    curr => curr = this.parseFlightRecords(curr)
-  )
-  return flights
-}
-
-public parseFlightRecords(flight : FlightReports) {
-  flight.arrival = simplifyDateTime(flight.arrival);
-  flight.departure = simplifyDateTime(flight.departure);
-  return flight;
-}
-
   public getAllFlights() {
     let res = this.service.retrieveFlights();
-    this.dataSource.data = this.parseRecords(this.dataSource.data);
-    res.subscribe(report => this.dataSource.data = this.parseRecords(report as FlightReports[]));
+    res.subscribe(report => this.dataSource.data = report as FlightReports[]);
+  }
+
+  public getFlightCount() {
+    let res = this.service.retrieveFlightCount();
+    res.subscribe(flights => this.paginator.length = flights as number);
+  }
+
+  public getPaginatedFlights() {
+    let res = this.service.getPagination(
+      this.paginatorData.field, this.paginatorData.sort, 
+      this.paginatorData.pageIndex, this.paginatorData.pageSize);
+    res.subscribe(report => this.dataSource.data = report as FlightReports[]);
   }
 
   public onEdit(row: {}) {
@@ -110,7 +127,8 @@ public parseFlightRecords(flight : FlightReports) {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllFlights();
+      setTimeout(() => this.getPaginatedFlights(), 1000);
+      
     })
   }
 
@@ -125,7 +143,7 @@ public parseFlightRecords(flight : FlightReports) {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllFlights();
+      setTimeout(() => this.getPaginatedFlights(), 1000);
     })
   }
 
@@ -143,8 +161,7 @@ public parseFlightRecords(flight : FlightReports) {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllFlights();
+      setTimeout(() => this.getPaginatedFlights(), 1000);
     })
   }
-
 }
