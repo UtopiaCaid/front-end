@@ -44,7 +44,7 @@
         <ng-container matColumnDef="ticketPrice">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Price</th>
             <td mat-cell *matCellDef="let element"> 
-                {{element.ticketPrice}} </td>
+                {{element.ticketPrice | currency}} </td>
         </ng-container>
 
         <ng-container matColumnDef="ticketClass">

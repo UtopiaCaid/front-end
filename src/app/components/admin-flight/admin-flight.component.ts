@@ -7,6 +7,7 @@ import { AdminFlightServiceService as AdminFlightService } from 'src/app/service
 import { FlightReports, AirportReports, Paginator} from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-flight',
@@ -34,7 +35,7 @@ export class AdminFlightComponent implements OnInit {
   sort!: MatSort;
 
   ngOnInit(): void {
-    this.getPaginatedFlights('flightNo', 'ASC', 0, 5);
+    this.getPaginatedFlights();
     this.dataSource.filterPredicate = (data: any, filter) => {
       const dataStr =JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) != -1; 
@@ -79,11 +80,7 @@ public getSortData(event: any) {
   console.log(event);
   this.paginatorData.field = event.active;
   this.paginatorData.sort = event.direction;
-  this.getPaginatedFlights(
-    this.paginatorData.field, 
-    this.paginatorData.sort,
-    this.paginatorData.pageIndex,
-    this.paginatorData.pageSize);
+  this.getPaginatedFlights();
 }
 
 /* triggers on pagination change */
@@ -91,11 +88,7 @@ public getPaginatorData(event: any) {
   console.log("pagination page swap");
   this.paginatorData.pageIndex = event.pageIndex;
   this.paginatorData.pageSize = event.pageSize;
-  this.getPaginatedFlights(
-    this.paginatorData.field, 
-    this.paginatorData.sort,
-    this.paginatorData.pageIndex,
-    this.paginatorData.pageSize);
+  this.getPaginatedFlights();
 }
 
 /* triggers on search input */
@@ -111,11 +104,12 @@ public doFilter = (event: Event) => {
   public getFlightCount() {
     let res = this.service.retrieveFlightCount();
     res.subscribe(flights => this.paginator.length = flights as number);
-
   }
 
-  public getPaginatedFlights(field : string, sort : string, page : number, limit: number) {
-    let res = this.service.getPagination(field, sort, page, limit);
+  public getPaginatedFlights() {
+    let res = this.service.getPagination(
+      this.paginatorData.field, this.paginatorData.sort, 
+      this.paginatorData.pageIndex, this.paginatorData.pageSize);
     res.subscribe(report => this.dataSource.data = report as FlightReports[]);
   }
 
@@ -133,7 +127,8 @@ public doFilter = (event: Event) => {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllFlights();
+      setTimeout(() => this.getPaginatedFlights(), 1000);
+      
     })
   }
 
@@ -148,7 +143,7 @@ public doFilter = (event: Event) => {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllFlights();
+      setTimeout(() => this.getPaginatedFlights(), 1000);
     })
   }
 
@@ -166,8 +161,7 @@ public doFilter = (event: Event) => {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllFlights();
+      setTimeout(() => this.getPaginatedFlights(), 1000);
     })
   }
-
 }
