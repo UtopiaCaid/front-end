@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserProfileService } from '../../services/user-profile-service/user-profile.service';
 import { AuthenticationService } from '../../services/auth-service/authentication.service';
+import { Account } from '../../services/auth-service/account'
+
 
 interface keyable {
   [key: string]: any  
@@ -14,6 +16,8 @@ interface keyable {
 })
 export class EditAccountComponent implements OnInit {
   form: FormGroup;
+  form2!: FormGroup;
+  form3!: FormGroup;
   public loginInvalid = false;
   private formSubmitAttempt = false;
   public wrongCred = false;
@@ -25,6 +29,8 @@ export class EditAccountComponent implements OnInit {
   email: String="";
   phone: String="";
   name: String="";
+  accountNum!: number;
+  account!:Account;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +44,8 @@ export class EditAccountComponent implements OnInit {
       phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern("^[0-9]*$")]),
       // phone: new FormControl("", [Validators.maxLength(10),Validators.minLength(7),Validators.pattern('[- +()0-9]+')]),
       newPassword: new FormControl("", [Validators.maxLength(100),Validators.minLength(3)]),
-      password: new FormControl("", [Validators.maxLength(100),Validators.minLength(3),Validators.required]),
+      oldPassword: new FormControl("", [Validators.maxLength(100),Validators.minLength(3),Validators.required]),
+      accountNumber: Number,
   });
   }
 
@@ -57,6 +64,8 @@ export class EditAccountComponent implements OnInit {
       this.username= res.username;
       this.roleType= res.roleId.roleType;
       this.email= res.email;
+      this.accountNum = res.accountNumber;
+      //this.form.setValue({accountNumber: this.accountNum});
       // console.log(this.currentUser)
       })
     }
@@ -72,34 +81,115 @@ export class EditAccountComponent implements OnInit {
   async onSubmitUser(): Promise<void> {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
+ 
+    var tempAccount = {
+      username:this.username || "",
+      password: this.form.get('password')?.value || "",
+      accountNumber: "",
+      name: "",
+      email:"",
+      phone:"",
+      dateCreated:"",
+      roleId: {
+        roleId : "",
+        roleType: "",
+    }
+    }
+  
+    this.form2 = this.formBuilder.group({
+      username: [this.username],
+      password: [this.form.get('oldPassword')?.value || ""]
+  });
+  this.form3 = this.formBuilder.group({
+    username: [this.form.get('username')?.value || this.username],
+    password: [this.form.get('oldPassword')?.value || ""]
+});
+
+
+      this.userNameUnqiue();
+  
+
+   
+  }
+
+
+  userNameUnqiue(){
+    this.form.controls['username'].setErrors(null)
+    this.usernameTaken = false;
+     if((this.form.get('username')?.value|| this.username) !== this.username ){
+      console.log(this.userProfileService.uniqueUserName(this.form3.value))
+      this.userProfileService.uniqueUserName(this.form3.value)
+      .subscribe((res: any) => {
+        if(res)
+        this.updateCon()
+        else{
+          console.error("Someone already has that username")
+          this.usernameTaken = true;
+          this.form.controls['username'].setErrors({'nameTaken': true})
+        }
+      })
+   
+    }
+    else {
+      this.updateCon()
+    }
+
+  }
+
+
+  updateCon(){
+
     if (this.form.valid) {
       try {
-        // this.authService.router.navigate(['login']); 
-     await this.userProfileService.editUser(this.form.value)
+         this.authService.logIn(this.form2.value)
+        .subscribe((res2: any) => {
+      this.userProfileService.updateUser(this.form.value, this.accountNum)
      .subscribe((res: any) => {
      this.wrongCred= false;
      this.usernameTaken= false;
      this.passwordWrong = false;
-     if(res!=null)
-      this.authService.getUserProfile().subscribe((res) => {
+
+     this.authService.doLogout();
+
+     this.authService.logIn(this.form3.value)
+     .subscribe((res: any) => {
+      localStorage.setItem('access_token', res.token)
+     this.wrongCred= false;
+      this.authService.getUserProfile()
+      .subscribe((res) => {
         this.authService.currentUser = res;
+        localStorage.setItem('current_roleType', res.roleId.roleType)
+        localStorage.setItem('current_roleId', res.roleId.roleId)
+        localStorage.setItem('current_accountNum', res.accountNumber)
         this.authService.getLoggedInName.next(res.username)
-        this.authService.router.navigate(['home']); 
+        this.authService.getLoggedInRoleType.next(res.roleId.roleType)
+        this.authService.getLoggedInRoleId.next(res.roleId.roleId)
+        this.authService.getLoggedInEmail.next(res.email)
+        this.authService.getCurrentAccount.next(res)
       })
-    
-    else{
-      console.log('Error in editing account')
-      this.usernameTaken= true;
-      this.passwordWrong = true;
-    }
+    },
+    error => {
+      console.error('Wrong credentials', error)
+      this.wrongCred= true;
+    }) 
+       
+      
+      
+  
     },
     error => {
       console.log('Error in editing account', error)
       this.wrongCred= true;
       this.passwordWrong = true;
     }) 
+  },
+  error => {
+    console.error('Error in editing account', error)
+    this.wrongCred= true;
+    this.passwordWrong = true;
+  }) 
        
-  
+    
       }
       catch (err) {
         console.log("Error in form")
@@ -111,9 +201,7 @@ export class EditAccountComponent implements OnInit {
     }
  
   
+
   }
-
-
- 
 
 }

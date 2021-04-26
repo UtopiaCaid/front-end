@@ -40,7 +40,7 @@ export class UserTicketHistoryComponent implements OnInit {
     roleId: 
     {
         roleId: "null",
-        roleTYpe: "null",
+        roleType: "null",
     }
   }
     this.userHTickets = []
@@ -69,9 +69,9 @@ export class UserTicketHistoryComponent implements OnInit {
         // console.log(this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber))
         // console.log(this.currentUser.accountNumber )
         //this.userService.retrieveAccountTicketHistory("27")
-        //this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber)
-       console.log("User retrived is currently hard coded as '1'.")
-       this.userService.retrieveAccountTicketHistory("1")
+        //  console.log("User retrived is currently hard coded as '1'.")
+        //  this.userService.retrieveAccountTicketHistory("1")
+        this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber)
         .subscribe((res) => {
           // console.log(res)
           this.gotInfo= true;
@@ -112,7 +112,7 @@ export class UserTicketHistoryComponent implements OnInit {
   }
 
   deleteTicket(){
-    console.log("Implement Delete ticket later")
+    console.log("Implement Ticket History later")
   }
 
 }
