@@ -74,3 +74,10 @@ export interface TravelerData {
     gender: string;
     knownTravelerNumber: number;
 }
+
+export interface Paginator {
+    pageIndex: number;
+    pageSize: number;
+    field: string;
+    sort: string;
+  }
