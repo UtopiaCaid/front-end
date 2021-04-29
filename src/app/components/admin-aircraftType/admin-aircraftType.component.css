@@ -9,7 +9,7 @@ table {
   }
   
   th, td {
-    width: 10%;
+    width: 20%;
   }
 
 .header-align-right {
@@ -20,13 +20,20 @@ table {
   .example-container {
     display: flex;
     flex-direction: column;
-    max-height: 500px;
     min-width: 300px;
   }
   
   .mat-table {
     overflow: auto;
-    max-height: 500px;
+  }
+  
+  .mat-row{ 
+    border-style : unset;
+    align-items: flex-end;
+  }
+
+  .mat-header-row{ 
+    border-style : unset;
   }
   
   .mobile-label {
@@ -35,19 +42,17 @@ table {
   
   @media(max-width: 1200px) {
     .mobile-label {
-      width: 80px;
-      display: contents;
-          font-weight: bold;
+      width: 140px;
+      display: block;
     }
-  
-    .mat-header-row {
-      display: none;
+
+    .mat-sort-header-container {
+      width: 100px;
     }
-  
-    .mat-row { 
-      flex-direction: column;
-      align-items: start;
-      padding: 8px 24px;
+
+    ::ng-deep .mat-sort-header-container {
+      width: 200px;
     }
+
   }
   

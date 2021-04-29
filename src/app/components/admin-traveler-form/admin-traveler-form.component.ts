@@ -44,7 +44,7 @@ export class AdminTravelerFormComponent implements OnInit {
   dob = new FormControl(0, [Validators.required]);
   middleName = new FormControl('', [Validators.minLength(1), Validators.maxLength(45)]);
   lastName = new FormControl('', [Validators.required, Validators.maxLength(45)]);
-  gender = new FormControl('', [Validators.required, Validators.maxLength(1)]);
+  gender = new FormControl('', [Validators.required, Validators.maxLength(1), Validators.pattern('^[a-zA-Z]$')]);
   knownTravelerNumber = new FormControl(0, [Validators.min(0)]);
   accountCheck = new FormControl(this.accounts, [Validators.required]);
 
@@ -62,7 +62,8 @@ export class AdminTravelerFormComponent implements OnInit {
         this.lastName.hasError('maxlength') ? 'last name length limit exceeded' : '';
       case 4:
         return this.gender.hasError('maxlength') ? 'gender must be 1 character'  :
-        this.gender.hasError('required') ? 'you must enter a gender' : '';
+        this.gender.hasError('required') ? 'you must enter a gender' : 
+        this.gender.hasError('pattern') ? 'gender must be alphabetical' : '';
       case 5:
         return this.dob.hasError('required') ? 'you must enter a date of birth' : ''
       case 6:
@@ -113,6 +114,7 @@ export class AdminTravelerFormComponent implements OnInit {
       this.lastName.hasError('minlength') ||
       this.lastName.hasError('maxlength')  ||
       this.gender.hasError('maxlength') ||
+      this.gender.hasError('pattern') ||
       this.knownTravelerNumber.hasError('min')
     ) {
       this.data.errorUpdate =('Invalid Field Value(s)'); 

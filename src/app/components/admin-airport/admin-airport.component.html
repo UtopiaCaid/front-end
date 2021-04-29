@@ -8,21 +8,18 @@
         </mat-form-field>
     </div>  
 </div>
-<div class="mat-elevation-z8">
-    <mat-table #table matSort [dataSource]="dataSource">
+<div class="example-container mat-elevation-z8">
+    <mat-table matSort [dataSource]="dataSource">
 
         <ng-container matColumnDef="airportCode">
             <th mat-header-cell *matHeaderCellDef mat-sort-header > Airport Code </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Airport Code:</span>
                 {{element.airportCode}} </td>
         </ng-container>
-
 
         <ng-container matColumnDef="city">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">City:</span>
                 {{element.city}} </td>
         </ng-container>
 
@@ -30,31 +27,27 @@
         <ng-container matColumnDef="airportName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Airport Name:</span>
                 {{element.airportName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Status:</span>
                 {{element.status}} </td>
         </ng-container>
 
         <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Edit </th>
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Edit:</span>
-                <button mat-button color="primary" (click)="onEdit(row)">
+                <button mat-icon-button color="primary" (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Delete </th>
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Delete:</span>
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>

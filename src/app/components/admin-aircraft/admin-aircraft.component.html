@@ -14,50 +14,43 @@
         <ng-container matColumnDef="aircraftType">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Aircraft Type </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Aircraft Type:</span>
                 {{element.aircraftType.aircraftTypeName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="seatCount">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Seat Count </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Seat Count:</span>
                 {{element.seatCount}} </td>
         </ng-container>
 
         <ng-container matColumnDef="firstClassCount">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> First Class </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">First Class Seats:</span>
                 {{element.firstClassCount}} </td>
         </ng-container>
 
         <ng-container matColumnDef="secondClassCount">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Second Class</th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Second Class Seats:</span>
                 {{element.secondClassCount}} </td>
         </ng-container>
 
         <ng-container matColumnDef="thirdClassCount">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Third Class </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Third Class Seats:</span>
                 {{element.thirdClassCount}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Aircraft Status:</span>
                 {{element.aircraftStatus}} </td>
         </ng-container>
 
 
         <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Edit:</span>
                 <button mat-button color="primary" (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
@@ -65,9 +58,8 @@
         </ng-container>
 
         <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Delete:</span>
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>

@@ -11,77 +11,66 @@
 <div class="example-container mat-elevation-z8">
     <mat-table matSort [dataSource]="dataSource">
 
-        }
         <ng-container matColumnDef="ticketNo">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Number </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Ticket Number:</span>
                 {{element.ticketNo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="flight">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Number </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Flight Number:</span>
                 Flight {{element.flight.flightNo}}:Gate {{element.flight.flightGate}} </td>
         </ng-container>
 
         <ng-container matColumnDef="traveler">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Traveler Name </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Traveler:</span>
                 {{element.traveler.firstName}} {{element.traveler.lastName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="payment">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Payment:</span>
-                {{element.payment.paymentId}} : {{element.payment.dateProcessed}} </td>
+                Payment {{element.payment.paymentId}} : {{element.payment.dateProcessed | date :'MMM d, y'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="confirmationCode">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmation Code </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">ConfirmationCode:</span>
                 {{element.confirmationCode}} </td>
         </ng-container>
 
         <ng-container matColumnDef="ticketPrice">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Price</th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Price:</span>
-                {{element.ticketPrice}} </td>
+                {{element.ticketPrice | currency}} </td>
         </ng-container>
 
         <ng-container matColumnDef="ticketClass">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Class </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Ticket Class:</span>
                 {{element.ticketClass}} </td>
         </ng-container>
 
         <ng-container matColumnDef="dateIssued">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Issued </th>
             <td mat-cell *matCellDef="let element"> 
-                <span class="mobile-label">Date Issued:</span>
                 {{element.dateIssued}} </td>
         </ng-container>
 
         <ng-container matColumnDef="update">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Edit </th>
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Edit:</span>
-                <button mat-button color="primary" (click)="onEdit(row)">
+                <button mat-icon-button color="primary" (click)="onEdit(row)">
                     <mat-icon>launch</mat-icon>
                 </button>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> Delete </th>
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
             <td mat-cell *matCellDef="let row">
-                <span class="mobile-label">Delete:</span>
                 <button mat-icon-button color="warn" (click)="deleteCheck(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
