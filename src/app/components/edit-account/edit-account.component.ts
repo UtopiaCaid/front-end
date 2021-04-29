@@ -55,8 +55,7 @@ export class EditAccountComponent implements OnInit {
     this.authService.getLoggedInEmail.subscribe(name => this.email = String(name))
     this.authService.getLoggedInFullName.subscribe(name => this.name = String(name))
     this.authService.getLoggedInPhoneNum.subscribe(name => this.phone = String(name))
-    // this.authService.getCurrentAccount.subscribe(currentUser => this.username = String(currentUser.username))
-    //this.authService.getLoggedInName.subscribe(name => this.username = String(name))
+
       if(this.authService.isLoggedIn){
       this.authService.getUserProfile()
       .subscribe(res => {
@@ -65,36 +64,20 @@ export class EditAccountComponent implements OnInit {
       this.roleType= res.roleId.roleType;
       this.email= res.email;
       this.accountNum = res.accountNumber;
-      //this.form.setValue({accountNumber: this.accountNum});
-      // console.log(this.currentUser)
+ 
       })
     }
 
     
   }
 
-  ////Temp so stuff doesnt break for calls to a backend thats not done
-  async onSubmitUserX(): Promise<void> {
-    console.log("Edit backend not yet implmented.")
-  }
+ 
 
   async onSubmitUser(): Promise<void> {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
  
-    var tempAccount = {
-      username:this.username || "",
-      password: this.form.get('password')?.value || "",
-      accountNumber: "",
-      name: "",
-      email:"",
-      phone:"",
-      dateCreated:"",
-      roleId: {
-        roleId : "",
-        roleType: "",
-    }
-    }
+  
   
     this.form2 = this.formBuilder.group({
       username: [this.username],

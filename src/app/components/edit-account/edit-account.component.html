@@ -28,7 +28,7 @@
                     
                 </div>
 
-                <div>
+                <div hidden>
                     
                     <p *ngIf="this.name!='' else showName"><strong>Current Name:</strong> {{this.username}}</p>
                     <ng-template #showName>   
@@ -56,7 +56,7 @@
                     </mat-form-field>
                 </div>
 
-                <div>
+                <div hidden> 
                     <p *ngIf="this.phone!='' else showPhone"><strong>Current Phone Number:</strong> {{this.email}}</p>
                     <ng-template #showPhone>   
                         <p ><strong>Current Phone Number:</strong> null</p>
@@ -71,7 +71,7 @@
                 
                 <div>
 
-                    <mat-form-field class="full-width-input">
+                    <mat-form-field class="full-width-input" hidden>
                         <mat-error>
                             Please provide a valid password (at least 3 chars, no more than 100)
                           </mat-error>

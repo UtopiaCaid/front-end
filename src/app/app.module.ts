@@ -21,7 +21,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-//import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AdminFlightComponent } from './components/admin-flight/admin-flight.component';
@@ -109,14 +108,9 @@ import { UserUpcomingFlightsComponent } from './components/user-upcoming-flights
     AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
-    //  NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // MatToolbarModule,
     MatIconModule,
-    // MatButtonModule,
-    // MatSidenavModule,
-    // MatListModule
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
@@ -124,7 +118,6 @@ import { UserUpcomingFlightsComponent } from './components/user-upcoming-flights
     MatNativeDateModule,
     MatPaginatorModule,
     MatSortModule,
-    //FlexLayoutModule
   ],
   providers: [
     MatDatepickerModule

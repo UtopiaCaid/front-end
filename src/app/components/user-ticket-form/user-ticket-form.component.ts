@@ -25,12 +25,9 @@ export class UserTicketFormComponent implements OnInit {
   form: FormGroup;
   currentUser: keyable={};
   public wrongCred = false;
-  // userTicket: UserTickets[];
   userTicket: keyable={};
   flightReports: FlightReports;
   userFlightReports: UserFlightReports;
-  //flightReports: UserFlightReports;
-  // flightReports: keyable={};
   currentPrice: Number;
   basePrice: Number;
   classSelected: Boolean;

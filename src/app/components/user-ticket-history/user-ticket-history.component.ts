@@ -64,16 +64,9 @@ export class UserTicketHistoryComponent implements OnInit {
     if(this.authService.isLoggedIn){
     this.authService.getUserProfile()
       .subscribe(res => {
-        // console.log(res)
         this.currentUser = res
-        // console.log(this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber))
-        // console.log(this.currentUser.accountNumber )
-        //this.userService.retrieveAccountTicketHistory("27")
-        //  console.log("User retrived is currently hard coded as '1'.")
-        //  this.userService.retrieveAccountTicketHistory("1")
         this.userService.retrieveAccountTicketHistory(this.currentUser.accountNumber)
         .subscribe((res) => {
-          // console.log(res)
           this.gotInfo= true;
           if(res.length>0)
           this.hasFlightHistroy = true;
@@ -96,9 +89,7 @@ export class UserTicketHistoryComponent implements OnInit {
 
     }
 
-    var accountNum = this.currentUser.accountNumber;
-    // console.log("User retrived is currently hard coded as '1'.")
-    // this.userService.retrieveAccountTicketHistory("1")
+
    
   }
 
