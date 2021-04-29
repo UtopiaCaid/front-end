@@ -7,10 +7,10 @@
         <h1 *ngIf="this.userFlightReports.flightNo">
            <strong>Flight no:</strong>  {{this.userFlightReports.flightNo}}<br>
            <strong>Flight gate:</strong>  {{this.userFlightReports.flightGate}}<br>
-           <strong>Depature:</strong>  {{this.userFlightReports.departure}}<br>
+           <strong>Depature:</strong>  {{this.userFlightReports.departure | date:'medium' }}<br>
            <strong>From:</strong>  {{this.userFlightReports.airportArrival.city}}<br>
            <strong>To:</strong>  {{this.userFlightReports.airportDeparture.city}}<br>
-           <strong>Arrival:</strong>  {{this.userFlightReports.arrival}}<br>
+           <strong>Arrival:</strong>  {{this.userFlightReports.arrival | date:'medium' }}<br>
         </h1>
         <h1 *ngIf="!this.userFlightReports.flightNo">Flight no: null, Flight gate: null Depature: null Arrival: null</h1>
         <h1> -------------<strong>Ticket Holder Information</strong> -------------</h1>

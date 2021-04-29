@@ -105,7 +105,6 @@ export class UserFlightsComponent implements OnInit {
     res.subscribe(report => {
      
       let temp = report as UserFlightReports[]
-      // console.log(temp)
       let result = temp.filter(function(x){
         return x.status !== "Completed"
       })
