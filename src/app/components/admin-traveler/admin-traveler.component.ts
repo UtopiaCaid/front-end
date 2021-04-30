@@ -31,7 +31,7 @@ export class AdminTravelerComponent implements OnInit {
   sort!: MatSort;
 
   ngOnInit(): void {
-    this.getAllTraveler();
+    this.getAllTravelers();
     this.dataSource.filterPredicate = (data: any, filter) => {
       const dataStr =JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) != -1; 
@@ -75,7 +75,7 @@ export class AdminTravelerComponent implements OnInit {
   }
 
   
-  public getAllTraveler() {
+  public getAllTravelers() {
     let res = this.service.retrieveTraveler();
     res.subscribe(data => {
       this.dataSource.data = data as TravelerData[];
@@ -97,9 +97,8 @@ export class AdminTravelerComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTraveler();
+      setTimeout(() => this.getAllTravelers(), 1000);
     })
-
   }
 
   public onCreate() {
@@ -113,8 +112,8 @@ export class AdminTravelerComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTraveler();
-    })    
+      setTimeout(() => this.getAllTravelers(), 1000);
+    })
   }
 
   public deleteCheck(row: any) {
@@ -131,7 +130,7 @@ export class AdminTravelerComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTraveler();
+      setTimeout(() => this.getAllTravelers(), 1000);
     })
   }
 }

@@ -7,7 +7,6 @@ import { AdminFlightServiceService as AdminFlightService } from 'src/app/service
 import { FlightReports, AirportReports, Paginator} from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
-import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-flight',
@@ -41,7 +40,7 @@ export class AdminFlightComponent implements OnInit {
       return dataStr.indexOf(filter) != -1; 
     }
   }
-  
+
   ngAfterViewInit() {
     this.getFlightCount();
     this.dataSource.sortingDataAccessor = (item, property) => {
