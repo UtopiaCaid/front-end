@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // return true;
     let url: string = state.url;
     return this.checkUserLogin(route, url);
   }
@@ -22,8 +21,6 @@ export class AuthGuard implements CanActivate {
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     if (this.authService.isLoggedIn) {
       const userRole = this.authService.getRole();
-      // console.log("User Role "+userRole)
-      // console.log(userRole)
       if (route.data.role && route.data.role.indexOf(userRole) === -1) {
         this.router.navigate(['/home']);
         return false;

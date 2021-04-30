@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders, HttpErrorResponse  } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Account } from '../auth-service/account';
@@ -28,8 +27,6 @@ export class UserProfileService {
 
   public updateUser(account: Account, accountNumber: number){
     account.accountNumber=accountNumber.toString();
-    var account2= account;
-
     return this.http.put(this.userAccountUrl,account)
   }
 

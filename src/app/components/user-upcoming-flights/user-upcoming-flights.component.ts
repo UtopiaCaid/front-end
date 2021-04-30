@@ -71,14 +71,17 @@ export class UserUpcomingFlightsComponent implements OnInit {
 
 
         var accountNum = this.currentUser.accountNumber;
-        //console.log("User retrived is currently hard coded as '1'")
-        //this.userService.retrieveAccountFlightHistory("1")
+
         this.userService.retrieveAccountFlightHistory(accountNum)
         .subscribe((res) => {
     
     
           let tempFlights = res as UserFlightReports[]
-          // console.log(tempFlights)
+          if(!tempFlights.length){
+            this.hasFlightHistroy = false;
+            this.loading = false;
+            return
+          }
           let result = tempFlights.filter(function(x){
             let currentDate = new Date();
              currentDate = new Date(formatDate(currentDate,'yyyy-MM-dd', 'en_US'))

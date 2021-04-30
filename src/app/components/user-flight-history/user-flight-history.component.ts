@@ -16,7 +16,6 @@ export class UserFlightHistoryComponent implements OnInit {
 
   userHTickets: Array<UserTickets>;
   userTicket1: UserTickets;
-  // ELEMENT_DATA!: UserTickets[];
   ELEMENT_DATA!: UserFlightReports[];
   displayedColumns: string[] = ['flightNo', 'flightGate', 'departure', "from", "to", 'arrival', 'price', 'status', 'action'];
   dataSource = new MatTableDataSource<UserFlightReports>(this.ELEMENT_DATA);
@@ -70,8 +69,6 @@ export class UserFlightHistoryComponent implements OnInit {
         
         var accountNum = this.currentUser.accountNumber;
        
-        // console.log("User retrived is currently hard coded as '1'")
-        // this.userService.retrieveAccountFlightHistory("1")
         this.userService.retrieveAccountFlightHistory(accountNum)
         .subscribe((res) => {
           if(res.length>0)
