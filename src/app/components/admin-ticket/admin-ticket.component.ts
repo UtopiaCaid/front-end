@@ -100,7 +100,7 @@ export class AdminTicketComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTickets();
+      setTimeout(() => this.getAllTickets(), 1000);
     })
   }
 
@@ -115,7 +115,7 @@ export class AdminTicketComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTickets();
+      setTimeout(() => this.getAllTickets(), 1000);
     })
   }
 
@@ -133,7 +133,7 @@ export class AdminTicketComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllTickets();
+      setTimeout(() => this.getAllTickets(), 1000);
     })
   }
 }

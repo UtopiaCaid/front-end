@@ -87,13 +87,16 @@ export class AdminAircraftComponent implements OnInit {
     dialogConfig.width = "60%";
 
 
-    this.dialog.open(AdminAircraftFormComponent, {
+    let dialogRef = this.dialog.open(AdminAircraftFormComponent, {
       data: {
         row: row,
         errorUpdate: '',
       }
     });
 
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => this.getAllAircraft(), 1000);
+    })
   }
 
   public onCreate() {
@@ -101,11 +104,15 @@ export class AdminAircraftComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(AdminAircraftFormComponent, {
+
+    let dialogRef = this.dialog.open(AdminAircraftFormComponent, {
       data: {
         errorUpdate: '',
       }
     });
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => this.getAllAircraft(), 1000);
+    })
   }
 
   public deleteCheck(row: any) {
@@ -122,7 +129,7 @@ export class AdminAircraftComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllAircraft();
+      setTimeout(() => this.getAllAircraft(), 1000);
     })
   }
 }

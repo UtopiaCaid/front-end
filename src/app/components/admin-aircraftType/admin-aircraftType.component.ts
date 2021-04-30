@@ -57,7 +57,7 @@ export class AdminAircraftTypeComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
 
-    this.dialog.open(AdminAircraftTypeFormComponent, {
+    let dialogRef = this.dialog.open(AdminAircraftTypeFormComponent, {
       data: {
         row: row,
         update: true,
@@ -65,6 +65,9 @@ export class AdminAircraftTypeComponent implements OnInit {
       },
     });
 
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => this.getAllAircraftType(), 1000);
+    })
   }
 
   public onCreate() {
@@ -72,12 +75,16 @@ export class AdminAircraftTypeComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(AdminAircraftTypeFormComponent, {
+    let dialogRef = this.dialog.open(AdminAircraftTypeFormComponent, {
       data: {
         update: false,
         errorUpdate: '',
       }
     });
+
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => this.getAllAircraftType(), 1000);
+    })
   }
 
   public deleteCheck(row: any) {
@@ -94,7 +101,7 @@ export class AdminAircraftTypeComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getAllAircraftType();
+      setTimeout(() => this.getAllAircraftType(), 1000);
     })
   }
 }
