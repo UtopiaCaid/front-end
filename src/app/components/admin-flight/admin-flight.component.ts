@@ -7,6 +7,8 @@ import { AdminFlightServiceService as AdminFlightService } from 'src/app/service
 import { FlightReports, AirportReports, Paginator} from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
+import {delay} from 'rxjs/operators';
+import {LoadingService} from 'src/app/services/loading-service';
 
 @Component({
   selector: 'app-admin-flight',
@@ -21,9 +23,11 @@ export class AdminFlightComponent implements OnInit {
   displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'update', 'delete'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
   paginatorData: Paginator = { pageIndex: 0, pageSize: 5, field: 'flightNo', sort: 'asc'}; // default values
+  loading: boolean = false;
 
   constructor(
     private service: AdminFlightService,
+    private loadingService: LoadingService,
     private dialog: MatDialog,
   ) { }
 
@@ -34,11 +38,21 @@ export class AdminFlightComponent implements OnInit {
   sort!: MatSort;
 
   ngOnInit(): void {
+    this.listenToLoading();
     this.getPaginatedFlights();
     this.dataSource.filterPredicate = (data: any, filter) => {
       const dataStr =JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) != -1; 
     }
+  }
+
+  /* loading function */
+  listenToLoading(): void {
+    this.loadingService.loadingSub
+      .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
+      .subscribe((loading) => {
+        this.loading = loading;
+      });
   }
 
   ngAfterViewInit() {
