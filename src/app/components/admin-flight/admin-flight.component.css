@@ -23,6 +23,9 @@ table {
     min-width: 300px;
   }
   
+  .create-button {
+    width: 8%;
+  }
   .mat-table {
     overflow: auto;
   }
@@ -60,11 +63,21 @@ table {
 
   .loading-container {
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.7);
+    padding-top: 13%;
+    padding-right: 13%;
     z-index: 5;
+  }
+
+  .checkbox-section {
+    display: block;
+    align-content: center;
+    align-items: center;
+    padding-bottom: 2%;
+  }
+
+  .checkbox-margin {
+    padding-left: 4%;
   }

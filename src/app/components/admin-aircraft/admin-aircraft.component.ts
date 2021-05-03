@@ -4,7 +4,7 @@ import { AdminAircraftServiceService as AdminAircraftService } from 'src/app/ser
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { AircraftData } from 'src/app/entities';
-import { AircraftTypeData } from 'src/app/entities';import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
+import { AdminAircraftFormComponent } from '../admin-aircraft-form/admin-aircraft-form.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DeleteCheckAircraftComponent } from '../delete-checks/delete-check-aircraft/delete-check-aircraft.component';
 
