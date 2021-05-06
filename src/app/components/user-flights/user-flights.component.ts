@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 import { FlightReports } from 'src/app/services/admin-flight-service/flight-reports';
 import {UserTickets} from 'src/app/services/user-flight-service/user-tickets'
@@ -32,7 +33,7 @@ export class UserFlightsComponent implements OnInit {
   ELEMENT_DATA!: UserFlightReports[];
   userTicket: UserTickets[];
   flightReports: FlightReports;
-  displayedColumns: string[] = ['flightNo', 'departure', 'from', "to", 'arrival', 'status', 'price', 'action'];
+  displayedColumns: string[] = ['flightNo', 'departure', 'from', "to", 'arrival', 'status', 'basePrice', 'action'];
   dataSource = new MatTableDataSource<UserFlightReports>(this.ELEMENT_DATA);
   ready = "Ready"
   airports!: Airport[];
@@ -46,7 +47,7 @@ export class UserFlightsComponent implements OnInit {
   panelOpenState = true;
   unfilteredFlights!: UserFlightReports[];
   filterYet: Boolean;
-
+ 
   currentDate = new Date();
  
   constructor(
@@ -91,6 +92,11 @@ export class UserFlightsComponent implements OnInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+
+  @ViewChild(MatSort) sort!: MatSort;
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
 
   ngOnInit(): void {
     this.getAllAirports();
@@ -283,5 +289,9 @@ export class UserFlightsComponent implements OnInit {
    
 
     }
+
+
+
+
 
 }
