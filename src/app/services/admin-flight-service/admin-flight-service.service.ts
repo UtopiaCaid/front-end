@@ -19,6 +19,8 @@ export class AdminFlightServiceService {
   }
 
   public getPagination(field : string, sort : string, page : number, pageSize: number) {
+    console.log("pagination test");
+    console.log("whoa");
     switch(field) {
       case("flightNo"):
         break;
