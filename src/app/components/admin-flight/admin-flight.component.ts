@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, QueryList, ElementRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
@@ -7,9 +7,6 @@ import { AdminFlightServiceService as AdminFlightService } from 'src/app/service
 import { FlightReports, AirportReports, Paginator} from 'src/app/entities';
 import { AdminFlightFormComponent } from '../admin-flight-form/admin-flight-form.component';
 import { DeleteCheckFlightsComponent } from '../delete-checks/delete-check-flights/delete-check-flights.component';
-import {delay} from 'rxjs/operators';
-import {LoadingService} from 'src/app/services/loading-service';
-import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-admin-flight',
@@ -24,18 +21,11 @@ export class AdminFlightComponent implements OnInit {
   displayedColumns: string[] = ['flightNo', 'flightGate', 'airportDeparture', 'airportArrival', 'departure', 'arrival', 'status', 'update', 'delete'];
   dataSource = new MatTableDataSource<FlightReports>(this.ELEMENT_DATA);
   paginatorData: Paginator = { pageIndex: 0, pageSize: 5, field: 'flightNo', sort: 'asc'}; // default values
-  loading: boolean = false;
-  sortField: string = "flightNo"; // default flight number
 
   constructor(
     private service: AdminFlightService,
-    private loadingService: LoadingService,
     private dialog: MatDialog,
   ) { }
-
-  /* checkbox children */
-  @ViewChildren("checkboxes")
-  checkboxes !: QueryList<MatCheckbox>;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -44,8 +34,6 @@ export class AdminFlightComponent implements OnInit {
   sort!: MatSort;
 
   ngOnInit(): void {
-    this.getFlightCount();
-    this.listenToLoading();
     this.getPaginatedFlights();
     this.dataSource.filterPredicate = (data: any, filter) => {
       const dataStr =JSON.stringify(data).toLowerCase();
@@ -53,17 +41,8 @@ export class AdminFlightComponent implements OnInit {
     }
   }
 
-  /* loading function */
-  listenToLoading(): void {
-    this.loadingService.loadingSub
-      .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
-      .subscribe((loading) => {
-        this.loading = loading;
-      });
-  }
-
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    this.getFlightCount();
     this.dataSource.sortingDataAccessor = (item, property) => {
     switch (property) {
     case 'flightNo': {
@@ -94,25 +73,12 @@ export class AdminFlightComponent implements OnInit {
   }
 }
 
-public listenBox(field: string) {
-  this.sortField = field;
-  this.uncheckAll();
-}
-
-public uncheckAll() {
-  this.checkboxes.forEach((element) => {
-    element.id != this.sortField ? (element.checked = false, element.color = 'accent') 
-    : (element.color == 'accent' || element.color == 'warn' 
-        ? (element.color = 'primary', element.checked = true, this.paginatorData.sort = 'ASC', this.paginatorData.field =   this.sortField)
-        : (element.color = 'warn', element.checked = true, this.paginatorData.sort = 'DESC', this.paginatorData.field =   this.sortField)
-      )
-  });
-
-  this.getPaginatedFlights();
-}
-public sortBox(field : string) {
-  this.sortField = field;
-  this.paginatorData.sort = this.sortField;
+/* triggers on sort change */
+public getSortData(event: any) {
+  console.log("sort swap");
+  console.log(event);
+  this.paginatorData.field = event.active;
+  this.paginatorData.sort = event.direction;
   this.getPaginatedFlights();
 }
 

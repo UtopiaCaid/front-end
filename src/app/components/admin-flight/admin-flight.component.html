@@ -1,5 +1,5 @@
-<div class="example-container mat-elevation-z8">
-    <button class="create-button" mat-raised-button (click)="onCreate()">
+<div class="mat-elevation-z8">
+    <button mat-raised-button (click)="onCreate()">
         <mat-icon>add</mat-icon>Create
     </button>
     <div fxLayout fxLayoutAlign="center center">
@@ -7,23 +7,10 @@
             <input matInput type="text" (keyup)="doFilter($event)" placeholder="Filter">
         </mat-form-field>
     </div>  
-    <section class="checkbox-section">
-        <mat-checkbox #checkboxes id='flightNo' (change)="listenBox('flightNo')" class="checkbox-margin" >Flight Number</mat-checkbox>
-        <mat-checkbox #checkboxes id='flightGate' (change)="listenBox('flightGate')"class="checkbox-margin" >Flight Gate</mat-checkbox>
-        <mat-checkbox #checkboxes id='airportDeparture' (change)="listenBox('airportDeparture')"class="checkbox-margin" >Departure Airport</mat-checkbox>
-        <mat-checkbox #checkboxes id='airportArrival' (change)="listenBox('airportArrival')"class="checkbox-margin" >Arrival Airport</mat-checkbox>
-        <mat-checkbox #checkboxes id='departure' (change)="listenBox('departure')"class="checkbox-margin" >Departure Time</mat-checkbox>
-        <mat-checkbox #checkboxes id='arrival' (change)="listenBox('arrival')"class="checkbox-margin" >Arrival Time</mat-checkbox>
-        <mat-checkbox #checkboxes id='status' (change)="listenBox('status')"class="checkbox-margin" >Status</mat-checkbox>
+</div>
+<div class="example-container mat-elevation-z8">
+    <mat-table matSort (matSortChange)="getSortData($event)" matSortActive="flightNo" matSortDirection="asc" [matSortDisableClear]=true [dataSource]="dataSource">
 
-      </section>
-    <div *ngIf="loading" class="loading-container flex-content-center">
-        <mat-progress-spinner
-          color="primary"
-          mode="indeterminate">
-        </mat-progress-spinner>
-      </div>
-      <mat-table matSort [dataSource]="dataSource">
         <ng-container matColumnDef="flightNo">
             <th mat-header-cell *matHeaderCellDef mat-sort-header > Flight No.</th>
             <td mat-cell *matCellDef="let element"> 
