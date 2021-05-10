@@ -56,8 +56,6 @@ import { UserFlightHistoryComponent } from './components/user-flight-history/use
 import { UserHistoryComponent } from './components/user-history/user-history.component';
 import { UserUpcomingFlightsComponent } from './components/user-upcoming-flights/user-upcoming-flights.component';
 
-import {httpInterceptProviders} from './services/http-intercepter-service';
-
 
 
 @NgModule({
@@ -122,8 +120,7 @@ import {httpInterceptProviders} from './services/http-intercepter-service';
     MatSortModule,
   ],
   providers: [
-    MatDatepickerModule,
-    httpInterceptProviders
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent]
 })
