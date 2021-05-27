@@ -94,13 +94,13 @@ export class UserFlightHistoryComponent implements OnInit {
     }
  
   }
-
+  ///Used to allow the tables to be sorted by clicking the columns
   @ViewChild(MatSort) sort!: MatSort;
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
  
-
+  ///What happens when the options button is clicked
   flightOptions(){
     console.log("Implement Options later")
   }

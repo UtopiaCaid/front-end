@@ -77,6 +77,66 @@ export class UserFlightService {
     )
   }
 
+
+  ///Curently the body for all retrive layovers requests are all hard coded in. Will be changed.
+  public  retrieveOneWayNonLayover(
+    airportDepId: number, airportArrId: number,
+    flightDepBeginDate: string, flightDepEndDate : string ):Observable<any>  {
+    var body = {
+      airportDepId: 1,
+      airportArrId: 2,
+      flightDepBeginDate: "2021-04-01T00:00:00",
+      flightDepEndDate: "2021-04-20T00:00:00"
+  }
+
+
+
+    return this.http.post(this.baseUrl+"/OneWayNonLayover",body)
+   
+  }
+
+  public  retrieveOneWayAllLayover(
+    airportDepId: number, airportArrId: number,
+    flightDepBeginDate: string, flightDepEndDate : string ):Observable<any>  {
+    var body = {
+      airportDepId: 1,
+      airportArrId: 2,
+      flightDepBeginDate: "2021-04-01T00:00:00",
+      flightDepEndDate: "2021-04-20T00:00:00"
+  }
+    return this.http.post(this.baseUrl+"/OneWayAllLayover",body) 
+  }
+
+  public  retrieveRoundTripNoLayover(
+    airportDepId: number, airportArrId: number,
+    flightDepBeginDate: string, flightDepEndDate : string,
+    flightRetBeginDate: string, flightRetEndDate : string ):Observable<any>  {
+    var body = {
+      airportDepId: 1,
+      airportArrId: 2,
+      flightDepBeginDate: "2021-04-01T00:00:00",
+      flightDepEndDate: "2021-04-20T00:00:00",
+      flightRetBeginDate: "2021-04-25T00:00:00",
+      flightRetEndDate: "2021-05-30T00:00:00"
+  }
+    return this.http.post(this.baseUrl+"/RoundTripNoLayover",body) 
+  }
+
+  public  retrieveRoundTripLayovers(
+    airportDepId: number, airportArrId: number,
+    flightDepBeginDate: string, flightDepEndDate : string,
+    flightRetBeginDate: string, flightRetEndDate : string ):Observable<any>  {
+    var body = {
+      airportDepId: 1,
+      airportArrId: 2,
+      flightDepBeginDate: "2021-04-01T00:00:00",
+      flightDepEndDate: "2021-04-05T00:00:00",
+      flightRetBeginDate: "2021-04-19T00:00:00",
+      flightRetEndDate: "2021-04-25T00:00:00"
+  }
+    return this.http.post(this.baseUrl+"/RoundTripLayovers",body) 
+  }
+
   public retrieveAirports() {
     return this.http.get(this.baseUrl+'Airport');
   }

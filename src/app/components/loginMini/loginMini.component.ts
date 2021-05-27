@@ -25,7 +25,8 @@ export class LoginMiniComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  async onSubmit() {
+  
+     onSubmit() {
     this.authService.logIn(this.form.value)
     .subscribe((res: any) => {
       localStorage.setItem('access_token', res.token)
@@ -41,7 +42,7 @@ export class LoginMiniComponent implements OnInit {
         this.authService.getLoggedInRoleId.next(res.roleId.roleId)
         this.authService.getLoggedInEmail.next(res.email)
         this.authService.getCurrentAccount.next(res)
-        this.authService.router.navigate(['home']); 
+        //this.authService.router.navigate(['home']); 
         //this.reload();  
       })
     },

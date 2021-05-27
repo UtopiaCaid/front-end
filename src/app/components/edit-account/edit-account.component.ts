@@ -121,9 +121,9 @@ export class EditAccountComponent implements OnInit {
 
 
   updateCon(){
-
     if (this.form.valid) {
       try {
+        if(!(this.authService.logIn(this.form2.value)))
          this.authService.logIn(this.form2.value)
         .subscribe((res2: any) => {
       this.userProfileService.updateUser(this.form.value, this.accountNum)
@@ -183,7 +183,12 @@ export class EditAccountComponent implements OnInit {
       this.formSubmitAttempt = true;
     }
  
-  
+    ///Jury rig solution until dan's load in index.html no longer breaks catch's
+    setTimeout(() => {
+      ///wrong cred if still on page for 1 sec after login attempt
+      this.wrongCred= true;
+      this.passwordWrong = true;
+    }, 1000);
 
   }
 

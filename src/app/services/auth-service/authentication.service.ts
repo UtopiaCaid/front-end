@@ -46,23 +46,7 @@ export class AuthenticationService {
     return this.http.post<any>(this.authUrl, account) 
   }
 
-  // getUser() {
-  //     const authToken = localStorage.getItem('access_token');
-  //     const headerDict = {
-  //       'Content-Type':  'application/json',
-  //       'Accept': 'application/json',
-  //       'Access-Control-Allow-Headers': 'Content-Type',
-  //       'authorization': "Bearer " + authToken
-  //     }
-  //     const requestOptions = {                                                                                                                                                                                 
-  //       headers: new HttpHeaders(headerDict),
-  //     };
-  //     return this.http.get<any>(this.authUrl, requestOptions)
-  //     .subscribe((res: any) => {
-  //       this.currentUser=res;
-  //       this.getUserByUserName();
-  //     })
-  // }
+ 
     // Error 
     handleError(error: HttpErrorResponse) {
       let msg = '';
@@ -76,48 +60,7 @@ export class AuthenticationService {
       return throwError(msg);
     }
 
-    // getUserByUserName() {
-    //   const authToken = localStorage.getItem('access_token');
-    //   const headerDict = {
-    //     'Content-Type':  'application/json',
-    //     'Accept': 'application/json',
-    //     'Access-Control-Allow-Headers': 'Content-Type',
-    //     'Authorization': "Bearer " + authToken
-    //   }
-    //   const requestOptions = {                                                                                                                                                                                 
-    //     headers: new HttpHeaders(headerDict),
-    //   };
-    //    this.http.get<any>(this.authUrl,  requestOptions)
-    //   .subscribe((res: any) => {
-    //     localStorage.setItem('current_user', res)
-    //     this.currentUser=res
-    //     return res;
-    //   })
-
-    // }
-
-    //  getCurrentUser() {
-    //    const authToken = localStorage.getItem('access_token');
-    //    const headerDict = {
-    //      'Content-Type':  'application/json',
-    //      'Accept': 'application/json',
-    //      'Access-Control-Allow-Headers': 'Content-Type',
-    //      'Authorization': "Bearer " + authToken
-    //    }
-    //    const requestOptions = {                                                                                                                                                                                 
-    //      headers: new HttpHeaders(headerDict),
-    //    };
-    //     this.http.get<any>(this.authUrl,  requestOptions)
-    //    .subscribe((res: any) => {
-    //      localStorage.setItem('current_user', res)
-    //      this.currentUser=res
-    //      return res;
-    //    })
-    // }
-
-    // getCurrentUser2() {
-    //   return this.currentUser;
-    // }
+  
 
   getToken() {
     return localStorage.getItem('access_token');
@@ -133,7 +76,9 @@ export class AuthenticationService {
      localStorage.removeItem('current_roleId');
      localStorage.removeItem('currentCart');
      localStorage.removeItem('current_accountNum');
+     ///lS.clear makes the above redundant. Kept so I know whats being removed
      localStorage.clear();
+     //clearing all emitter/subjects
      this.getCurrentAccount.next(null)
      this.getLoggedInName.next("")
      this.getLoggedInEmail.next("")

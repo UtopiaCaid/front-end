@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/auth-service/authentication.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,13 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
 
-  async onSubmit(): Promise<void> {
+   onSubmit() {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
+    
     if (this.form.valid) {
       try {
-     await this.authService.logIn(this.form.value)
+      this.authService.logIn(this.form.value)
      .subscribe((res: any) => {
+       this.wrongCred= false;
       localStorage.setItem('access_token', res.token)
      this.wrongCred= false;
       this.authService.getUserProfile().subscribe((res) => {
@@ -55,9 +58,11 @@ export class LoginComponent implements OnInit {
       })
     },
     error => {
+      console.log("Error here")
       console.error('Wrong credentials', error)
       this.wrongCred= true;
-    }) 
+    },
+    )
        
       }
       catch (err) {
@@ -69,6 +74,13 @@ export class LoginComponent implements OnInit {
       console.log("Form was not accepted")
       this.formSubmitAttempt = true;
     } 
+
+    ///Jury rig solution until dan's load in index.html no longer breaks catch's
+    setTimeout(() => {
+      ///wrong cred if still on page for 1 sec after login attempt
+      this.wrongCred= true;
+
+    }, 1000);
 
   }
 

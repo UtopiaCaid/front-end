@@ -35,7 +35,7 @@
     
             <ng-container matColumnDef="basePrice">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Price </th>
-                <td mat-cell *matCellDef="let element"> ${{element.basePrice}}.00 </td>
+                <td mat-cell *matCellDef="let element"> {{element.basePrice | currency}} </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
@@ -60,11 +60,11 @@
       
         <div class="example-element-description">
            
-            <div><strong>Flight:</strong> #{{element.flightNo}} <small>(should fetch flight info)</small></div>
+            <div><strong>Flight:</strong> #{{element.flightNo}} </div>
             <div class="tab"><strong>Status:</strong> {{element.status}}</div>  
             <div class="tab"> <strong>Start:</strong> {{element.departure | date:'medium' }} <strong>End:</strong> {{element.arrival | date:'medium'}}</div>
             <div class="tab"> <strong>From:</strong> {{element.airportDeparture.city }}, {{element.airportDeparture.airportName }} <strong>To:</strong> {{element.airportArrival.city}}, {{element.airportArrival.airportName}}</div>
-            <div class="tab"> <strong>Base Price:</strong> ${{element.basePrice}}.00</div>
+            <div class="tab"> <strong>Base Price:</strong> {{element.basePrice | currency}}</div>
             <div><strong>Aircraftname:</strong> {{element.aircraft.aircraftType.aircraftTypeName}}</div>
             <div class="tab"><strong>Aircraft Id:</strong> {{element.aircraft.aircraftId}}</div>
             <div class="tab"><strong>Max Seats:</strong> {{element.aircraft.aircraftType.seatMaximum}}</div>  

@@ -22,17 +22,17 @@ export class HttpRequestInterceptor implements HttpInterceptor {
         private loadingService: LoadingService
     ) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(request);
+        //console.log(request);
         this.loadingService.setLoading(true, request.url);
         return next.handle(request)
         .pipe(catchError((err) => {
-            console.log("http intercepter request");
+            //console.log("http intercepter request");
             this.loadingService.setLoading(false, request.url);
             return err;
         }))
         .pipe(<any> map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
             if (evt instanceof HttpResponse) {
-                console.log("http intercepter response");
+                //console.log("http intercepter response");
                 this.loadingService.setLoading(false, request.url);
             }
             return evt;
