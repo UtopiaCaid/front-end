@@ -1,4 +1,6 @@
 <div class="mat-elevation-z8">
+
+    <!-- This is the filter part -->
     <div>
                 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center">
                     <mat-expansion-panel (opened)="panelOpenState = true"
@@ -34,7 +36,7 @@
         <mat-datepicker #endDate></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Starting Airport <mat-icon>flight_takeoff</mat-icon></mat-label>
+        <mat-label>Starting Airport <mat-icon class="matlabelicon">flight_takeoff</mat-icon></mat-label>
         <mat-select name="startingAirports"   (selectionChange)="startAirChange($event)" formControlName="startingAirports">
             <mat-option>
                 ------
@@ -45,7 +47,7 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>Ending Airport<mat-icon>flight_land</mat-icon></mat-label>
+        <mat-label>Ending Airport<mat-icon class="matlabelicon">flight_land</mat-icon></mat-label>
         <mat-select name="endingAirports"   (selectionChange)="endAirChange($event)" formControlName="endingAirports">
             <mat-option>
                 ------
@@ -56,28 +58,46 @@
         </mat-select>
     </mat-form-field>
     <br>
+    <mat-form-field appearance="fill">
+        <mat-label>Layover Type  <mat-icon class="matlabelicon">multiple_stop</mat-icon></mat-label>
+        <mat-select name="layoverType"   (selectionChange)="layoverType($event)" formControlName="layoverType">
+            <mat-option>
+                ------
+            </mat-option>
+            <mat-option value="OneWayNonLayover" > One Way <i>(No Layover)</i></mat-option>
+            <mat-option value="OneWayAllLayover" > One Way <i>(Layovers)</i></mat-option>
+            <mat-option value="RoundTripNoLayover" > Round Trip <i>(No Layover)</i></mat-option>
+            <mat-option value="RoundTripLayovers" > Round Trip <i>(Layovers)</i></mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
     <button   mat-raised-button color="primary">Clear Filter<mat-icon>filter_alt</mat-icon></button>
 </mat-expansion-panel>
 </form>
+
+<!-- What is displayed before the data is fetched/loaded -->
     </div>
     <div *ngIf="(!dataSource.data.length)&&(!filterYet)">
         <h2 >
            Loading....
            </h2>
     </div>
+    <!-- If there were no fights found with the listed criteria -->
     <div *ngIf="(!dataSource.data.length)&&(filterYet)">
         <h2 class="textMsg"><mat-icon>sentiment_dissatisfied</mat-icon>
             Sorry, there were no flights found with the listed criteria. 
            <mat-icon>sentiment_dissatisfied</mat-icon> </h2>
     </div>
-    <div class="flightResults" [hidden]=!dataSource.data.length>
-    <table class="w-100" mat-table [dataSource]="dataSource" >
+    <!-- The flights table -->
+    <ng-template #flightTable1>
+    <div class="flightResults" [hidden]= "isFlightSearch || !dataSource.data.length">
+    <table class="w-100" mat-table matSort  [dataSource]="dataSource" >
         <ng-container matColumnDef="flightNo">
-            <th mat-header-cell *matHeaderCellDef> Flight No </th>
-            <td mat-cell *matCellDef="let element"> {{element.flightNo}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight No </th>
+            <td mat-cell *matCellDef="let element"> #{{element.flightNo}} </td>
         </ng-container>
         <ng-container matColumnDef="departure">
-            <th mat-header-cell *matHeaderCellDef> Departure </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Departure Time </th>
             <td mat-cell *matCellDef="let element"> {{element.departure | date:'medium'  }} </td>
         </ng-container>
         <ng-container matColumnDef="from">
@@ -88,17 +108,17 @@
             <th mat-header-cell *matHeaderCellDef> To </th>
             <td mat-cell *matCellDef="let element"> {{element.airportArrival.city}} </td>
         </ng-container>
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>Base  Price </th>
-            <td mat-cell *matCellDef="let element"> ${{element.basePrice}} </td>
-        </ng-container>
         <ng-container matColumnDef="arrival">
-            <th mat-header-cell *matHeaderCellDef> Arrival </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Time </th>
             <td mat-cell *matCellDef="let element"> {{element.arrival | date:'medium' }} </td>
         </ng-container>
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <ng-container matColumnDef="basePrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Base Price </th>
+            <td mat-cell *matCellDef="let element"> <i>{{element.basePrice | currency}}</i> </td>
         </ng-container>
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>  </th>
@@ -109,8 +129,360 @@
             </mat-cell>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row class="outer-row" *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator   [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
     </div>
+
+</ng-template>
+
+<ng-container [ngTemplateOutlet]="flightTable1">
+</ng-container>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!--------------- This will probably have to become it's own component ----------------->
+    <div *ngIf="isFlightSearch && (flightSearchType!='RoundTripLayovers')">
+        <h1 [hidden]= "(!isLoading)" > fetching data...</h1>
+        <h1  [hidden]= "(isLoading || (dataSource2.data!=null && dataSource2.data.length))" > No flights found that fit your criteria.</h1>
+        <div [hidden]= "(isLoading || (dataSource2.data==null || !dataSource2.data.length))" >
+            <table class="w-100" mat-table matSort multiTemplateDataRows  [dataSource]="dataSource2" >
+                <!-- OneWayAllLayover Table -->
+                <div *ngIf="flightSearchType=='OneWayAllLayover'" >
+                    <ng-template #OneWayAllLayoverTable >
+                <ng-container matColumnDef="flightSearchNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight </th>
+                    <td mat-cell *matCellDef="let element; let i = dataIndex"> Trip #{{i+1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="departure">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Departure Time </th>
+                    <td mat-cell *matCellDef="let element"> {{element[0].departure | date:'medium'  }} </td>
+                </ng-container>
+                <ng-container matColumnDef="from">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
+                    <td mat-cell *matCellDef="let element"> {{element[0].airportDeparture.city}} </td>
+                </ng-container>
+                <ng-container matColumnDef="to">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> To </th>
+                    <td mat-cell *matCellDef="let element">  {{element[element.length-1].airportArrival.city}} </td>
+                </ng-container>
+                <ng-container matColumnDef="arrival">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Time </th>
+                    <td mat-cell *matCellDef="let element"> {{element[element.length-1].arrival | date:'medium' }} </td>
+                </ng-container>
+                <ng-container matColumnDef="numOfFlights">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> # Of Flights </th>
+                    <td mat-cell *matCellDef="let element"> {{element.length}} {{(element.length==1) ? ' Flight' : ' Flights'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action" >
+                    <th mat-header-cell *matHeaderCellDef>  </th>
+                    <mat-cell *matCellDef="let row; let element" >
+                        <p [hidden]="element == expandedElement" ><i>Click to view this trip.</i></p>
+                        <button class="buttonBackground" [hidden]="element != expandedElement"  mat-raised-button (click)="ticketMenu(row)">
+                            <mat-icon>airplane_ticket</mat-icon>Book Trip
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                </ng-template>
+                <ng-container [ngTemplateOutlet]="OneWayAllLayoverTable" ></ng-container>
+            </div>
+
+               <!-- RoundTripNoLayover Table -->
+        <div *ngIf="flightSearchType=='RoundTripNoLayover'" [hidden]= "(isLoading || (dataSource2.data==null || !dataSource2.data.length))">
+            <ng-template #RoundTripNoLayoverTable >
+            <ng-container matColumnDef="flightWay">
+                <th mat-header-cell *matHeaderCellDef > Flight Type </th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex">
+                  <strong> {{(i==1) ? 'Return ' : 'Initial '}}{{(element.length==1) ? ' Flight' : ' Flights'}}  </strong> 
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="numOfFlights">
+                <th mat-header-cell *matHeaderCellDef > # Of Flights</th>
+                <td mat-cell *matCellDef="let element"> {{element.length}} {{(element.length==1) ? ' Flight' : ' Flights'}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="selectFlight">
+                <th mat-header-cell *matHeaderCellDef > Select Flight </th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex" (click)="$event.stopPropagation()">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select a{{(i==1) ? ' Return' : 'n Initial'}} Flight <mat-icon class="matlabelicon">{{(i==1) ? 'flight_land' : 'flight_takeoff'}}</mat-icon></mat-label>
+                    <mat-select name="flightSelect"
+                     (selectionChange)="roundNoSelect($event, element, i)"
+                     (click)="expandedElement = element" >
+                        <mat-option>
+                            ------
+                        </mat-option>
+                        <mat-option *ngFor="let flight of element" [value]="flight" >
+                            Flight #{{flight.flightNo}} 
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            </ng-container>
+           </ng-template>
+           <ng-container [ngTemplateOutlet]="RoundTripNoLayoverTable" ></ng-container>
+        </div>
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container  matColumnDef="expandedDetail">
+                <ng-template #exapandTable1 >
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length"  >
+            <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+      
+                <div class="inner-table mat-elevation-z8">
+                    <table style="width:110%;" class="table" mat-table   [dataSource]="element" >
+                        <ng-container matColumnDef="flightNo">
+                            <th mat-header-cell *matHeaderCellDef > Flight No </th>
+                            <td mat-cell *matCellDef="let element"> #{{element.flightNo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="departure">
+                            <th mat-header-cell *matHeaderCellDef > Departure Time </th>
+                            <td mat-cell *matCellDef="let element"> {{element.departure | date:'medium'  }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="from">
+                            <th mat-header-cell *matHeaderCellDef> From </th>
+                            <td mat-cell *matCellDef="let element"> {{element.airportDeparture.city}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="to">
+                            <th mat-header-cell *matHeaderCellDef> To </th>
+                            <td mat-cell *matCellDef="let element"> {{element.airportArrival.city}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="arrival">
+                            <th mat-header-cell *matHeaderCellDef > Arrival Time </th>
+                            <td mat-cell *matCellDef="let element"> {{element.arrival | date:'medium' }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="basePrice">
+                            <th mat-header-cell *matHeaderCellDef >Base Price </th>
+                            <td mat-cell *matCellDef="let element"> <i>{{element.basePrice | currency}}</i> </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <mat-cell *matCellDef="let row" [hidden]=true>
+                                <button  class="subMenuBackground"  mat-raised-button (click)="ticketMenu(row)" disabled={{!canBuy(row)}}>
+                                    <mat-icon>airplane_ticket</mat-icon>Get Ticket
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                        <tr mat-header-row class="subMenuBackground" *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row class="subMenuBackground" *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>                    
+                    </div>
+                </div>
+            </td>
+            </ng-template>
+            <ng-container [ngTemplateOutlet]="exapandTable1">
+            </ng-container>
+
+            </ng-container>
+      
+
+
+
+                
+
+                
+                <tr mat-header-row    *matHeaderRowDef="currentColumn"></tr>
+                 <tr mat-row *matRowDef="let element; columns: currentColumn;"
+                 class="example-element-row outer-row2"
+                 [class.example-expanded-row]="expandedElement === element"
+                 (click)="expandedElement = expandedElement === element ? null : element">
+                 </tr>
+                 <tr mat-row  *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row "></tr>
+
+
+            </table>
+            <div *ngIf="flightSearchType=='RoundTripNoLayover'">
+                <button class="buttonBackground centerButton" [disabled]="isRoundNoValid==false"  mat-raised-button >
+                    <mat-icon>airplane_ticket</mat-icon>Book Trip
+                </button>
+            </div>
+        </div>
+
+     
+    </div>
+
+
+
+
+
+
+<!--------------------- RoundTrip with layovers table ----------------------------->
+     <div *ngIf="(flightSearchType=='RoundTripLayovers') ">
+        <h1 [hidden]= "(!isLoading)" > fetching data2...</h1>
+        <h1  [hidden]= "(isLoading || (dataSource3.data!=null && dataSource3.data.length))" > No flights found that fit your criteria2.</h1>
+        <!-- RoundTripLayovers Table -->
+        <div [hidden]= "(isLoading || (dataSource3.data==null || !dataSource3.data.length))" >
+            <h1> RoundTrip Layovers</h1>
+            <table class="w-100" mat-table matSort multiTemplateDataRows  [dataSource]="dataSource3" >
+                <div *ngIf="flightSearchType=='RoundTripLayovers'" >
+                </div>
+                <ng-container matColumnDef="flightWay">
+                    <th mat-header-cell *matHeaderCellDef > Flight Type </th>
+                    <td mat-cell *matCellDef="let element; let i = dataIndex">
+                      <strong> {{(i==1) ? 'Return ' : 'Initial '}}{{(element.length==1) ? ' Flight' : ' Flights'}}  </strong> 
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="numOfTrips">
+                    <th mat-header-cell *matHeaderCellDef > # Of Trips</th>
+                    <td mat-cell *matCellDef="let element"> {{element.length}} {{(element.length==1) ? ' Trip' : ' Trips'}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="selectFlight">
+                    <th mat-header-cell *matHeaderCellDef > Select Flight </th>
+                    <td mat-cell *matCellDef="let element"> <i>Click Here</i> </td>
+                </ng-container>
+
+
+
+
+                  <!-- Expanded Content Column2 - The detail row is made up of this one column that spans across all columns -->
+            <ng-container  matColumnDef="expandedDetail2">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length"  >
+            <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement2 ? 'expanded' : 'collapsed'">
+                <div class="inner-table mat-elevation-z8">
+                    <table style="width:110%;" class="table" mat-table multiTemplateDataRows  [dataSource]="element" >
+                        <ng-container matColumnDef="flightSearchNo2">
+                            <th mat-header-cell *matHeaderCellDef > Flights </th>
+                            <td mat-cell *matCellDef="let element; let i = dataIndex"> Trip #{{i+1}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="departure2">
+                            <th mat-header-cell *matHeaderCellDef > Departure Time </th>
+                            <td mat-cell *matCellDef="let element"> {{element[0].departure | date:'medium'  }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="from2">
+                            <th mat-header-cell *matHeaderCellDef > From </th>
+                            <td mat-cell *matCellDef="let element"> {{element[0].airportDeparture.city}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="to2">
+                            <th mat-header-cell *matHeaderCellDef > To </th>
+                            <td mat-cell *matCellDef="let element">  {{element[element.length-1].airportArrival.city}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="arrival2">
+                            <th mat-header-cell *matHeaderCellDef > Arrival Time </th>
+                            <td mat-cell *matCellDef="let element"> {{element[element.length-1].arrival | date:'medium' }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="numOfFlights2">
+                            <th mat-header-cell *matHeaderCellDef> # Of Flights </th>
+                            <td mat-cell *matCellDef="let element"> {{element.length}} {{(element.length==1) ? ' Flight' : ' Flights'}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action2" >
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <mat-cell *matCellDef="let row; let element" >
+                                <p [hidden]="element == expandedElement" ><i>Click to view this trip.</i></p>
+                                <button class="buttonBackground" [hidden]="element != expandedElement"  mat-raised-button (click)="ticketMenu(row)">
+                                    <mat-icon>airplane_ticket</mat-icon>Book Trip
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+
+
+                        <!-- Expanded Content Column 1 - The detail row is made up of this one column that spans across all columns -->
+         <ng-container  matColumnDef="expandedDetail1">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length"  >
+            <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+      
+                <div class="inner-table mat-elevation-z8">
+                    <table style="width:110%;" class="table" mat-table   [dataSource]="element" >
+                        <ng-container matColumnDef="flightNo">
+                            <th mat-header-cell *matHeaderCellDef > Flight No </th>
+                            <td mat-cell *matCellDef="let element"> #{{element.flightNo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="departure">
+                            <th mat-header-cell *matHeaderCellDef > Departure Time </th>
+                            <td mat-cell *matCellDef="let element"> {{element.departure | date:'medium'  }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="from">
+                            <th mat-header-cell *matHeaderCellDef> From </th>
+                            <td mat-cell *matCellDef="let element"> {{element.airportDeparture.city}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="to">
+                            <th mat-header-cell *matHeaderCellDef> To </th>
+                            <td mat-cell *matCellDef="let element"> {{element.airportArrival.city}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="arrival">
+                            <th mat-header-cell *matHeaderCellDef > Arrival Time </th>
+                            <td mat-cell *matCellDef="let element"> {{element.arrival | date:'medium' }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="basePrice">
+                            <th mat-header-cell *matHeaderCellDef >Base Price </th>
+                            <td mat-cell *matCellDef="let element"> <i>{{element.basePrice | currency}}</i> </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <mat-cell *matCellDef="let row" [hidden]=true>
+                                <button  class="subMenuBackground"  mat-raised-button (click)="ticketMenu(row)" disabled={{!canBuy(row)}}>
+                                    <mat-icon>airplane_ticket</mat-icon>Get Ticket
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                        <tr mat-header-row class="subMenuBackground" *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row class="subMenuBackground" *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>                    
+                    </div>
+                </div>
+            </td>
+           
+    
+            </ng-container>
+                   
+                        
+                       
+               
+                        <tr mat-header-row  *matHeaderRowDef="flightSearchColumns2"></tr>
+                        <!-- <tr mat-row class="subMenuBackground" *matRowDef="let row; columns: flightSearchColumns2;"></tr> -->
+                        <tr mat-row *matRowDef="let element; columns: flightSearchColumns2;"
+                        class="example-element-row outer-row2"
+                        [class.example-expanded-row]="expandedElement === element"
+                        (click)="expandedElement = expandedElement === element ? null : element">
+                        </tr>
+                        <tr mat-row  *matRowDef="let row; columns: ['expandedDetail1']" class="example-detail-row "></tr>
+                        
+                    </table>                    
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+
+
+
+         
+         
+
+
+
+
+                <tr mat-header-row *matHeaderRowDef="roundLayColumns"></tr>
+                <!-- <tr mat-row class="outer-row" *matRowDef="let row; columns: roundLayColumns;"></tr> -->
+                <tr mat-row *matRowDef="let element; columns: roundLayColumns;"
+                class="example-element-row outer-row2"
+                [class.example-expanded-row]="expandedElement2 === element"
+                (click)="expandedElement2 = expandedElement2 === element ? null : element">
+                </tr>
+                <tr mat-row  *matRowDef="let row; columns: ['expandedDetail2']" class="example-detail-row "></tr>
+            
+            </table>
+               
+                </div>
+                </div>
+    
 </div>
+
+
+
+<!-- NG Containers -->
+
+
+
+
+<!--  -->

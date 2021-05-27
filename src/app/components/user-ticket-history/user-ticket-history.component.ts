@@ -1,16 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {UserFlightService} from 'src/app/services/user-flight-service/user-flight.service';
 import { AuthenticationService } from '../../services/auth-service/authentication.service';
 import {UserTickets} from 'src/app/services/user-flight-service/user-tickets'
 import {UserFlightReports} from "src/app/services/user-flight-service/user-flight-reports"
 import { MatTableDataSource } from '@angular/material/table';
 import {Account} from 'src/app/services/auth-service/account';
-
+import {MatSort} from '@angular/material/sort';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-user-ticket-history',
   templateUrl: './user-ticket-history.component.html',
-  styleUrls: ['./user-ticket-history.component.css']
+  styleUrls: ['./user-ticket-history.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed, void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed, void => expanded', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class UserTicketHistoryComponent implements OnInit {
 
@@ -22,6 +30,7 @@ export class UserTicketHistoryComponent implements OnInit {
   currentUser: Account;
   hasFlightHistroy: Boolean;
   gotInfo : Boolean
+  expandedElement!: UserTickets | null;
 
   constructor(
     public userService : UserFlightService,
@@ -104,6 +113,11 @@ export class UserTicketHistoryComponent implements OnInit {
 
   deleteTicket(){
     console.log("Implement Ticket History later")
+  }
+
+  @ViewChild(MatSort) sort!: MatSort;
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
 }

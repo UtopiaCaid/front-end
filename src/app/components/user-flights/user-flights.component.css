@@ -17,3 +17,120 @@ mat-card {
     text-align: center;
     color: rgb(156, 10, 10);
   }
+
+  .matlabelicon{
+    transform: scale(1.7);
+    margin-left: 10px;
+  }
+
+
+  table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: rgb(227, 245, 170);
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #d1b7b7;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+
+  .tab { margin-left: 40px; }
+
+  .inner-table {
+    width: 100%;
+  }
+  
+  .inner-table mat-form-field {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .subMenuBackground {
+    background-color: rgb(237, 252, 188);
+}
+
+
+
+.outer-row:nth-child(even){
+  background-color: #e4f0ec;
+} 
+
+
+ .outer-row:nth-child(odd){
+  background-color:#ffffff;
+}
+
+.outer-row2:nth-child(4n-1){
+  background-color: #e4f0ec;
+}
+.outer-row2:nth-child(4n-3){
+  background-color:#ffffff;
+}
+
+.buttonBackground{
+  background-color: rgb(179, 235, 221);
+  border-radius: 50px;
+  border-width: 5px;
+  border-style: outset;
+}
+.buttonBackground:hover:enabled{
+  background-color: rgb(107, 255, 218);
+ color: rgb(42, 44, 5);
+}
+
+.buttonBackground:disabled{
+  opacity: 0.3;
+}
+
+.centerButton{
+  /* margin: 0; */
+  /* position: absolute; */
+  left: 45%;
+   /* -ms-transform: translate(-50%, -50%); 
+   transform: translate(-50%, -50%);  */
+}
+
+
+
+
+
+
+

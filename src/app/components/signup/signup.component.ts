@@ -35,12 +35,12 @@ ngOnInit(): void {
 }
 
 
-async onSubmit(): Promise<void> {
+    onSubmit() {
   this.loginInvalid = false;
   this.formSubmitAttempt = false;
   if (this.form.valid) {
     try { 
-   await this.authService.registerUser(this.form.value)
+    this.authService.registerUser(this.form.value)
    .subscribe((res: any) => {
    this.wrongCred= false;
    this.usernameTaken= false;
@@ -82,6 +82,13 @@ async onSubmit(): Promise<void> {
     console.log("Form was not accepted")
     this.formSubmitAttempt = true;
   }
+
+  ///Jury rig solution until dan's load in index.html no longer breaks catch's
+  setTimeout(() => {
+    ///wrong cred if still on page for 1.5 sec after signup attempt
+    this.wrongCred= true;
+    this.loginInvalid = true;
+  }, 1500);
 }
 
 
